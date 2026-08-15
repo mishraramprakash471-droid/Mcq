@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Azadi Ka Utsav | आज़ादी का उत्सव - Abhira Insights</title>
+<style>
+  :root{
+    --saffron:#FF9933;
+    --white:#ffffff;
+    --green:#138808;
+    --navy:#000080;
+    --gold1:#FFD700;
+    --gold2:#FFA500;
+    --gold3:#FF8C00;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Segoe UI', 'Noto Sans Devanagari', Arial, sans-serif;
+    min-height:100vh;
+    background:linear-gradient(180deg,#fff7e6 0%, #fffdf5 40%, #eafbea 100%);
+    display:flex; flex-direction:column; align-items:center;
+    padding:16px; overflow-x:hidden;
+  }
+  .brand{
+    font-size:clamp(24px,5vw,42px);
+    font-weight:900;
+    text-align:center;
+    margin:6px 0 2px 0;
+    background:linear-gradient(90deg,var(--gold3),var(--gold1),var(--gold3));
+    background-size:200% auto;
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    animation:shimmer 3s linear infinite;
+    letter-spacing:1px;
+  }
+  @keyframes shimmer{ to{ background-position:200% center; } }
+  .subtitle{
+    text-align:center; color:#555; font-size:clamp(12px,2.5vw,16px); margin-bottom:10px; font-weight:600;
+  }
+  .app{
+    width:100%; max-width:760px; background:#fff; border-radius:22px;
+    box-shadow:0 12px 35px rgba(0,0,0,0.15);
+    border:4px solid var(--saffron);
+    overflow:hidden; position:relative;
+  }
+  .tricolor-bar{ height:10px; width:100%; background:linear-gradient(90deg,var(--saffron) 33%, var(--white) 33% 66%, var(--green) 66%); border-bottom:1px solid #ddd;}
+  .screen{ display:none; padding:22px; animation:fadein .4s ease; }
+  .screen.active{ display:block; }
+  @keyframes fadein{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  h2.title{ text-align:center; color:var(--navy); font-size:clamp(18px,4vw,26px); margin-bottom:4px;}
+  p.eng{ text-align:center; color:#777; font-size:clamp(12px,2.8vw,15px); margin-bottom:16px; font-style:italic;}
+
+  .flag-wrap{ display:flex; justify-content:center; margin:16px 0;}
+  .flag{ width:min(220px,60vw); border:2px solid #333; border-radius:4px; overflow:hidden; box-shadow:0 6px 14px rgba(0,0,0,.25); position:relative;}
+  .flag .stripe{ height:38px; }
+  .flag .saffron{ background:var(--saffron);}
+  .flag .white{ background:#fff; display:flex; align-items:center; justify-content:center;}
+  .flag .green{ background:var(--green);}
+  .chakra{ width:26px; height:26px; border:2px solid var(--navy); border-radius:50%; position:relative; animation:spin 6s linear infinite;}
+  .chakra::before{ content:''; position:absolute; inset:0; background:
+    repeating-conic-gradient(var(--navy) 0deg 7.5deg, transparent 7.5deg 15deg);
+    border-radius:50%;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg);} }
+
+  .btn{
+    display:inline-block; padding:12px 26px; border:none; border-radius:30px;
+    background:linear-gradient(90deg,var(--saffron),var(--gold2));
+    color:#fff; font-weight:800; font-size:16px; cursor:pointer;
+    box-shadow:0 6px 14px rgba(255,140,0,.4); transition:transform .15s;
+  }
+  .btn:hover{ transform:scale(1.05); }
+  .btn.green{ background:linear-gradient(90deg,var(--green),#1fae1f); box-shadow:0 6px 14px rgba(19,136,8,.4);}
+  .btn.navy{ background:linear-gradient(90deg,var(--navy),#3a3ac2); box-shadow:0 6px 14px rgba(0,0,128,.4);}
+  .btn:disabled{ opacity:.5; cursor:not-allowed; transform:none;}
+  .center{ text-align:center; }
+  .row{ display:flex; justify-content:center; gap:12px; flex-wrap:wrap; margin-top:16px;}
+
+  /* Story */
+  .story-card{
+    background:#fffaf0; border:2px dashed var(--saffron); border-radius:16px;
+    padding:20px; min-height:180px; display:flex; flex-direction:column; justify-content:center; gap:8px;
+  }
+  .story-emoji{ font-size:48px; text-align:center; margin-bottom:6px;}
+  .story-hi{ font-size:17px; color:#222; text-align:center; font-weight:600; line-height:1.5;}
+  .story-en{ font-size:14px; color:#666; text-align:center; font-style:italic; line-height:1.4;}
+  .progress-dots{ display:flex; justify-content:center; gap:6px; margin-top:14px;}
+  .dot{ width:10px; height:10px; border-radius:50%; background:#ddd; }
+  .dot.active{ background:var(--saffron); }
+
+  /* Match game */
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .card{
+    background:#fff; border:2px solid var(--navy); border-radius:12px; padding:10px 8px;
+    text-align:center; cursor:pointer; min-height:78px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    font-size:13px; font-weight:700; color:var(--navy); transition:.2s; user-select:none;
+  }
+  .card small{ display:block; font-weight:500; color:#555; font-size:11px; margin-top:3px;}
+  .card.selected{ background:#fff3cd; border-color:var(--gold2); transform:scale(1.03);}
+  .card.matched{ background:#d4f7d4; border-color:var(--green); color:var(--green); cursor:default; opacity:.85;}
+  .avatar{ width:34px; height:34px; border-radius:50%; background:linear-gradient(135deg,var(--saffron),var(--green)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; margin-bottom:4px;}
+
+  /* Quiz */
+  .quiz-q{ font-size:16px; font-weight:700; color:var(--navy); text-align:center; margin-bottom:4px;}
+  .quiz-q-en{ font-size:13px; color:#777; text-align:center; font-style:italic; margin-bottom:14px;}
+  .opt{
+    display:block; width:100%; text-align:left; padding:12px 16px; margin:8px 0;
+    border:2px solid #ccc; border-radius:12px; background:#fafafa; cursor:pointer; font-size:14px; font-weight:600; color:#333;
+  }
+  .opt:hover{ border-color:var(--saffron); background:#fff7ea;}
+  .opt.correct{ background:#d4f7d4; border-color:var(--green); color:var(--green);}
+  .opt.wrong{ background:#fbd7d7; border-color:#c0392b; color:#c0392b;}
+
+  .stars{ text-align:center; font-size:34px; letter-spacing:6px; margin:10px 0;}
+  .scoreboard{ display:flex; justify-content:center; gap:18px; margin:10px 0; font-weight:700; color:var(--navy); font-size:14px;}
+  .topbar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+  .badge{ background:var(--navy); color:#fff; font-size:12px; padding:4px 10px; border-radius:20px; font-weight:700;}
+  .sound-btn{ background:none; border:2px solid var(--navy); color:var(--navy); border-radius:50%; width:34px; height:34px; cursor:pointer; font-size:16px;}
+
+  #confetti-canvas{ position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:999;}
+
+  .fact-box{ background:#eef7ff; border-left:5px solid var(--navy); padding:10px 14px; border-radius:8px; margin-top:14px; font-size:13px; color:#333;}
+  footer{ text-align:center; color:#999; font-size:12px; margin-top:14px;}
+</style>
+</head>
+<body>
+
+<div class="brand">✨ Abhira Insights ✨</div>
+<div class="subtitle">स्वतंत्रता दिवस गेम | Independence Day Game</div>
+
+<div class="app">
+  <div class="tricolor-bar"></div>
+
+  <!-- WELCOME -->
+  <div class="screen active" id="screen-welcome">
+    <div class="topbar">
+      <span class="badge">5-10 वर्ष / years</span>
+      <button class="sound-btn" id="muteBtn" title="Sound On/Off">🔊</button>
+    </div>
+    <h2 class="title">🇮🇳 आज़ादी का उत्सव</h2>
+    <p class="eng">Celebrating India's Independence Day</p>
+    <div class="flag-wrap">
+      <div class="flag">
+        <div class="stripe saffron"></div>
+        <div class="stripe white"><div class="chakra"></div></div>
+        <div class="stripe green"></div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:14px; color:#444; line-height:1.6; max-width:520px; margin:0 auto;">
+      आओ एक मज़ेदार खेल खेलते हैं और सीखते हैं कि 15 अगस्त क्यों खास है, हमारे वीर स्वतंत्रता सेनानी कौन थे, और हमारा तिरंगा क्या कहता है!<br>
+      <span style="color:#888; font-style:italic;">Come play a fun game and learn why 15th August is special, who our brave freedom fighters were, and what our tricolor flag means!</span>
+    </p>
+    <div class="center" style="margin-top:20px;">
+      <button class="btn" onclick="goTo('screen-story')">🚀 खेल शुरू करें / Start Game</button>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div class="screen" id="screen-story">
+    <h2 class="title">📖 आज़ादी की कहानी</h2>
+    <p class="eng">The Story of Freedom</p>
+    <div class="story-card" id="storyCard"></div>
+    <div class="progress-dots" id="storyDots"></div>
+    <div class="row">
+      <button class="btn navy" id="storyPrev" onclick="storyNav(-1)">⬅ पीछे</button>
+      <button class="btn" id="storyPlay" onclick="speakStory()">🔊 सुनो</button>
+      <button class="btn green" id="storyNext" onclick="storyNav(1)">आगे ➡</button>
+    </div>
+  </div>
+
+  <!-- MATCH -->
+  <div class="screen" id="screen-match">
+    <div class="topbar">
+      <h2 class="title" style="margin:0;">🧩 वीरों को पहचानो</h2>
+      <span class="badge" id="matchScoreBadge">0/8</span>
+    </div>
+    <p class="eng">Match the Freedom Fighter with their story</p>
+    <p style="text-align:center; font-size:12px; color:#888; margin-bottom:10px;">नाम पर टैप करें, फिर सही कहानी पर टैप करें / Tap a name, then tap its matching story</p>
+    <div class="grid2" id="matchGrid"></div>
+    <div class="center" style="margin-top:16px;">
+      <button class="btn green" id="matchNextBtn" style="display:none;" onclick="goTo('screen-quiz')">आगे बढ़ें ➡ / Next</button>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="screen-quiz">
+    <div class="topbar">
+      <h2 class="title" style="margin:0;">❓ प्रश्नोत्तरी</h2>
+      <span class="badge" id="quizProgress">1/6</span>
+    </div>
+    <p class="eng">Quick Quiz Time</p>
+    <div class="quiz-q" id="quizQHi"></div>
+    <div class="quiz-q-en" id="quizQEn"></div>
+    <div id="quizOpts"></div>
+  </div>
+
+  <!-- FLAG GAME -->
+  <div class="screen" id="screen-flag">
+    <h2 class="title">🎨 तिरंगे को सजाओ</h2>
+    <p class="eng">Decorate the Tricolor Flag</p>
+    <div class="flag-wrap">
+      <div class="flag" id="blankFlag">
+        <div class="stripe" id="s1" style="background:#e0e0e0;"></div>
+        <div class="stripe" id="s2" style="background:#e0e0e0; display:flex; align-items:center; justify-content:center;">
+          <div class="chakra" id="s2chakra" style="display:none;"></div>
+        </div>
+        <div class="stripe" id="s3" style="background:#e0e0e0;"></div>
+      </div>
+    </div>
+    <div class="row" id="colorChoices">
+      <button class="btn" style="background:#FF9933;" onclick="colorFlag('saffron')">केसरिया / Saffron</button>
+      <button class="btn" style="background:#ffffff; color:#333; border:2px solid #999;" onclick="colorFlag('white')">सफ़ेद / White</button>
+      <button class="btn" style="background:#138808;" onclick="colorFlag('green')">हरा / Green</button>
+    </div>
+    <div class="fact-box" id="flagFact" style="display:none;"></div>
+    <div class="center" style="margin-top:16px;">
+      <button class="btn navy" id="flagNextBtn" style="display:none;" onclick="showResult()">परिणाम देखें ➡ / See Result</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="screen-result">
+    <h2 class="title">🎉 शाबाश! / Well Done!</h2>
+    <p class="eng">You completed the Independence Day Game</p>
+    <div class="stars" id="finalStars">⭐⭐⭐</div>
+    <div class="scoreboard" id="finalScore"></div>
+    <div class="fact-box">
+      🇮🇳 <b>जय हिंद! / Jai Hind!</b><br>
+      15 अगस्त 1947 को भारत आज़ाद हुआ था। आइए हम सब मिलकर अपने स्वतंत्रता सेनानियों को याद करें और तिरंगे का सम्मान करें।<br>
+      <span style="color:#888; font-style:italic;">India became independent on 15th August, 1947. Let's remember our freedom fighters and respect our tricolor flag.</span>
+    </div>
+    <div class="center" style="margin-top:18px;">
+      <button class="btn" onclick="restartGame()">🔄 फिर से खेलें / Play Again</button>
+    </div>
+    <footer>Abhira Insights © | Made with ❤️ for young learners</footer>
+  </div>
+
+</div>
+
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+/* ===================== AUDIO ===================== */
+let audioCtx = null;
+let soundOn = true;
+document.getElementById('muteBtn').onclick = function(){
+  soundOn = !soundOn;
+  this.textContent = soundOn ? '🔊' : '🔇';
+};
+function beep(freq, dur, type){
+  if(!soundOn) return;
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type || 'sine';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + dur);
+  }catch(e){}
+}
+function playCorrect(){ beep(660,0.12); setTimeout(()=>beep(880,0.15),120); }
+function playWrong(){ beep(220,0.25,'sawtooth'); }
+function playWin(){ [523,659,784,1047].forEach((f,i)=>setTimeout(()=>beep(f,0.2),i*150)); }
+
+function speak(text){
+  if(!soundOn) return;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    const voices = speechSynthesis.getVoices();
+    const hi = voices.find(v=>v.lang && v.lang.startsWith('hi'));
+    if(hi) u.voice = hi;
+    u.lang = hi ? 'hi-IN' : 'en-IN';
+    u.rate = 0.9;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ===================== NAVIGATION ===================== */
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(id==='screen-story') renderStory();
+  if(id==='screen-match') renderMatch();
+  if(id==='screen-quiz') renderQuiz();
+  if(id==='screen-flag') renderFlagGame();
+}
+
+/* ===================== STORY DATA ===================== */
+const story = [
+  {emoji:'🇮🇳', hi:'भारत पर लगभग 200 साल तक अंग्रेज़ों ने राज किया।', en:'For about 200 years, the British ruled India.'},
+  {emoji:'✊', hi:'हमारे बहादुर स्वतंत्रता सेनानियों ने देश को आज़ाद कराने के लिए संघर्ष किया।', en:'Our brave freedom fighters struggled to free our country.'},
+  {emoji:'🕊️', hi:'महात्मा गांधी जी ने अहिंसा (सत्याग्रह) के रास्ते पर चलकर लोगों को एकजुट किया।', en:'Mahatma Gandhi united people through the path of non-violence (Satyagraha).'},
+  {emoji:'🎆', hi:'आखिरकार, 15 अगस्त 1947 की आधी रात को भारत आज़ाद हुआ!', en:'Finally, at midnight on 15th August 1947, India became independent!'},
+  {emoji:'🏛️', hi:'लाल किले पर हमारा तिरंगा फहराया गया और देश में खुशियां मनाई गईं।', en:'Our tricolor flag was hoisted at the Red Fort and the whole nation celebrated.'},
+  {emoji:'🎉', hi:'आज भी हर साल 15 अगस्त को हम इस दिन को गर्व और खुशी से मनाते हैं।', en:'Even today, every year on 15th August, we celebrate this day with pride and joy.'}
+];
+let storyIdx = 0;
+function renderStory(){
+  storyIdx = 0;
+  updateStorySlide();
+}
+function updateStorySlide(){
+  const s = story[storyIdx];
+  document.getElementById('storyCard').innerHTML =
+    '<div class="story-emoji">'+s.emoji+'</div>'+
+    '<div class="story-hi">'+s.hi+'</div>'+
+    '<div class="story-en">'+s.en+'</div>';
+  const dots = document.getElementById('storyDots');
+  dots.innerHTML = story.map((_,i)=>'<div class="dot '+(i===storyIdx?'active':'')+'"></div>').join('');
+  document.getElementById('storyPrev').disabled = storyIdx===0;
+  document.getElementById('storyNext').textContent = (storyIdx===story.length-1) ? 'आगे: गेम खेलें ➡' : 'आगे ➡';
+  document.getElementById('storyPrev').style.visibility = storyIdx===0 ? 'hidden':'visible';
+}
+function storyNav(dir){
+  if(dir===1 && storyIdx===story.length-1){ goTo('screen-match'); return; }
+  storyIdx = Math.max(0, Math.min(story.length-1, storyIdx+dir));
+  updateStorySlide();
+  beep(440,0.08);
+}
+function speakStory(){
+  speak(story[storyIdx].hi);
+}
+
+/* ===================== MATCH GAME DATA ===================== */
+const fighters = [
+  {id:1, name:'महात्मा गांधी', nameEn:'Mahatma Gandhi', fact:'अहिंसा से देश को आज़ादी दिलाई (Non-violence / Satyagraha)'},
+  {id:2, name:'भगत सिंह', nameEn:'Bhagat Singh', fact:'सिर्फ 23 साल की उम्र में देश के लिए बलिदान दिया (Sacrificed his life at age 23)'},
+  {id:3, name:'सुभाष चंद्र बोस', nameEn:'Subhas Chandra Bose', fact:'"तुम मुझे खून दो, मैं तुम्हें आज़ादी दूंगा" ("Give me blood, I will give you freedom")'},
+  {id:4, name:'रानी लक्ष्मीबाई', nameEn:'Rani Lakshmibai', fact:'झांसी की रानी, घोड़े पर बैठकर अंग्रेज़ों से लड़ीं (Queen of Jhansi, fought bravely on horseback)'},
+  {id:5, name:'सरदार पटेल', nameEn:'Sardar Patel', fact:'"लौह पुरुष", भारत की रियासतों को एक किया (Iron Man, united all princely states of India)'},
+  {id:6, name:'सरोजिनी नायडू', nameEn:'Sarojini Naidu', fact:'"भारत कोकिला", कवयित्री और स्वतंत्रता सेनानी (Nightingale of India, poet & freedom fighter)'},
+  {id:7, name:'चंद्रशेखर आज़ाद', nameEn:'Chandrashekhar Azad', fact:'कभी अंग्रेज़ों के हाथ जिंदा नहीं आए (Never let the British capture him alive)'},
+  {id:8, name:'जवाहरलाल नेहरू', nameEn:'Jawaharlal Nehru', fact:'भारत के पहले प्रधानमंत्री बने (Became first Prime Minister of India)'}
+];
+let matchSelectedName = null;
+let matchSelectedFact = null;
+let matchedCount = 0;
+
+function shuffle(arr){ return arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(v=>v[1]); }
+
+function renderMatch(){
+  matchedCount = 0;
+  matchSelectedName = null;
+  matchSelectedFact = null;
+  document.getElementById('matchScoreBadge').textContent = '0/'+fighters.length;
+  document.getElementById('matchNextBtn').style.display = 'none';
+  const names = shuffle(fighters.map(f=>({...f, type:'name'})));
+  const facts = shuffle(fighters.map(f=>({...f, type:'fact'})));
+  const grid = document.getElementById('matchGrid');
+  grid.innerHTML = '';
+  names.forEach(f=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.id = f.id;
+    div.dataset.type = 'name';
+    div.innerHTML = '<div class="avatar">'+f.nameEn.charAt(0)+'</div>'+f.name+'<small>'+f.nameEn+'</small>';
+    div.onclick = ()=>selectCard(div, f, 'name');
+    grid.appendChild(div);
+  });
+  facts.forEach(f=>{
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.dataset.id = f.id;
+    div.dataset.type = 'fact';
+    div.innerHTML = '💡 '+f.fact;
+    div.style.fontSize = '11.5px';
+    div.onclick = ()=>selectCard(div, f, 'fact');
+    grid.appendChild(div);
+  });
+}
+function selectCard(el, f, type){
+  if(el.classList.contains('matched')) return;
+  if(type==='name'){
+    if(matchSelectedName) matchSelectedName.el.classList.remove('selected');
+    matchSelectedName = {el, id:f.id};
+    el.classList.add('selected');
+  } else {
+    if(matchSelectedFact) matchSelectedFact.el.classList.remove('selected');
+    matchSelectedFact = {el, id:f.id};
+    el.classList.add('selected');
+  }
+  if(matchSelectedName && matchSelectedFact){
+    if(matchSelectedName.id === matchSelectedFact.id){
+      matchSelectedName.el.classList.remove('selected');
+      matchSelectedFact.el.classList.remove('selected');
+      matchSelectedName.el.classList.add('matched');
+      matchSelectedFact.el.classList.add('matched');
+      matchedCount++;
+      document.getElementById('matchScoreBadge').textContent = matchedCount+'/'+fighters.length;
+      playCorrect();
+      const fighter = fighters.find(x=>x.id===matchSelectedName.id);
+      speak(fighter.name);
+      matchSelectedName = null; matchSelectedFact = null;
+      if(matchedCount === fighters.length){
+        document.getElementById('matchNextBtn').style.display = 'inline-block';
+        playWin();
+        launchConfetti(1200);
+      }
+    } else {
+      playWrong();
+      const wrongName = matchSelectedName.el, wrongFact = matchSelectedFact.el;
+      wrongName.classList.add('wrong'); wrongFact.classList.add('wrong');
+      setTimeout(()=>{
+        wrongName.classList.remove('selected','wrong');
+        wrongFact.classList.remove('selected','wrong');
+      }, 500);
+      matchSelectedName = null; matchSelectedFact = null;
+    }
+  }
+}
+
+/* ===================== QUIZ DATA ===================== */
+const quiz = [
+  {hi:'भारत को आज़ादी कब मिली?', en:'When did India get independence?',
+   opts:['15 अगस्त 1947 / 15 August 1947','26 जनवरी 1950 / 26 January 1950','2 अक्टूबर 1947 / 2 October 1947'], correct:0},
+  {hi:'भारत का राष्ट्रगान किसने लिखा?', en:'Who wrote India\'s national anthem?',
+   opts:['रवींद्रनाथ टैगोर / Rabindranath Tagore','महात्मा गांधी / Mahatma Gandhi','सुभाष चंद्र बोस / Subhas Chandra Bose'], correct:0},
+  {hi:'तिरंगे में कितने रंग होते हैं?', en:'How many colors are in the Indian flag?',
+   opts:['2','3','4'], correct:1},
+  {hi:'अशोक चक्र में कितनी तीलियाँ (spokes) होती हैं?', en:'How many spokes does the Ashoka Chakra have?',
+   opts:['12','18','24'], correct:2},
+  {hi:'"झांसी की रानी" किसे कहा जाता है?', en:'Who is known as "Queen of Jhansi"?',
+   opts:['सरोजिनी नायडू / Sarojini Naidu','रानी लक्ष्मीबाई / Rani Lakshmibai','इंदिरा गांधी / Indira Gandhi'], correct:1},
+  {hi:'भारत के पहले प्रधानमंत्री कौन थे?', en:'Who was India\'s first Prime Minister?',
+   opts:['सरदार पटेल / Sardar Patel','जवाहरलाल नेहरू / Jawaharlal Nehru','महात्मा गांधी / Mahatma Gandhi'], correct:1}
+];
+let quizIdx = 0;
+let quizScore = 0;
+function renderQuiz(){
+  quizIdx = 0; quizScore = 0;
+  showQuizQuestion();
+}
+function showQuizQuestion(){
+  const q = quiz[quizIdx];
+  document.getElementById('quizProgress').textContent = (quizIdx+1)+'/'+quiz.length;
+  document.getElementById('quizQHi').textContent = q.hi;
+  document.getElementById('quizQEn').textContent = q.en;
+  const optsDiv = document.getElementById('quizOpts');
+  optsDiv.innerHTML = '';
+  q.opts.forEach((opt, i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.textContent = opt;
+    b.onclick = ()=>answerQuiz(i, b);
+    optsDiv.appendChild(b);
+  });
+}
+function answerQuiz(i, btn){
+  const q = quiz[quizIdx];
+  const allOpts = document.querySelectorAll('#quizOpts .opt');
+  allOpts.forEach(o=>o.onclick=null);
+  if(i === q.correct){
+    btn.classList.add('correct');
+    quizScore++;
+    playCorrect();
+  } else {
+    btn.classList.add('wrong');
+    allOpts[q.correct].classList.add('correct');
+    playWrong();
+  }
+  setTimeout(()=>{
+    quizIdx++;
+    if(quizIdx < quiz.length){
+      showQuizQuestion();
+    } else {
+      goTo('screen-flag');
+    }
+  }, 1100);
+}
+
+/* ===================== FLAG GAME ===================== */
+let flagStep = 0;
+const flagOrder = ['saffron','white','green'];
+const flagFacts = {
+  saffron: 'केसरिया रंग साहस और बलिदान का प्रतीक है। / Saffron represents courage and sacrifice.',
+  white: 'सफ़ेद रंग शांति और सच्चाई का प्रतीक है। बीच में अशोक चक्र है जिसमें 24 तीलियाँ हैं। / White represents peace and truth. The Ashoka Chakra in the middle has 24 spokes.',
+  green: 'हरा रंग समृद्धि और हरियाली का प्रतीक है। / Green represents prosperity and greenery.'
+};
+function renderFlagGame(){
+  flagStep = 0;
+  document.getElementById('s1').style.background = '#e0e0e0';
+  document.getElementById('s2').style.background = '#e0e0e0';
+  document.getElementById('s3').style.background = '#e0e0e0';
+  document.getElementById('s2chakra').style.display = 'none';
+  document.getElementById('flagFact').style.display = 'none';
+  document.getElementById('flagNextBtn').style.display = 'none';
+  document.getElementById('colorChoices').style.display = 'flex';
+}
+function colorFlag(color){
+  const expected = flagOrder[flagStep];
+  if(color !== expected){
+    playWrong();
+    return;
+  }
+  playCorrect();
+  if(color==='saffron') document.getElementById('s1').style.background = '#FF9933';
+  if(color==='white'){ document.getElementById('s2').style.background = '#ffffff'; document.getElementById('s2chakra').style.display='block'; }
+  if(color==='green') document.getElementById('s3').style.background = '#138808';
+  const fb = document.getElementById('flagFact');
+  fb.style.display = 'block';
+  fb.textContent = flagFacts[color];
+  speak(flagFacts[color].split('/')[0]);
+  flagStep++;
+  if(flagStep >= flagOrder.length){
+    document.getElementById('colorChoices').style.display = 'none';
+    document.getElementById('flagNextBtn').style.display = 'inline-block';
+    playWin();
+    launchConfetti(1500);
+  }
+}
+
+/* ===================== RESULT ===================== */
+function showResult(){
+  goTo('screen-result');
+  const totalPossible = fighters.length + quiz.length + flagOrder.length;
+  const totalScore = matchedCount + quizScore + flagOrder.length;
+  const pct = totalScore/totalPossible;
+  let starCount = pct >= 0.9 ? 3 : pct >= 0.6 ? 2 : 1;
+  document.getElementById('finalStars').textContent = '⭐'.repeat(starCount) + '☆'.repeat(3-starCount);
+  document.getElementById('finalScore').innerHTML =
+    '<div>🧩 वीर पहचान: '+matchedCount+'/'+fighters.length+'</div>'+
+    '<div>❓ क्विज़: '+quizScore+'/'+quiz.length+'</div>'+
+    '<div>🎨 तिरंगा: '+flagOrder.length+'/'+flagOrder.length+'</div>';
+  playWin();
+  launchConfetti(2200);
+}
+function restartGame(){
+  goTo('screen-welcome');
+}
+
+/* ===================== CONFETTI ===================== */
+const canvas = document.getElementById('confetti-canvas');
+const ctx = canvas.getContext('2d');
+function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+let particles = [];
+function launchConfetti(count){
+  const colors = ['#FF9933','#ffffff','#138808','#FFD700','#000080'];
+  for(let i=0;i<count/20;i++){
+    particles.push({
+      x: Math.random()*canvas.width,
+      y: -10 - Math.random()*100,
+      r: 4+Math.random()*5,
+      c: colors[Math.floor(Math.random()*colors.length)],
+      vy: 2+Math.random()*3,
+      vx: -2+Math.random()*4,
+      rot: Math.random()*360,
+      vr: -6+Math.random()*12
+    });
+  }
+}
+function animateConfetti(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.y += p.vy; p.x += p.vx; p.rot += p.vr;
+    ctx.save();
+    ctx.translate(p.x,p.y);
+    ctx.rotate(p.rot*Math.PI/180);
+    ctx.fillStyle = p.c;
+    ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6);
+    ctx.restore();
+  });
+  particles = particles.filter(p=>p.y < canvas.height+20);
+  requestAnimationFrame(animateConfetti);
+}
+animateConfetti();
+
+if('speechSynthesis' in window){
+  speechSynthesis.onvoiceschanged = ()=>{};
+}
+</script>
+</body>
+</html>
