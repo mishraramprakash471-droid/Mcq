@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>भारतीय दर्शन और मानव मूल्य | Indian Philosophy &amp; Human Values</title>
+<style>
+  :root{
+    --indigo:#182a52;
+    --indigo-deep:#0f1c3a;
+    --saffron:#ff9933;
+    --saffron-deep:#e07b1a;
+    --gold:#e8b94a;
+    --cream:#fff9ec;
+    --paper:#fffdf7;
+    --maroon:#8c2f39;
+    --green:#2f6b4f;
+    --ink:#241c12;
+    --ink-soft:#4a4033;
+    --ring: rgba(232,185,74,.55);
+    --radius: 20px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Noto Sans Devanagari','Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  img,svg{max-width:100%;}
+  a{color:inherit;}
+
+  :focus-visible{outline:3px solid var(--indigo); outline-offset:3px;}
+
+  .eyebrow{
+    display:inline-block;
+    font-weight:700;
+    letter-spacing:.08em;
+    font-size:.8rem;
+    text-transform:uppercase;
+    color:var(--saffron-deep);
+    background:#fff3de;
+    border:1px solid var(--gold);
+    padding:.25rem .8rem;
+    border-radius:999px;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:
+      radial-gradient(circle at 12% 20%, rgba(255,153,51,.35), transparent 45%),
+      radial-gradient(circle at 88% 75%, rgba(47,107,79,.35), transparent 45%),
+      linear-gradient(160deg, var(--indigo) 0%, var(--indigo-deep) 70%);
+    color:var(--cream);
+    padding:3.2rem 1.4rem 4rem;
+    overflow:hidden;
+    text-align:center;
+  }
+  .chakra{
+    width:120px;height:120px;margin:0 auto 1rem;
+    animation:spin 14s linear infinite;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  .hero h1{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700;
+    font-size:clamp(1.8rem, 4.5vw, 3rem);
+    margin:.6rem 0 .3rem;
+    text-shadow:0 3px 0 rgba(0,0,0,.25);
+  }
+  .hero .hi{ color:var(--saffron); }
+  .hero p.sub{
+    max-width:640px;margin:.6rem auto 0;
+    font-size:1.05rem; color:#e7e1cf;
+  }
+  .hero .badge-row{
+    margin-top:1.6rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;
+  }
+  .day-badge{
+    background:var(--saffron);
+    color:var(--indigo-deep);
+    font-weight:800;
+    padding:.5rem 1.1rem;
+    border-radius:999px;
+    box-shadow:0 4px 0 var(--saffron-deep);
+    font-size:.95rem;
+  }
+  .quote-badge{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.25);
+    padding:.5rem 1.1rem;
+    border-radius:999px;
+    font-style:italic;
+    font-size:.9rem;
+  }
+
+  /* wavy divider */
+  .wave{ display:block; width:100%; height:60px; margin-top:-2px; }
+
+  main{ max-width:980px; margin:0 auto; padding:0 1.2rem 2rem; }
+
+  /* ---------- SECTION SHELL ---------- */
+  .topic{
+    background:var(--paper);
+    border:1px solid #f0e3c4;
+    border-radius:var(--radius);
+    padding:1.8rem 1.6rem;
+    margin:2.4rem 0;
+    box-shadow:0 10px 30px -18px rgba(24,42,82,.35);
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .topic.in{ opacity:1; transform:translateY(0); }
+
+  .topic-head{
+    display:flex; align-items:center; gap:.9rem; margin-bottom:1rem;
+  }
+  .topic-num{
+    flex:0 0 auto;
+    width:48px;height:48px;border-radius:50%;
+    background:var(--indigo);
+    color:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700;font-weight:600;font-size:1.2rem;
+    box-shadow:0 4px 0 var(--indigo-deep);
+  }
+  .topic-head h2{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700;
+    margin:0; font-size:1.5rem; color:var(--indigo);
+  }
+  .topic-head h2 .en{
+    display:block; font-family:'Noto Sans Devanagari','Segoe UI',system-ui,-apple-system,sans-serif; font-weight:600; font-size:.95rem; color:var(--ink-soft);
+  }
+
+  .topic-grid{
+    display:grid; grid-template-columns:1.3fr 1fr; gap:1.4rem; align-items:start;
+  }
+  @media(max-width:720px){ .topic-grid{ grid-template-columns:1fr; } }
+
+  .story-box{
+    background:#fff6e2;
+    border-left:5px solid var(--saffron);
+    border-radius:10px;
+    padding:.9rem 1.1rem;
+    margin-bottom:.9rem;
+  }
+  .story-box h4{ margin:.1rem 0 .4rem; color:var(--saffron-deep); font-size:.95rem; }
+  .story-box p{ margin:0 0 .5rem; }
+  .story-box p:last-child{ margin-bottom:0; }
+  .story-box .en{ color:var(--ink-soft); font-size:.95rem; }
+
+  .example-box{
+    background:#eef6f0;
+    border-left:5px solid var(--green);
+    border-radius:10px;
+    padding:.9rem 1.1rem;
+  }
+  .example-box h4{ margin:.1rem 0 .4rem; color:var(--green); font-size:.95rem; }
+  .example-box p{ margin:0; }
+
+  .visual-panel{
+    background:var(--indigo);
+    border-radius:16px;
+    padding:1.2rem;
+    color:var(--cream);
+    text-align:center;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-height:180px;
+  }
+  .visual-panel .icon{ font-size:3rem; margin-bottom:.4rem; }
+  .visual-panel .cap{ font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700; font-size:1.05rem; color:var(--gold); }
+  .visual-panel .cap-en{ font-size:.85rem; color:#d7d0bb; margin-top:.2rem;}
+
+  .chip-row{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
+  .chip{
+    background:#fff; border:1.5px solid var(--gold); color:var(--ink);
+    border-radius:999px; padding:.4rem .8rem; font-size:.85rem; font-weight:600;
+  }
+
+  /* Values grid (section 6) */
+  .values-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; }
+  .value-card{
+    background:#fff6e2; border-radius:14px; padding:1rem; text-align:center;
+    border:1px solid var(--gold);
+    transition:transform .25s ease;
+  }
+  .value-card:hover{ transform:translateY(-6px); }
+  .value-card .ic{ font-size:1.8rem; }
+  .value-card b{ display:block; margin-top:.3rem; color:var(--maroon); }
+  .value-card span{ font-size:.82rem; color:var(--ink-soft); }
+
+  /* ---------- SIGNATURE: MULYA VRIKSHA (value tree) ---------- */
+  .tree-section{
+    background:linear-gradient(180deg,#eef6f0,#fff9ec);
+    border:1px solid #cfe4d6;
+    border-radius:var(--radius);
+    padding:2rem 1.2rem;
+    text-align:center;
+    margin:2.6rem 0;
+  }
+  .tree-section h2{ font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700; color:var(--green); margin-top:0;}
+  .tree-wrap{ max-width:360px; margin:0 auto; }
+  #leaf-count-label{ font-weight:700; color:var(--green); margin-top:.6rem; }
+  .leaf{ fill:#cfe0cf; transition:fill .4s ease, transform .4s ease; transform-origin:center; }
+  .leaf.lit{ fill:var(--gold); }
+
+  /* ---------- QUIZ ---------- */
+  .quiz-section{
+    background:var(--indigo-deep);
+    color:var(--cream);
+    border-radius:var(--radius);
+    padding:2rem 1.4rem;
+    margin:2.6rem 0;
+  }
+  .quiz-section h2{ font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700; color:var(--gold); text-align:center; margin-top:0; }
+  .quiz-section > p.center{ text-align:center; color:#d7d0bb; margin-top:-.4rem; }
+  .qcard{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:14px;
+    padding:1rem 1.1rem;
+    margin-bottom:1rem;
+  }
+  .qcard p.qtext{ font-weight:700; margin:.1rem 0 .8rem; }
+  .qcard .opts{ display:grid; gap:.5rem; }
+  .opt-btn{
+    text-align:left;
+    background:rgba(255,255,255,.08);
+    border:1.5px solid rgba(255,255,255,.2);
+    color:var(--cream);
+    padding:.55rem .8rem;
+    border-radius:10px;
+    cursor:pointer;
+    font-family:'Noto Sans Devanagari','Segoe UI',system-ui,-apple-system,sans-serif; font-size:.98rem;
+    transition:background .2s, border-color .2s, transform .12s;
+  }
+  .opt-btn:hover{ background:rgba(255,255,255,.16); transform:translateX(3px); }
+  .opt-btn.correct{ background:#2f6b4f; border-color:#7fd6a6; }
+  .opt-btn.wrong{ background:#8c2f39; border-color:#f3a3ab; }
+  .opt-btn[disabled]{ cursor:default; }
+  .qfeedback{ font-size:.85rem; margin-top:.5rem; min-height:1.1em; color:var(--gold); }
+
+  .quiz-footer{ text-align:center; margin-top:1.4rem; }
+  #score-box{
+    display:inline-block; background:var(--saffron); color:var(--indigo-deep);
+    font-weight:800; padding:.7rem 1.4rem; border-radius:999px;
+    box-shadow:0 4px 0 var(--saffron-deep); font-size:1.05rem;
+  }
+  .btn{
+    background:var(--gold); color:var(--indigo-deep); border:none;
+    font-family:'Noto Sans Devanagari','Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700; padding:.65rem 1.3rem;
+    border-radius:10px; cursor:pointer; margin-top:1rem; font-size:.95rem;
+  }
+  .btn:hover{ filter:brightness(1.06); }
+
+  /* ---------- HOMEWORK ---------- */
+  .hw-section{
+    background:#fff6e2;
+    border:1px dashed var(--saffron-deep);
+    border-radius:var(--radius);
+    padding:1.8rem 1.5rem;
+    margin:2.6rem 0;
+  }
+  .hw-section h2{ font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700; color:var(--maroon); margin-top:0; }
+  .hw-section ol{ padding-left:1.3rem; }
+  .hw-section li{ margin-bottom:.7rem; }
+  .hw-section li .en{ display:block; color:var(--ink-soft); font-size:.92rem; }
+
+  footer{
+    text-align:center; padding:2rem 1rem 3rem; color:var(--ink-soft); font-size:.9rem;
+  }
+  footer .line{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif; font-weight:700; color:var(--indigo); font-size:1.05rem; margin-bottom:.3rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="eyebrow">Day 2 &nbsp;•&nbsp; कक्षा 6 के लिए</span>
+  <svg class="chakra" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="50" r="42" fill="none" stroke="#e8b94a" stroke-width="4"/>
+    <g stroke="#ff9933" stroke-width="3">
+      <line x1="50" y1="8" x2="50" y2="92"/>
+      <line x1="8" y1="50" x2="92" y2="50"/>
+      <line x1="18" y1="18" x2="82" y2="82"/>
+      <line x1="82" y1="18" x2="18" y2="82"/>
+      <line x1="50" y1="8" x2="65" y2="35" transform="rotate(30 50 50)"/>
+      <line x1="50" y1="8" x2="65" y2="35" transform="rotate(60 50 50)"/>
+      <line x1="50" y1="8" x2="65" y2="35" transform="rotate(120 50 50)"/>
+      <line x1="50" y1="8" x2="65" y2="35" transform="rotate(150 50 50)"/>
+    </g>
+    <circle cx="50" cy="50" r="6" fill="#e8b94a"/>
+  </svg>
+  <h1>भारतीय दर्शन और मानव मूल्य<br><span class="hi">Indian Philosophy &amp; Human Values</span></h1>
+  <p class="sub">धर्म, कर्म, सत्य, अहिंसा और अच्छे नागरिक बनने की कहानियाँ — मज़े के साथ सीखो!<br>
+  Stories of Dharma, Karma, Truth, Non-violence &amp; being a great citizen — learn while having fun!</p>
+  <div class="badge-row">
+    <span class="day-badge">🌟 Ethics &amp; Character Building</span>
+    <span class="quote-badge">"चरित्र ही सफलता की असली नींव है"</span>
+  </div>
+</header>
+<svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none"><path d="M0,32 C240,60 480,0 720,20 C960,40 1200,10 1440,30 L1440,60 L0,60 Z" fill="#fff9ec"></path></svg>
+
+<main>
+
+  <!-- 1. DHARMA -->
+  <section class="topic" id="t1">
+    <div class="topic-head">
+      <div class="topic-num">1</div>
+      <h2>धर्म — सही राह पर चलना <span class="en">Dharma — The Right Way of Living</span></h2>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="story-box">
+          <h4>📖 कहानी</h4>
+          <p>राजू की परीक्षा थी। उसका दोस्त बगल में बैठा था और उसने चुपके से उत्तर दिखाने को कहा। राजू का मन डोला, पर उसने सोचा — "अगर मैं नकल करूँगा तो नंबर तो मिल जाएँगे, पर सीखूँगा क्या?" उसने विनम्रता से मना कर दिया और खुद मेहनत से लिखा। नतीजा जो भी आया, राजू को अपने ऊपर गर्व था।</p>
+          <p class="en">Raju had an exam. His friend secretly asked him to copy answers. Raju was tempted, but thought — "If I cheat, I'll get marks, but what will I actually learn?" He politely refused and wrote the paper honestly. Whatever the result, Raju was proud of himself.</p>
+        </div>
+        <div class="example-box">
+          <h4>🌱 असल ज़िंदगी में उदाहरण</h4>
+          <p>घर पर छोटे भाई-बहन का होमवर्क में मदद करना, बस में बुज़ुर्गों के लिए सीट छोड़ना, कूड़ा कूड़ेदान में डालना — ये सब हमारा धर्म (कर्तव्य) है।<br>
+          <span class="en">Helping your younger sibling with homework, giving up your bus seat for elders, throwing garbage in the bin — this is your everyday Dharma (duty).</span></p>
+        </div>
+      </div>
+      <div class="visual-panel">
+        <div class="icon">⚖️</div>
+        <div class="cap">धर्म = सही काम करना</div>
+        <div class="cap-en">Dharma = doing what is right</div>
+        <div class="chip-row">
+          <span class="chip">🤝 Helping others</span>
+          <span class="chip">📝 Honesty in study</span>
+          <span class="chip">🧓 Respecting elders</span>
+          <span class="chip">🌳 Protecting nature</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. KARMA -->
+  <section class="topic" id="t2">
+    <div class="topic-head">
+      <div class="topic-num">2</div>
+      <h2>कर्म — क्रिया का नियम <span class="en">Karma — The Law of Action</span></h2>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="story-box">
+          <h4>📖 कहानी</h4>
+          <p>एक किसान ने आम का पेड़ लगाया और रोज़ पानी दिया, बिना यह सोचे कि उसे फल कब मिलेंगे। सालों बाद पेड़ पर मीठे आम आए, और उसने पूरे गाँव को बाँटे। किसान ने कहा — "मैंने सिर्फ अच्छा काम किया, फल की चिंता नहीं की — फल खुद आ गया।"</p>
+          <p class="en">A farmer planted a mango tree and watered it daily, without worrying when it would bear fruit. Years later, sweet mangoes grew, and he shared them with the whole village. He said — "I just did good work without worrying about the reward — the reward came on its own."</p>
+        </div>
+        <div class="example-box">
+          <h4>🌱 असल ज़िंदगी में उदाहरण</h4>
+          <p>अगर तुम रोज़ मन लगाकर पढ़ाई करोगे (अच्छा कर्म), तो अच्छे नंबर अपने आप आएँगे। अगर किसी को धोखा दोगे (बुरा कर्म), तो एक दिन भरोसा टूट जाएगा।<br>
+          <span class="en">If you study sincerely every day (good karma), good marks will follow naturally. If you cheat someone (bad karma), trust will eventually break.</span></p>
+        </div>
+      </div>
+      <div class="visual-panel">
+        <div class="icon">🌳</div>
+        <div class="cap">जैसा बोओगे, वैसा काटोगे</div>
+        <div class="cap-en">"As you sow, so shall you reap"</div>
+        <p style="font-size:.85rem;color:#d7d0bb;margin-top:.6rem;">तुम्हें अपना काम करने का अधिकार है, पर फल पर नहीं।<br>You have a right to your action, not to its fruit.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SATYA -->
+  <section class="topic" id="t3">
+    <div class="topic-head">
+      <div class="topic-num">3</div>
+      <h2>सत्य — सच बोलना <span class="en">Satya — Truthfulness</span></h2>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="story-box">
+          <h4>📖 कहानी</h4>
+          <p>छोटे मोहन ने खेलते हुए गलती से गमला तोड़ दिया। डर के मारे वो छुप सकता था, पर उसने माँ को सच बता दिया। माँ को गुस्सा आया, फिर भी उन्होंने कहा — "मुझे तुम्हारी सच्चाई पर गर्व है, गमले से ज़्यादा कीमती तुम्हारा ईमानदार होना है।"</p>
+          <p class="en">Little Mohan accidentally broke a flowerpot while playing. He could have hidden it out of fear, but he told his mother the truth. She was upset about the pot, yet said — "I'm proud of your honesty; it matters more than the pot."</p>
+        </div>
+        <div class="example-box">
+          <h4>🌱 असल ज़िंदगी में उदाहरण</h4>
+          <p>टीचर से गलत उत्तर के लिए माफ़ी माँगना, दोस्त को सच्चा फीडबैक देना — यह सब सत्य पर चलना है, भले ही थोड़ा मुश्किल लगे।<br>
+          <span class="en">Admitting a mistake to your teacher, giving a friend honest feedback — this is walking the path of Satya, even when it feels hard.</span></p>
+        </div>
+      </div>
+      <div class="visual-panel">
+        <div class="icon">🪷</div>
+        <div class="cap">सत्यमेव जयते</div>
+        <div class="cap-en">"Truth Alone Triumphs"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. AHIMSA -->
+  <section class="topic" id="t4">
+    <div class="topic-head">
+      <div class="topic-num">4</div>
+      <h2>अहिंसा — हिंसा न करना <span class="en">Ahimsa — Non-Violence</span></h2>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="story-box">
+          <h4>📖 कहानी</h4>
+          <p>महात्मा गांधी जी ने बिना एक भी गोली चलाए, सिर्फ अहिंसा और सत्याग्रह से भारत को आज़ाद कराने में मदद की। उन्होंने कहा था — "आँख के बदले आँख पूरी दुनिया को अंधा बना देगी।"</p>
+          <p class="en">Mahatma Gandhi helped free India without firing a single bullet — through Ahimsa (non-violence) and Satyagraha. He famously said, "An eye for an eye will make the whole world blind."</p>
+        </div>
+        <div class="example-box">
+          <h4>🌱 असल ज़िंदगी में उदाहरण</h4>
+          <p>अगर कोई क्लास में तुम्हें चिढ़ाए, तो मारपीट की जगह बात करके या टीचर को बताकर सुलझाना अहिंसा है। किसी जानवर को न सताना भी अहिंसा है।<br>
+          <span class="en">If a classmate teases you, resolving it by talking or telling a teacher instead of fighting is Ahimsa. Not hurting animals is Ahimsa too.</span></p>
+        </div>
+      </div>
+      <div class="visual-panel">
+        <div class="icon">🕊️</div>
+        <div class="cap">प्रेम और करुणा</div>
+        <div class="cap-en">Love &amp; Compassion for all</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. VASUDHAIVA KUTUMBAKAM -->
+  <section class="topic" id="t5">
+    <div class="topic-head">
+      <div class="topic-num">5</div>
+      <h2>वसुधैव कुटुम्बकम् <span class="en">The World is One Family</span></h2>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="story-box">
+          <h4>📖 कहानी</h4>
+          <p>भूकंप के बाद एक देश मुसीबत में था। दूर देशों के अनजान लोगों ने पैसे, खाना और दवाइयाँ भेजीं — बिना यह सोचे कि वो किस धर्म या देश के हैं। सबने कहा — "वो भी हमारा ही परिवार हैं।"</p>
+          <p class="en">After an earthquake, a country was in trouble. Strangers from faraway nations sent money, food and medicines — without caring about religion or nationality. Everyone said, "They are our family too."</p>
+        </div>
+        <div class="example-box">
+          <h4>🌱 असल ज़िंदगी में उदाहरण</h4>
+          <p>नए बच्चे को क्लास में शामिल करना, दूसरे राज्य या देश के दोस्त बनाना, ऑनलाइन किसी अजनबी की मदद करना — यह वसुधैव कुटुम्बकम है।<br>
+          <span class="en">Including a new student in your group, making friends from other states or countries, helping a stranger — this is Vasudhaiva Kutumbakam in action.</span></p>
+        </div>
+      </div>
+      <div class="visual-panel">
+        <div class="icon">🌍</div>
+        <div class="cap">पूरी दुनिया एक परिवार</div>
+        <div class="cap-en">Unity, harmony &amp; global peace</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. ETHICAL VALUES -->
+  <section class="topic" id="t6">
+    <div class="topic-head">
+      <div class="topic-num">6</div>
+      <h2>नैतिक मूल्य <span class="en">Ethical Values</span></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card"><div class="ic">💛</div><b>ईमानदारी</b><span>Honesty — हमेशा सच्चे रहो</span></div>
+      <div class="value-card"><div class="ic">🙏</div><b>सम्मान</b><span>Respect — बड़ों व सबका आदर</span></div>
+      <div class="value-card"><div class="ic">⏰</div><b>अनुशासन</b><span>Discipline — नियमों का पालन</span></div>
+      <div class="value-card"><div class="ic">🛡️</div><b>निष्ठा</b><span>Integrity — विचार व कर्म में एकता</span></div>
+      <div class="value-card"><div class="ic">🤲</div><b>सहानुभूति</b><span>Empathy — दूसरों को समझना</span></div>
+    </div>
+  </section>
+
+  <!-- 7. RESPONSIBLE CITIZENSHIP -->
+  <section class="topic" id="t7">
+    <div class="topic-head">
+      <div class="topic-num">7</div>
+      <h2>जिम्मेदार नागरिक <span class="en">Responsible Citizenship</span></h2>
+    </div>
+    <div class="topic-grid">
+      <div>
+        <div class="story-box">
+          <h4>📖 कहानी</h4>
+          <p>पार्क में बच्चों का एक समूह खेल रहा था। खेलते-खेलते उन्होंने देखा कि पार्क में कूड़ा फैला है। उन्होंने खेल छोड़कर मिलकर पार्क साफ़ किया और एक बोर्ड लगाया — "इसे साफ़ रखें, यह हमारा पार्क है।"</p>
+          <p class="en">A group of children was playing in a park and noticed litter everywhere. They paused their game, cleaned the park together, and put up a sign — "Keep it clean, this park belongs to all of us."</p>
+        </div>
+        <div class="example-box">
+          <h4>🌱 असल ज़िंदगी में उदाहरण</h4>
+          <p>ट्रैफिक नियम मानना, पानी और बिजली बर्बाद न करना, सार्वजनिक संपत्ति को नुकसान न पहुँचाना — यह एक अच्छे नागरिक की पहचान है।<br>
+          <span class="en">Following traffic rules, not wasting water or electricity, taking care of public property — these are marks of a responsible citizen.</span></p>
+        </div>
+      </div>
+      <div class="visual-panel">
+        <div class="icon">🇮🇳</div>
+        <div class="cap">कर्तव्य निभाओ, प्रेरणा बनो</div>
+        <div class="cap-en">Do your duty, be a role model</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNATURE: VALUE TREE -->
+  <section class="tree-section">
+    <h2>🌳 मूल्य वृक्ष <span style="font-family:'Noto Sans Devanagari','Segoe UI',system-ui,-apple-system,sans-serif; font-size:1rem; display:block; color:#4a4033;">Value Tree — क्विज़ हल करो और पत्तियाँ खिलाओ!</span></h2>
+    <p style="color:#4a4033; max-width:520px; margin:0 auto 1rem;">नीचे दिए गए क्विज़ में हर सही जवाब पर पेड़ में एक सुनहरी पत्ती खिलेगी। सारी पत्तियाँ जलाकर पेड़ को पूरा खिलता हुआ बनाओ!<br>
+    <span style="font-size:.88rem;">Every correct quiz answer lights up a golden leaf. Answer all correctly to make the tree fully bloom!</span></p>
+    <div class="tree-wrap">
+      <svg id="value-tree" viewBox="0 0 300 260" aria-hidden="true">
+        <rect x="138" y="170" width="24" height="80" rx="6" fill="#8c5a34"/>
+        <ellipse cx="150" cy="110" rx="110" ry="80" fill="#dff0e2" opacity=".5"/>
+        <!-- leaves generated by JS -->
+      </svg>
+    </div>
+    <p id="leaf-count-label">0 / 15 पत्तियाँ खिली — 0 / 15 leaves bloomed</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="quiz-section" id="quiz">
+    <h2>📝 अभ्यास प्रश्न (MCQ) — Practice Quiz</h2>
+    <p class="center">15 प्रश्न • सही उत्तर चुनकर क्लिक करो • 15 Questions • Click the correct option</p>
+    <div id="quiz-container"></div>
+    <div class="quiz-footer">
+      <div id="score-box">स्कोर / Score: 0 / 15</div><br>
+      <button class="btn" id="reset-btn">🔄 फिर से कोशिश करें / Try Again</button>
+    </div>
+  </section>
+
+  <!-- HOMEWORK -->
+  <section class="hw-section">
+    <h2>🏠 गृहकार्य (Homework)</h2>
+    <ol>
+      <li>अपने घर या स्कूल में किए गए "धर्म" के एक काम के बारे में 3-4 पंक्तियाँ लिखो।
+        <span class="en">Write 3–4 lines about one act of "Dharma" you did at home or school.</span></li>
+      <li>अपनी माँ, पिता या दादा-दादी से पूछो कि उन्होंने कब सत्य बोलकर सही किया — और वह कहानी अपनी कॉपी में लिखो।
+        <span class="en">Ask your parents/grandparents about a time they told the truth even when it was hard, and write that story.</span></li>
+      <li>एक पोस्टर बनाओ जिसमें "अहिंसा" का एक चित्र और एक नारा (slogan) हो।
+        <span class="en">Make a poster with a drawing and a slogan about "Ahimsa" (non-violence).</span></li>
+      <li>अपने परिवार के 5 सदस्यों के नाम लिखकर बताओ कि वे किस तरह "जिम्मेदार नागरिक" के गुण दिखाते हैं।
+        <span class="en">List 5 family members and describe how each shows a quality of a "Responsible Citizen".</span></li>
+      <li>"वसुधैव कुटुम्बकम्" पर आधारित 5 पंक्तियों की एक छोटी कविता या नारा लिखो।
+        <span class="en">Write a short 5-line poem or slogan based on "Vasudhaiva Kutumbakam".</span></li>
+    </ol>
+  </section>
+
+</main>
+
+<footer>
+  <div class="line">"Character is the real foundation of all worthwhile success."</div>
+  <div>"चरित्र ही सभी सार्थक सफलताओं की असली नींव है।"</div>
+</footer>
+
+<script>
+  // ---------- Scroll reveal ----------
+  const topics = document.querySelectorAll('.topic');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:.15});
+  topics.forEach(t=>io.observe(t));
+
+  // ---------- Value tree leaves ----------
+  const TOTAL = 15;
+  const treeSvg = document.getElementById('value-tree');
+  const leafPositions = [];
+  const cx=150, cy=105, rings=[
+    {r:70,count:5,ry:0},{r:48,count:6,ry:-10},{r:26,count:4,ry:-15}
+  ];
+  let idx=0;
+  rings.forEach(ring=>{
+    for(let i=0;i<ring.count && idx<TOTAL;i++){
+      const angle = (Math.PI*2/ring.count)*i + ring.r;
+      const x = cx + Math.cos(angle)*ring.r*0.9;
+      const y = cy + ring.ry + Math.sin(angle)*ring.r*0.65;
+      leafPositions.push({x,y});
+      idx++;
+    }
+  });
+  leafPositions.forEach((p,i)=>{
+    const c = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    c.setAttribute("cx",p.x); c.setAttribute("cy",p.y); c.setAttribute("r",13);
+    c.setAttribute("class","leaf");
+    c.setAttribute("id","leaf-"+i);
+    treeSvg.appendChild(c);
+  });
+
+  function litLeaf(n){
+    const el = document.getElementById("leaf-"+n);
+    if(el){
+      el.classList.add("lit");
+      el.style.transform = "scale(1.25)";
+      setTimeout(()=>{ el.style.transform="scale(1)"; }, 300);
+    }
+    document.getElementById("leaf-count-label").textContent =
+      n+1 <= litCount ? (litCount)+" / 15 पत्तियाँ खिली — "+litCount+" / 15 leaves bloomed" : "";
+  }
+
+  // ---------- Quiz data ----------
+  const questions = [
+    {q:"धर्म का अर्थ क्या है? / What does Dharma mean?", opts:["सही और उचित काम करना / Doing what is right","सिर्फ मंदिर जाना / Only going to temple","खेलना / Playing games","सोना / Sleeping"], a:0},
+    {q:"कर्म का नियम क्या कहता है? / What does the Law of Karma say?",
+      opts:["कोई नतीजा नहीं होता / No result happens","हर काम का असर होता है / Every action has a result","सिर्फ बुरे काम का असर होता है / Only bad actions matter","भाग्य ही सब कुछ है / Only luck matters"], a:1},
+    {q:"'जैसा बोओगे वैसा काटोगे' किस मूल्य से जुड़ा है? / 'As you sow, so shall you reap' relates to?",
+      opts:["सत्य / Satya","अहिंसा / Ahimsa","कर्म / Karma","अनुशासन / Discipline"], a:2},
+    {q:"सत्यमेव जयते का अर्थ है — / 'Satyameva Jayate' means —",
+      opts:["झूठ की जीत / Lies always win","सत्य की ही जीत होती है / Truth alone triumphs","पैसा ही सब कुछ है / Money is everything","कुछ नहीं / Nothing"], a:1},
+    {q:"अहिंसा का सिद्धांत किसके जीवन से जुड़ा है? / Ahimsa is strongly linked to whose life?",
+      opts:["महात्मा गांधी / Mahatma Gandhi","किसी सैनिक / A soldier","किसी व्यापारी / A businessman","किसी अभिनेता / An actor"], a:0},
+    {q:"अहिंसा का मतलब है — / Ahimsa means —",
+      opts:["गुस्सा करना / Getting angry","किसी को नुकसान न पहुँचाना / Not harming any living being","लड़ाई करना / Fighting","चिल्लाना / Shouting"], a:1},
+    {q:"'वसुधैव कुटुम्बकम्' का अर्थ है — / 'Vasudhaiva Kutumbakam' means —",
+      opts:["केवल अपना परिवार / Only my own family","पूरी दुनिया एक परिवार है / The whole world is one family","सिर्फ अपना देश / Only my country","कोई परिवार नहीं / No family"], a:1},
+    {q:"निम्न में से कौन-सा नैतिक मूल्य है? / Which of these is an ethical value?",
+      opts:["ईमानदारी / Honesty","धोखा / Cheating","आलस्य / Laziness","झूठ / Lying"], a:0},
+    {q:"एक जिम्मेदार नागरिक क्या करता है? / A responsible citizen does what?",
+      opts:["कानून तोड़ता है / Breaks the law","सार्वजनिक संपत्ति को नुकसान पहुँचाता है / Damages public property","कानून का सम्मान करता है / Respects the law","कूड़ा फैलाता है / Litters everywhere"], a:2},
+    {q:"'धर्म' उदाहरण के तौर पर क्या शामिल करता है? / Dharma includes examples like?",
+      opts:["बड़ों का आदर करना / Respecting elders","झूठ बोलना / Lying","धोखा देना / Cheating","आलसी होना / Being lazy"], a:0},
+    {q:"अच्छा कर्म क्या लाता है? / What does good karma bring?",
+      opts:["दुख / Sorrow","खुशी / Happiness","सज़ा / Punishment","कुछ नहीं / Nothing"], a:1},
+    {q:"सत्य बोलने से क्या बनता है? / What does telling the truth build?",
+      opts:["डर / Fear","भरोसा और मजबूत चरित्र / Trust and strong character","दुश्मनी / Enmity","कुछ नहीं / Nothing"], a:1},
+    {q:"'ताकतवर मूल्य महान जीवन बनाते हैं' — यह किससे संबंधित है? / 'Strong values build great lives' relates to?",
+      opts:["नैतिक मूल्य / Ethical values","केवल पैसा / Only money","केवल खेल / Only sports","केवल पढ़ाई / Only studies"], a:0},
+    {q:"सहानुभूति (Empathy) का मतलब है — / Empathy means —",
+      opts:["दूसरों को नज़रअंदाज़ करना / Ignoring others","दूसरों को समझना और मदद करना / Understanding and helping others","खुद के बारे में सोचना / Thinking only of yourself","गुस्सा करना / Getting angry"], a:1},
+    {q:"किसी अजनबी की मदद करना किस मूल्य को दर्शाता है? / Helping a stranger reflects which value?",
+      opts:["वसुधैव कुटुम्बकम् / Vasudhaiva Kutumbakam","आलस्य / Laziness","स्वार्थ / Selfishness","भय / Fear"], a:0}
+  ];
+
+  let litCount = 0;
+  const container = document.getElementById('quiz-container');
+  const scoreBox = document.getElementById('score-box');
+  let score = 0;
+  let answered = new Array(questions.length).fill(false);
+
+  function renderQuiz(){
+    container.innerHTML = "";
+    score = 0;
+    litCount = 0;
+    answered = new Array(questions.length).fill(false);
+    document.querySelectorAll('.leaf').forEach(l=>l.classList.remove('lit'));
+    document.getElementById("leaf-count-label").textContent = "0 / 15 पत्तियाँ खिली — 0 / 15 leaves bloomed";
+    updateScore();
+
+    questions.forEach((item, qi)=>{
+      const card = document.createElement('div');
+      card.className = 'qcard';
+      const p = document.createElement('p');
+      p.className = 'qtext';
+      p.textContent = (qi+1) + ". " + item.q;
+      card.appendChild(p);
+
+      const opts = document.createElement('div');
+      opts.className = 'opts';
+      item.opts.forEach((optText, oi)=>{
+        const b = document.createElement('button');
+        b.className = 'opt-btn';
+        b.textContent = optText;
+        b.addEventListener('click', ()=>{
+          if(answered[qi]) return;
+          answered[qi] = true;
+          const buttons = opts.querySelectorAll('.opt-btn');
+          buttons.forEach(bt=>bt.disabled = true);
+          const fb = card.querySelector('.qfeedback');
+          if(oi === item.a){
+            b.classList.add('correct');
+            score++;
+            litLeaf(litCount);
+            litCount++;
+            fb.textContent = "✅ बिल्कुल सही! / Correct!";
+          } else {
+            b.classList.add('wrong');
+            buttons[item.a].classList.add('correct');
+            fb.textContent = "❌ सही उत्तर था / Correct answer: " + item.opts[item.a];
+          }
+          updateScore();
+        });
+        opts.appendChild(b);
+      });
+      card.appendChild(opts);
+      const fb = document.createElement('div');
+      fb.className = 'qfeedback';
+      card.appendChild(fb);
+      container.appendChild(card);
+    });
+  }
+
+  function updateScore(){
+    scoreBox.textContent = "स्कोर / Score: " + score + " / " + questions.length;
+  }
+
+  document.getElementById('reset-btn').addEventListener('click', renderQuiz);
+
+  renderQuiz();
+</script>
+</body>
+</html>
