@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKS - Indian Knowledge System | भारतीय ज्ञान प्रणाली</title>
+    <style>
+        :root {
+            --primary: #FF9933; /* Saffron */
+            --secondary: #138808; /* Green */
+            --accent: #000080; /* Navy Blue */
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-color: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #ffc107);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* Nav Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: white;
+            border: 2px solid var(--primary);
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        h3 {
+            color: #d35400;
+            margin: 15px 0 10px 0;
+        }
+
+        p, ul {
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .info-card {
+            background: #fff8f0;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .info-card h4 {
+            color: #d35400;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Quiz Styles */
+        .quiz-question {
+            margin-bottom: 20px;
+            background: #f1f8e9;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .options label {
+            display: block;
+            background: white;
+            padding: 10px;
+            margin: 6px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: 0.2s;
+        }
+
+        .options label:hover {
+            background: #e8f5e9;
+        }
+
+        .feedback {
+            margin-top: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        /* Homework Styles */
+        .homework-box {
+            background: #e3f2fd;
+            border-left: 5px solid #1976d2;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .homework-box p {
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .tab-btn { padding: 8px 12px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🇮🇳 Indian Knowledge System (IKS)</h1>
+        <p>भारतीय ज्ञान प्रणाली — कक्षा 6 के लिए संपूर्ण पाठ्यक्रम</p>
+    </header>
+
+    <div class="container">
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('intro')">📖 Chapter Notes (अध्याय)</button>
+            <button class="tab-btn" onclick="switchTab('quiz')">✍️ 20 MCQs (प्रश्ोत्तरी)</button>
+            <button class="tab-btn" onclick="switchTab('homework')">🏠 Homework (गृहकार्य)</button>
+        </div>
+
+        <!-- Section 1: Introduction / Chapter Notes -->
+        <div id="intro" class="section active">
+            <h2>1️⃣ What is IKS? (IKS क्या है?)</h2>
+            <p>भारत में हजारों वर्षों से लोग जो ज्ञान, कला, विज्ञान, शिक्षा, जीवन जीने के तरीके और अच्छे संस्कार सीखते और सिखाते आए हैं, उन सबको मिलाकर <strong>Indian Knowledge System (IKS)</strong> कहा जाता है।</p>
+            
+            <div class="card-grid">
+                <div class="info-card">
+                    <h4>🟢 पुराना भारतीय ज्ञान</h4>
+                    <p>यह ज्ञान पीढ़ी-दर-पीढ़ी आगे बढ़ता रहा है, जैसे दादा से बच्चों को खेती और जीवन के हुनर मिलना।</p>
+                </div>
+                <div class="info-card">
+                    <h4>🟢 व्यापक ज्ञान की टोकरी</h4>
+                    <p>गणित + चिकित्सा + दर्शन + कला + साहित्य + कृषि + प्रकृति + शिक्षा आदि सभी इसमें शामिल हैं।</p>
+                </div>
+                <div class="info-card">
+                    <h4>🟢 प्रकृति के साथ तालमेल</h4>
+                    <p>प्रकृति से जो लें उसका सम्मान करें और उसे नुकसान न पहुँचाएँ—यही हमारी संस्कृति है।</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 30px;">2️⃣ Importance of IKS (IKS क्यों महत्वपूर्ण है?)</h2>
+            <ul>
+                <li><strong>अपनी जड़ों को समझना:</strong> हमें अपने इतिहास और संस्कृति को जानने में मदद मिलती है।</li>
+                <li><strong>आधुनिक समस्याओं का समाधान:</strong> प्रदूषण और पर्यावरण संकट जैसी चुनौतियों से निपटने में पुराना ज्ञान मददगार है।</li>
+                <li><strong>अच्छे मूल्य सिखाता है:</strong> सम्मान करना, कर्तव्य निभाना और मिल-जुलकर रहना सिखाता है।</li>
+                <li><strong>उन्नत ज्ञान:</strong> पुराने भारत में गणित, चिकित्सा और खगोल विज्ञान अत्यधिक विकसित था।</li>
+            </ul>
+
+            <h2 style="margin-top: 20px;">3️⃣ NEP 2020 & IKS</h2>
+            <p><strong>NEP (National Education Policy 2020)</strong> का उद्देश्य शिक्षा को समग्र, व्यावहारिक और भारतीय ज्ञान से जोड़ना है ताकि छात्र केवल रटें नहीं बल्कि जीवन में उसका उपयोग करें (जैसे पेड़ लगाना और उसकी देखभाल करना)।</p>
+
+            <h2 style="margin-top: 20px;">4️⃣ Guru-Shishya Parampara (गुरु-शिष्य परंपरा)</h2>
+            <p>गुरु और विद्यार्थी के बीच सीखने-सिखाने की पारंपरिक व्यवस्था। इसमें केवल किताबें नहीं बल्कि ज्ञान, अनुशासन, अच्छे व्यवहार, और चरित्र निर्माण पर जोर दिया जाता था।</p>
+
+            <h2 style="margin-top: 20px;">5️⃣ Ancient Universities (प्राचीन विश्वविद्यालय)</h2>
+            <p>भारत के 5 प्रमुख प्राचीन शिक्षा केंद्र:</p>
+            <div class="card-grid">
+                <div class="info-card"><h4>🏫 तक्षशिला (Takshashila)</h4><p>प्रसिद्ध और शुरुआती शिक्षा केंद्र।</p></div>
+                <div class="info-card"><h4>🏫 नालंदा (Nalanda)</h4><p>दूर-दूर से विद्यार्थी यहाँ अध्ययन करने आते थे।</p></div>
+                <div class="info-card"><h4>🏫 विक्रमशिला (Vikramashila)</h4><p>महत्वपूर्ण ऐतिहासिक शिक्षा केंद्र।</p></div>
+                <div class="info-card"><h4>🏫 वल्लभी (Vallabhi)</h4><p>शिक्षा का प्रसिद्ध प्राचीन केंद्र।</p></div>
+                <div class="info-card"><h4>🏫 ओदंतपुरी (Odantapuri)</h4><p>प्रमुख और सम्मानित विद्या केंद्र।</p></div>
+            </div>
+        </div>
+
+        <!-- Section 2: 20 MCQs -->
+        <div id="quiz" class="section">
+            <h2>🧠 20 MCQs (बहुविकल्पीय प्रश्न)</h2>
+
+            <!-- Q1 -->
+            <div class="quiz-question">
+                <p><strong>1. IKS का पूरा नाम क्या है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q1" onclick="checkAnswer(1, true)"> A. Indian Knowledge System</label>
+                    <label><input type="radio" name="q1" onclick="checkAnswer(1, false)"> B. Indian Knowledge School</label>
+                    <label><input type="radio" name="q1" onclick="checkAnswer(1, false)"> C. Indian Kinds of Science</label>
+                    <label><input type="radio" name="q1" onclick="checkAnswer(1, false)"> D. Indian Knowledge Society</label>
+                </div>
+                <div id="feedback-1" class="feedback"></div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="quiz-question">
+                <p><strong>2. IKS मुख्य रूप से किस देश की ज्ञान परंपरा से संबंधित है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q2" onclick="checkAnswer(2, false)"> A. चीन</label>
+                    <label><input type="radio" name="q2" onclick="checkAnswer(2, true)"> B. भारत</label>
+                    <label><input type="radio" name="q2" onclick="checkAnswer(2, false)"> C. जापान</label>
+                    <label><input type="radio" name="q2" onclick="checkAnswer(2, false)"> D. अमेरिका</label>
+                </div>
+                <div id="feedback-2" class="feedback"></div>
+            </div>
+
+            <!-- Q3 -->
+            <div class="quiz-question">
+                <p><strong>3. IKS में किस प्रकार का ज्ञान शामिल है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q3" onclick="checkAnswer(3, false)"> A. केवल गणित</label>
+                    <label><input type="radio" name="q3" onclick="checkAnswer(3, false)"> B. केवल इतिहास</label>
+                    <label><input type="radio" name="q3" onclick="checkAnswer(3, true)"> C. कई अलग-अलग क्षेत्रों का ज्ञान</label>
+                    <label><input type="radio" name="q3" onclick="checkAnswer(3, false)"> D. केवल विज्ञान</label>
+                </div>
+                <div id="feedback-3" class="feedback"></div>
+            </div>
+
+            <!-- Q4 -->
+            <div class="quiz-question">
+                <p><strong>4. इनमें से कौन IKS का हिस्सा हो सकता है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q4" onclick="checkAnswer(4, false)"> A. कृषि</label>
+                    <label><input type="radio" name="q4" onclick="checkAnswer(4, false)"> B. चिकित्सा</label>
+                    <label><input type="radio" name="q4" onclick="checkAnswer(4, false)"> C. कला</label>
+                    <label><input type="radio" name="q4" onclick="checkAnswer(4, true)"> D. ये सभी</label>
+                </div>
+                <div id="feedback-4" class="feedback"></div>
+            </div>
+
+            <!-- Q5 -->
+            <div class="quiz-question">
+                <p><strong>5. IKS हमें किसे समझने में मदद करता है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q5" onclick="checkAnswer(5, true)"> A. अपनी जड़ों और संस्कृति को</label>
+                    <label><input type="radio" name="q5" onclick="checkAnswer(5, false)"> B. केवल कंप्यूटर को</label>
+                    <label><input type="radio" name="q5" onclick="checkAnswer(5, false)"> C. केवल खेल को</label>
+                    <label><input type="radio" name="q5" onclick="checkAnswer(5, false)"> D. केवल बाजार को</label>
+                </div>
+                <div id="feedback-5" class="feedback"></div>
+            </div>
+
+            <!-- Q6 -->
+            <div class="quiz-question">
+                <p><strong>6. IKS हमें प्रकृति के बारे में क्या सीखने में मदद करता है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q6" onclick="checkAnswer(6, false)"> A. प्रकृति को नुकसान पहुँचाना</label>
+                    <label><input type="radio" name="q6" onclick="checkAnswer(6, true)"> B. प्रकृति के साथ संतुलन बनाकर रहना</label>
+                    <label><input type="radio" name="q6" onclick="checkAnswer(6, false)"> C. पेड़ काटना</label>
+                    <label><input type="radio" name="q6" onclick="checkAnswer(6, false)"> D. पानी बर्बाद करना</label>
+                </div>
+                <div id="feedback-6" class="feedback"></div>
+            </div>
+
+            <!-- Q7 -->
+            <div class="quiz-question">
+                <p><strong>7. IKS में किन मूल्यों पर जोर दिया जाता है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q7" onclick="checkAnswer(7, false)"> A. सम्मान</label>
+                    <label><input type="radio" name="q7" onclick="checkAnswer(7, false)"> B. कर्तव्य</label>
+                    <label><input type="radio" name="q7" onclick="checkAnswer(7, false)"> C. सद्भाव</label>
+                    <label><input type="radio" name="q7" onclick="checkAnswer(7, true)"> D. ये सभी</label>
+                </div>
+                <div id="feedback-7" class="feedback"></div>
+            </div>
+
+            <!-- Q8 -->
+            <div class="quiz-question">
+                <p><strong>8. NEP का पूरा नाम क्या है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q8" onclick="checkAnswer(8, true)"> A. National Education Policy</label>
+                    <label><input type="radio" name="q8" onclick="checkAnswer(8, false)"> B. New Education Program</label>
+                    <label><input type="radio" name="q8" onclick="checkAnswer(8, false)"> C. National English Policy</label>
+                    <label><input type="radio" name="q8" onclick="checkAnswer(8, false)"> D. New Education Plan</label>
+                </div>
+                <div id="feedback-8" class="feedback"></div>
+            </div>
+
+            <!-- Q9 -->
+            <div class="quiz-question">
+                <p><strong>9. NEP 2020 शिक्षा में किसे बढ़ावा देती है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q9" onclick="checkAnswer(9, false)"> A. केवल रटने को</label>
+                    <label><input type="radio" name="q9" onclick="checkAnswer(9, true)"> B. भारतीय ज्ञान और समग्र शिक्षा को</label>
+                    <label><input type="radio" name="q9" onclick="checkAnswer(9, false)"> C. केवल खेल को</label>
+                    <label><input type="radio" name="q9" onclick="checkAnswer(9, false)"> D. केवल परीक्षा को</label>
+                </div>
+                <div id="feedback-9" class="feedback"></div>
+            </div>
+
+            <!-- Q10 -->
+            <div class="quiz-question">
+                <p><strong>10. Guru-Shishya Parampara में 'Guru' कौन होता है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q10" onclick="checkAnswer(10, false)"> A. विद्यार्थी</label>
+                    <label><input type="radio" name="q10" onclick="checkAnswer(10, true)"> B. शिक्षक</label>
+                    <label><input type="radio" name="q10" onclick="checkAnswer(10, false)"> C. किसान</label>
+                    <label><input type="radio" name="q10" onclick="checkAnswer(10, false)"> D. व्यापारी</label>
+                </div>
+                <div id="feedback-10" class="feedback"></div>
+            </div>
+
+            <!-- Q11 -->
+            <div class="quiz-question">
+                <p><strong>11. Guru-Shishya Parampara में 'Shishya' किसे कहते हैं?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q11" onclick="checkAnswer(11, false)"> A. शिक्षक</label>
+                    <label><input type="radio" name="q11" onclick="checkAnswer(11, false)"> B. राजा</label>
+                    <label><input type="radio" name="q11" onclick="checkAnswer(11, true)"> C. विद्यार्थी</label>
+                    <label><input type="radio" name="q11" onclick="checkAnswer(11, false)"> D. किसान</label>
+                </div>
+                <div id="feedback-11" class="feedback"></div>
+            </div>
+
+            <!-- Q12 -->
+            <div class="quiz-question">
+                <p><strong>12. पुराने समय में गुरु विद्यार्थी को क्या सिखाते थे?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q12" onclick="checkAnswer(12, false)"> A. केवल किताबें</label>
+                    <label><input type="radio" name="q12" onclick="checkAnswer(12, false)"> B. केवल गणित</label>
+                    <label><input type="radio" name="q12" onclick="checkAnswer(12, true)"> C. ज्ञान के साथ जीवन-मूल्य और अनुशासन</label>
+                    <label><input type="radio" name="q12" onclick="checkAnswer(12, false)"> D. केवल खेल</label>
+                </div>
+                <div id="feedback-12" class="feedback"></div>
+            </div>
+
+            <!-- Q13 -->
+            <div class="quiz-question">
+                <p><strong>13. इनमें से कौन भारत का प्राचीन शिक्षा केंद्र था?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q13" onclick="checkAnswer(13, true)"> A. नालंदा</label>
+                    <label><input type="radio" name="q13" onclick="checkAnswer(13, false)"> B. दिल्ली मेट्रो</label>
+                    <label><input type="radio" name="q13" onclick="checkAnswer(13, false)"> C. मुंबई</label>
+                    <label><input type="radio" name="q13" onclick="checkAnswer(13, false)"> D. पटना मॉल</label>
+                </div>
+                <div id="feedback-13" class="feedback"></div>
+            </div>
+
+            <!-- Q14 -->
+            <div class="quiz-question">
+                <p><strong>14. इनमें से कौन-सा प्राचीन शिक्षा केंद्र था?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q14" onclick="checkAnswer(14, false)"> A. तक्षशिला</label>
+                    <label><input type="radio" name="q14" onclick="checkAnswer(14, false)"> B. विक्रमशिला</label>
+                    <label><input type="radio" name="q14" onclick="checkAnswer(14, false)"> C. वल्लभी</label>
+                    <label><input type="radio" name="q14" onclick="checkAnswer(14, true)"> D. ये सभी</label>
+                </div>
+                <div id="feedback-14" class="feedback"></div>
+            </div>
+
+            <!-- Q15 -->
+            <div class="quiz-question">
+                <p><strong>15. ओदंतपुरी किससे संबंधित है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q15" onclick="checkAnswer(15, true)"> A. प्राचीन शिक्षा केंद्र</label>
+                    <label><input type="radio" name="q15" onclick="checkAnswer(15, false)"> B. आधुनिक रेलवे स्टेशन</label>
+                    <label><input type="radio" name="q15" onclick="checkAnswer(15, false)"> C. खेल मैदान</label>
+                    <label><input type="radio" name="q15" onclick="checkAnswer(15, false)"> D. बाजार</label>
+                </div>
+                <div id="feedback-15" class="feedback"></div>
+            </div>
+
+            <!-- Q16 -->
+            <div class="quiz-question">
+                <p><strong>16. IKS को केवल क्या नहीं माना जाना चाहिए?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q16" onclick="checkAnswer(16, false)"> A. जीवन और ज्ञान की परंपरा</label>
+                    <label><input type="radio" name="q16" onclick="checkAnswer(16, true)"> B. केवल पुरानी किताबों का ज्ञान</label>
+                    <label><input type="radio" name="q16" onclick="checkAnswer(16, false)"> C. संस्कृति से जुड़ा ज्ञान</label>
+                    <label><input type="radio" name="q16" onclick="checkAnswer(16, false)"> D. विभिन्न क्षेत्रों का ज्ञान</label>
+                </div>
+                <div id="feedback-16" class="feedback"></div>
+            </div>
+
+            <!-- Q17 -->
+            <div class="quiz-question">
+                <p><strong>17. यदि कोई बच्चा पेड़ लगाकर उसकी देखभाल करता है, तो वह किस मूल्य को दिखाता है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q17" onclick="checkAnswer(17, true)"> A. प्रकृति के प्रति जिम्मेदारी</label>
+                    <label><input type="radio" name="q17" onclick="checkAnswer(17, false)"> B. आलस</label>
+                    <label><input type="radio" name="q17" onclick="checkAnswer(17, false)"> C. स्वार्थ</label>
+                    <label><input type="radio" name="q17" onclick="checkAnswer(17, false)"> D. लापरवाही</label>
+                </div>
+                <div id="feedback-17" class="feedback"></div>
+            </div>
+
+            <!-- Q18 -->
+            <div class="quiz-question">
+                <p><strong>18. IKS में ज्ञान को जीवन में लागू करना क्यों महत्वपूर्ण है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q18" onclick="checkAnswer(18, false)"> A. केवल परीक्षा पास करने के लिए</label>
+                    <label><input type="radio" name="q18" onclick="checkAnswer(18, true)"> B. अच्छे और जिम्मेदार जीवन के लिए</label>
+                    <label><input type="radio" name="q18" onclick="checkAnswer(18, false)"> C. केवल अंक प्राप्त करने के लिए</label>
+                    <label><input type="radio" name="q18" onclick="checkAnswer(18, false)"> D. समय बिताने के लिए</label>
+                </div>
+                <div id="feedback-18" class="feedback"></div>
+            </div>
+
+            <!-- Q19 -->
+            <div class="quiz-question">
+                <p><strong>19. गुरु-शिष्य परंपरा में किस चीज का विशेष महत्व था?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q19" onclick="checkAnswer(19, true)"> A. सम्मान और विश्वास</label>
+                    <label><input type="radio" name="q19" onclick="checkAnswer(19, false)"> B. केवल मनोरंजन</label>
+                    <label><input type="radio" name="q19" onclick="checkAnswer(19, false)"> C. केवल प्रतियोगिता</label>
+                    <label><input type="radio" name="q19" onclick="checkAnswer(19, false)"> D. केवल धन</label>
+                </div>
+                <div id="feedback-19" class="feedback"></div>
+            </div>
+
+            <!-- Q20 -->
+            <div class="quiz-question">
+                <p><strong>20. IKS का सबसे अच्छा सरल अर्थ क्या है?</strong></p>
+                <div class="options">
+                    <label><input type="radio" name="q20" onclick="checkAnswer(20, false)"> A. केवल पुराने भारत का इतिहास</label>
+                    <label><input type="radio" name="q20" onclick="checkAnswer(20, true)"> B. भारत की ज्ञान, संस्कृति, जीवन और मूल्यों की परंपरा</label>
+                    <label><input type="radio" name="q20" onclick="checkAnswer(20, false)"> C. केवल भारतीय भाषा</label>
+                    <label><input type="radio" name="q20" onclick="checkAnswer(20, false)"> D. केवल प्राचीन विज्ञान</label>
+                </div>
+                <div id="feedback-20" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- Section 3: Homework -->
+        <div id="homework" class="section">
+            <h2>🏠 Complete Homework Tasks (गृहकार्य)</h2>
+            
+            <div class="homework-box">
+                <h3>✏️ Homework 1</h3>
+                <p>IKS क्या है? अपने शब्दों में 4–5 वाक्यों में लिखिए।</p>
+            </div>
+            
+            <div class="homework-box">
+                <h3>✏️ Homework 2</h3>
+                <p>IKS में शामिल कोई पाँच क्षेत्रों के नाम लिखिए।</p>
+            </div>
+            
+            <div class="homework-box">
+                <h3>✏️ Homework 3</h3>
+                <p>Guru-Shishya Parampara क्या थी? इसमें गुरु और शिष्य की भूमिका समझाइए।</p>
+            </div>
+            
+            <div class="homework-box">
+                <h3>✏️ Homework 4</h3>
+                <p>भारत के किसी तीन प्राचीन शिक्षा केंद्रों के नाम लिखिए और उनमें से किसी एक के बारे में 3 वाक्य लिखिए।</p>
+            </div>
+            
+            <div class="homework-box">
+                <h3>✏️ Homework 5 — सोचो और लिखो 💭</h3>
+                <p>अगर आपके स्कूल में IKS के अनुसार "प्रकृति का सम्मान" सिखाया जाए, तो आप अपने स्कूल में कौन-कौन से तीन काम करेंगे?</p>
+                <p style="color: #555; font-size: 0.9rem; margin-top: 5px;"><em>(संकेत: पेड़ लगाना, पानी बचाना, कचरा सही जगह डालना आदि)</em></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🌟 Designed for Class 6 Students | Indian Knowledge System Learning Portal 🌟</p>
+    </footer>
+
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(sec => sec.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Quiz Logic for all 20 questions
+        function checkAnswer(questionNum, isCorrect) {
+            const feedbackElement = document.getElementById(`feedback-${questionNum}`);
+            if (isCorrect) {
+                feedbackElement.style.color = "green";
+                feedbackElement.textContent = "🎉 बहुत बढ़िया! आपका उत्तर बिल्कुल सही है। (Correct!)";
+            } else {
+                feedbackElement.style.color = "red";
+                feedbackElement.textContent = "❌ कोई बात नहीं! एक बार फिर प्रयास करें। (Incorrect, try again!)";
+            }
+        }
+    </script>
+</body>
+</html>
