@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>पर्यावरण और सतत जीवन शैली | Environment &amp; Sustainable Living</title>
+<style>
+  :root{
+    --forest-deep:#122A22;
+    --forest-mid:#1F4A3A;
+    --leaf:#4E8B6C;
+    --leaf-light:#8FC1A1;
+    --soil:#8A5A34;
+    --water:#2E6C8E;
+    --sun:#E4B44B;
+    --cream:#F6F1E4;
+    --card:#FFFFFF;
+    --ink:#16241C;
+    --ink-soft:#4A5A50;
+    --danger:#B4472F;
+    --good:#3A7D52;
+    --radius:18px;
+    --shadow: 0 8px 24px rgba(18,42,34,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:"Segoe UI","Noto Sans Devanagari","Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,h4{
+    font-family:Georgia,"Noto Serif Devanagari","Times New Roman",serif;
+    margin:0 0 8px 0;
+    color:var(--forest-deep);
+  }
+  p{margin:0 0 10px 0;}
+  .lang-en{color:var(--ink-soft); font-style:italic; font-size:0.94em;}
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px;}
+  img{max-width:100%;}
+
+  /* ===== progress bar ===== */
+  #progress{
+    position:fixed;top:0;left:0;height:4px;background:var(--sun);
+    width:0%;z-index:999;transition:width .1s linear;
+  }
+
+  /* ===== HERO ===== */
+  header.hero{
+    background:radial-gradient(circle at 30% 20%, var(--forest-mid), var(--forest-deep) 70%);
+    color:var(--cream);
+    padding:54px 16px 70px 16px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      radial-gradient(circle, rgba(228,180,75,0.18) 2px, transparent 2px);
+    background-size:34px 34px;
+    opacity:0.5;
+  }
+  .hero-inner{position:relative;z-index:2;}
+  .eyebrow{
+    display:inline-block;
+    letter-spacing:2px;
+    font-size:0.75rem;
+    text-transform:uppercase;
+    background:rgba(228,180,75,0.18);
+    color:var(--sun);
+    border:1px solid rgba(228,180,75,0.5);
+    padding:5px 14px;
+    border-radius:30px;
+    margin-bottom:16px;
+  }
+  header.hero h1{
+    color:var(--cream);
+    font-size:1.9rem;
+    margin-bottom:4px;
+  }
+  header.hero h1 .en{
+    display:block;
+    font-family:"Segoe UI",sans-serif;
+    font-size:1.05rem;
+    font-weight:400;
+    color:var(--leaf-light);
+    margin-top:6px;
+    font-style:italic;
+  }
+  .hero-quote{
+    max-width:520px;margin:22px auto 0 auto;
+    font-family:Georgia,serif;
+    font-size:1.05rem;
+    color:#EDE7D3;
+    border-left:3px solid var(--sun);
+    border-right:3px solid var(--sun);
+    padding:6px 16px;
+  }
+  .hero-quote small{display:block;margin-top:6px;color:var(--leaf-light);font-size:0.8rem;}
+
+  /* ===== nature ring signature element ===== */
+  .ring-nav{
+    display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .ring-nav a{
+    text-decoration:none;
+    color:var(--cream);
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.25);
+    padding:8px 14px;
+    border-radius:30px;
+    font-size:0.82rem;
+    transition:.2s;
+  }
+  .ring-nav a:hover, .ring-nav a:focus-visible{background:var(--sun);color:var(--forest-deep);border-color:var(--sun);}
+
+  /* ===== sections ===== */
+  section{padding:52px 0;}
+  section.alt{background:#EFEAD8;}
+  .section-label{
+    display:flex;align-items:center;gap:10px;margin-bottom:6px;
+  }
+  .section-label .num{
+    background:var(--forest-deep);color:var(--sun);
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:bold; flex-shrink:0;
+  }
+  .section-intro{color:var(--ink-soft);margin-bottom:26px;}
+
+  .why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:20px;}
+  .why-card{
+    background:var(--card);border-radius:var(--radius);padding:20px;
+    box-shadow:var(--shadow);border-top:4px solid var(--leaf);
+  }
+  .why-card .icon{font-size:1.8rem;margin-bottom:8px;}
+
+  /* ===== Panch Mahabhuta wheel ===== */
+  .wheel-area{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:center;}
+  .wheel{
+    position:relative;width:280px;height:280px;flex-shrink:0;
+    background:radial-gradient(circle, rgba(79,139,108,0.12), transparent 70%);
+    border-radius:50%;
+  }
+  .wheel-center{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:96px;height:96px;border-radius:50%;
+    background:var(--forest-deep);color:var(--sun);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    font-size:0.72rem;font-weight:bold;padding:6px;
+    box-shadow:0 0 0 6px rgba(228,180,75,0.15);
+  }
+  .tatva-btn{
+    position:absolute;transform:translate(-50%,-50%);
+    width:76px;height:76px;border-radius:50%;
+    border:3px solid var(--card);
+    color:#fff;font-size:1.5rem;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;box-shadow:var(--shadow);
+    transition:.2s;
+  }
+  .tatva-btn:hover, .tatva-btn:focus-visible, .tatva-btn.active{transform:translate(-50%,-50%) scale(1.12);}
+  .tatva-btn.active{outline:3px solid var(--sun);}
+  #tatva-earth{left:50%;top:12%; background:var(--soil);}
+  #tatva-water{left:86.1%;top:38.3%; background:var(--water);}
+  #tatva-fire{left:72.3%;top:80.7%; background:#C0532F;}
+  #tatva-air{left:27.7%;top:80.7%; background:#7BA9C4;}
+  #tatva-space{left:13.9%;top:38.3%; background:#4B3B63;}
+
+  .tatva-detail{
+    flex:1;min-width:260px;
+    background:var(--card);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);
+    min-height:230px;
+  }
+  .tatva-detail h3{margin-bottom:2px;}
+  .tatva-detail .en-title{color:var(--ink-soft);font-style:italic;font-size:0.95rem;margin-bottom:12px;}
+  .example-box{
+    background:#F1F8F1;border-left:4px solid var(--good);
+    padding:10px 14px;border-radius:8px;margin-top:12px;font-size:0.95rem;
+  }
+  .example-box b{color:var(--good);}
+
+  /* ===== generic topic card ===== */
+  .topic-card{
+    background:var(--card);border-radius:var(--radius);
+    padding:22px;box-shadow:var(--shadow);margin-bottom:20px;
+  }
+  .topic-card h3{color:var(--forest-mid);}
+  .pill-list{list-style:none;margin:12px 0;padding:0;}
+  .pill-list li{
+    padding:8px 12px 8px 34px;position:relative;margin-bottom:6px;
+    background:#F7F3E8;border-radius:10px;font-size:0.95rem;
+  }
+  .pill-list li::before{
+    content:"🌿";position:absolute;left:10px;top:8px;
+  }
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:640px){.two-col{grid-template-columns:1fr;}}
+
+  .method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px;}
+  .method-item{background:#F7F3E8;border-radius:14px;padding:14px;}
+  .method-item .icon{font-size:1.4rem;}
+
+  /* biodiversity levels */
+  .level-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
+  .level-card{flex:1;min-width:200px;background:#F7F3E8;border-radius:14px;padding:16px;border-top:4px solid var(--water);}
+
+  /* waste 5R */
+  .r-list{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+  .r-item{display:flex;gap:12px;align-items:center;background:#F7F3E8;border-radius:12px;padding:10px 14px;}
+  .r-item .r-badge{
+    width:40px;height:40px;border-radius:50%;background:var(--leaf);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;
+  }
+  .waste-types{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:14px;}
+  .waste-type{border-radius:14px;padding:14px;color:#fff;}
+  .wt-wet{background:var(--good);}
+  .wt-dry{background:var(--water);}
+  .wt-hazard{background:var(--danger);}
+
+  /* wisdom */
+  .wisdom-quote{
+    background:var(--forest-deep);color:var(--cream);
+    border-radius:var(--radius);padding:26px;text-align:center;
+    margin:20px 0;
+  }
+  .wisdom-quote .en{color:var(--leaf-light);font-style:italic;margin-top:6px;}
+
+  /* speech button */
+  .speak-btn{
+    background:var(--forest-mid);color:#fff;border:none;border-radius:30px;
+    padding:8px 16px;font-size:0.85rem;cursor:pointer;margin-top:10px;
+    display:inline-flex;align-items:center;gap:6px;
+  }
+  .speak-btn:hover{background:var(--forest-deep);}
+
+  /* ===== QUIZ ===== */
+  #quiz-summary{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:20px;margin-bottom:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  }
+  #quiz-summary .stars{font-size:1.4rem;color:var(--sun);}
+  .quiz-q{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:20px;margin-bottom:16px;
+  }
+  .quiz-q .qnum{color:var(--forest-mid);font-weight:bold;font-size:0.85rem;}
+  .options{list-style:none;padding:0;margin:12px 0 0 0;display:flex;flex-direction:column;gap:8px;}
+  .options li{
+    border:2px solid #E1DAC5;border-radius:12px;padding:10px 14px;
+    cursor:pointer;transition:.15s;font-size:0.95rem;
+  }
+  .options li:hover{border-color:var(--leaf);}
+  .options li.selected{border-color:var(--water);background:#EAF3F8;}
+  .options li.correct{border-color:var(--good);background:#E9F6EC;font-weight:bold;}
+  .options li.wrong{border-color:var(--danger);background:#FBEAE6;}
+  .options li[aria-disabled="true"]{pointer-events:none;}
+  .feedback{margin-top:10px;font-size:0.88rem;font-weight:bold;}
+  .feedback.correct{color:var(--good);}
+  .feedback.wrong{color:var(--danger);}
+  #quiz-final{
+    display:none;text-align:center;background:var(--forest-deep);color:var(--cream);
+    border-radius:var(--radius);padding:30px 20px;margin-top:10px;
+  }
+  #quiz-final .score-num{font-size:2.6rem;color:var(--sun);font-family:Georgia,serif;}
+  .retry-btn{
+    margin-top:14px;background:var(--sun);color:var(--forest-deep);border:none;
+    padding:10px 22px;border-radius:30px;font-weight:bold;cursor:pointer;
+  }
+
+  /* ===== homework ===== */
+  .hw-card{
+    background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:20px;margin-bottom:16px;display:flex;gap:16px;align-items:flex-start;
+  }
+  .hw-card .hw-num{
+    background:var(--soil);color:#fff;min-width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:bold;flex-shrink:0;
+  }
+  .hw-check{margin-top:10px;font-size:0.85rem;}
+  .hw-check input{margin-right:6px;}
+
+  /* ===== footer ===== */
+  footer{
+    background:var(--forest-deep);color:var(--leaf-light);
+    text-align:center;padding:30px 16px;font-size:0.9rem;
+  }
+  footer .en{color:#8FAE9C;font-style:italic;margin-top:4px;}
+
+  ::selection{background:var(--sun);color:var(--forest-deep);}
+  a{color:var(--water);}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">प्रकृति और सततता · Nature &amp; Sustainability</span>
+    <h1>पर्यावरण और सतत जीवन शैली
+      <span class="en">Environment &amp; Sustainable Living</span>
+    </h1>
+    <div class="hero-quote">
+      "धरती हमारी नहीं है; हम धरती के हैं।"
+      <div class="en">"The Earth does not belong to us; we belong to the Earth."</div>
+      <small>— चीफ सिएटल / Chief Seattle</small>
+    </div>
+    <nav class="ring-nav">
+      <a href="javascript:void(0)" data-scroll="panch">पंच महाभूत</a>
+      <a href="javascript:void(0)" data-scroll="water">जल संरक्षण</a>
+      <a href="javascript:void(0)" data-scroll="farming">जैविक खेती</a>
+      <a href="javascript:void(0)" data-scroll="bio">जैव विविधता</a>
+      <a href="javascript:void(0)" data-scroll="waste">अपशिष्ट प्रबंधन</a>
+      <a href="javascript:void(0)" data-scroll="quiz">प्रश्नोत्तरी</a>
+      <a href="javascript:void(0)" data-scroll="homework">गृहकार्य</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- WHY IMPORTANT -->
+  <section id="why">
+    <div class="section-label"><span class="num">•</span><h2>यह क्यों महत्वपूर्ण है?</h2></div>
+    <p class="section-intro">Why is this important?</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="icon">🌱</div>
+        <p>प्रकृति हमें जीने के लिए हर वो चीज़ देती है जिसकी हमें ज़रूरत है — हवा, पानी, भोजन और छाया।</p>
+        <p class="lang-en">Nature gives us everything we need to live — air, water, food and shelter.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🤝</div>
+        <p>सतत जीवन शैली यह सुनिश्चित करती है कि आने वाली पीढ़ियों के लिए भी संसाधन बचे रहें।</p>
+        <p class="lang-en">Sustainable living ensures a better future for everyone, including generations to come.</p>
+      </div>
+      <div class="why-card">
+        <div class="icon">🌍</div>
+        <p>आज के छोटे-छोटे कदम कल एक बड़ा बदलाव ला सकते हैं।</p>
+        <p class="lang-en">Small actions today create a big impact tomorrow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANCH MAHABHUTA -->
+  <section id="panch" class="alt">
+    <div class="section-label"><span class="num">1</span><h2>पंच महाभूत — प्रकृति के पाँच तत्व</h2></div>
+    <p class="section-intro">The Five Elements of Nature — Panch Mahabhuta</p>
+    <p>भारतीय दर्शन के अनुसार पूरा ब्रह्मांड पाँच मूल तत्वों से बना है। नीचे दिए गए पहिये में किसी भी तत्व पर क्लिक/टैप करें और उसके बारे में विस्तार से जानें।</p>
+    <p class="lang-en">According to Indian philosophy, the entire universe is made up of five basic elements. Tap any element in the wheel below to learn more about it in detail.</p>
+
+    <div class="wheel-area">
+      <div class="wheel" role="group" aria-label="Panch Mahabhuta wheel">
+        <div class="wheel-center">पंच<br>महाभूत</div>
+        <button class="tatva-btn active" id="tatva-earth" data-tatva="earth" title="पृथ्वी / Earth">🌍</button>
+        <button class="tatva-btn" id="tatva-water" data-tatva="water" title="जल / Water">💧</button>
+        <button class="tatva-btn" id="tatva-fire" data-tatva="fire" title="अग्नि / Fire">🔥</button>
+        <button class="tatva-btn" id="tatva-air" data-tatva="air" title="वायु / Air">🌬️</button>
+        <button class="tatva-btn" id="tatva-space" data-tatva="space" title="आकाश / Space">✨</button>
+      </div>
+
+      <div class="tatva-detail" id="tatva-detail">
+        <!-- filled by JS -->
+      </div>
+    </div>
+    <button class="speak-btn" data-target="panch">🔊 सुनें / Read aloud</button>
+  </section>
+
+  <!-- WATER CONSERVATION -->
+  <section id="water">
+    <div class="section-label"><span class="num">2</span><h2>जल संरक्षण</h2></div>
+    <p class="section-intro">Water Conservation — Save Water, Save Life</p>
+    <div class="topic-card" id="water-text">
+      <p>पानी एक अनमोल और सीमित संसाधन है। भारत में सदियों से पानी बचाने के पारंपरिक तरीके अपनाए जाते रहे हैं। पानी की हर बूंद कीमती है — अगर हम इसे आज बचाएंगे, तो कल हमारे पास पीने और खेती के लिए पर्याप्त पानी होगा।</p>
+      <p class="lang-en">Water is a precious and limited resource. India has followed traditional methods of water conservation for centuries. Every drop counts — saving water today means enough water for drinking and farming tomorrow.</p>
+
+      <div class="example-box">
+        <b>वास्तविक जीवन उदाहरण / Real-life example:</b> राजस्थान के गाँवों में लोग आज भी बारिश के पानी को छत से पाइप के ज़रिए भूमिगत टांके (कुंड) में इकट्ठा करते हैं और पूरे साल उसी पानी से अपनी ज़रूरतें पूरी करते हैं।
+        <br><span class="lang-en">In Rajasthan's villages, people still collect rainwater from rooftops through pipes into underground tanks (kunds) and use that same water to meet their needs all year round.</span>
+      </div>
+
+      <h3 style="margin-top:20px;">पारंपरिक तरीके / Traditional Methods</h3>
+      <div class="method-grid">
+        <div class="method-item"><span class="icon">🌧️</span><p><b>वर्षा जल संचयन</b><br><span class="lang-en">Rainwater Harvesting</span><br>भविष्य के लिए वर्षा जल एकत्र और संग्रहित करना।</p></div>
+        <div class="method-item"><span class="icon">🏛️</span><p><b>बावड़ी और तालाब</b><br><span class="lang-en">Stepwells &amp; Tanks</span><br>पानी संग्रहित करने वाली प्राचीन संरचनाएँ।</p></div>
+        <div class="method-item"><span class="icon">🌳</span><p><b>जोहड़ और बावली</b><br><span class="lang-en">Johads &amp; Baolis</span><br>गाँवों की जल-स्तर बढ़ाने वाली संरचनाएँ।</p></div>
+        <div class="method-item"><span class="icon">🏺</span><p><b>कुंड और नाड़ी</b><br><span class="lang-en">Kunds &amp; Nadis</span><br>गाँवों में जल भंडारण के छोटे जलाशय।</p></div>
+      </div>
+
+      <h3 style="margin-top:20px;">हम क्या कर सकते हैं? / What can we do?</h3>
+      <ul class="pill-list">
+        <li>ब्रश करते समय नल बंद रखें। <span class="lang-en">— Turn off taps while brushing.</span></li>
+        <li>टपकते नलों को तुरंत ठीक करवाएं। <span class="lang-en">— Fix leaking taps.</span></li>
+        <li>पानी का सोच-समझकर उपयोग करें। <span class="lang-en">— Use water wisely.</span></li>
+        <li>वर्षा जल का संचयन करें। <span class="lang-en">— Harvest rainwater.</span></li>
+      </ul>
+      <button class="speak-btn" data-target="water-text">🔊 सुनें / Read aloud</button>
+    </div>
+  </section>
+
+  <!-- ORGANIC FARMING -->
+  <section id="farming" class="alt">
+    <div class="section-label"><span class="num">3</span><h2>जैविक खेती</h2></div>
+    <p class="section-intro">Organic Farming — Back to Nature, Back to Health</p>
+    <div class="topic-card" id="farming-text">
+      <p>जैविक खेती वह प्राकृतिक खेती है जो हानिकारक रसायनों के बिना की जाती है। यह मिट्टी, पानी, हवा और हमारे स्वास्थ्य की रक्षा करती है। भारत में प्राकृतिक खेती की एक समृद्ध परंपरा रही है, जो आज भी कई किसान अपनाते हैं।</p>
+      <p class="lang-en">Organic farming is natural farming done without harmful chemicals. It protects soil, water, air and our health. India has a rich tradition of organic farming that many farmers continue to follow today.</p>
+
+      <div class="example-box">
+        <b>वास्तविक जीवन उदाहरण / Real-life example:</b> सिक्किम भारत का पहला "पूर्ण जैविक राज्य" बना, जहाँ किसान गाय के गोबर और गौमूत्र से बनी खाद का उपयोग करते हैं, जिससे मिट्टी स्वस्थ रहती है और फसल भी सुरक्षित रहती है।
+        <br><span class="lang-en">Sikkim became India's first fully organic state, where farmers use compost made from cow dung and cow urine, keeping the soil healthy and the crops safe.</span>
+      </div>
+
+      <h3 style="margin-top:20px;">लाभ / Benefits</h3>
+      <ul class="pill-list">
+        <li>मिट्टी की उर्वरता को सुधारती है। <span class="lang-en">— Improves soil fertility.</span></li>
+        <li>स्वस्थ और पौष्टिक भोजन देती है। <span class="lang-en">— Produces healthy, nutritious food.</span></li>
+        <li>पर्यावरण और जैव विविधता की रक्षा करती है। <span class="lang-en">— Protects environment and biodiversity.</span></li>
+        <li>आने वाली पीढ़ियों के लिए जीवन को बनाए रखती है। <span class="lang-en">— Sustains life for future generations.</span></li>
+      </ul>
+
+      <h3 style="margin-top:20px;">प्राकृतिक खेती के तरीके / Natural Farming Practices</h3>
+      <div class="two-col">
+        <ul class="pill-list">
+          <li>कम्पोस्ट और वर्मीकम्पोस्ट का उपयोग <span class="lang-en">— compost &amp; vermicompost</span></li>
+          <li>हरी खाद <span class="lang-en">— green manuring</span></li>
+        </ul>
+        <ul class="pill-list">
+          <li>फसल चक्र <span class="lang-en">— crop rotation</span></li>
+          <li>नीम, गोबर व गौमूत्र का प्राकृतिक कीटनाशक के रूप में उपयोग <span class="lang-en">— neem, cow dung &amp; urine as natural pesticide</span></li>
+        </ul>
+      </div>
+      <button class="speak-btn" data-target="farming-text">🔊 सुनें / Read aloud</button>
+    </div>
+  </section>
+
+  <!-- BIODIVERSITY -->
+  <section id="bio">
+    <div class="section-label"><span class="num">4</span><h2>जैव विविधता</h2></div>
+    <p class="section-intro">Biodiversity — Variety of Life, Web of Life</p>
+    <div class="topic-card" id="bio-text">
+      <p>जैव विविधता का अर्थ है पौधों, जानवरों और सूक्ष्मजीवों की विविधता। भारत दुनिया के 17 मेगा-डाइवर्स देशों में से एक है। प्रकृति में हर जीव की एक भूमिका होती है — जैसे मधुमक्खियाँ परागण करती हैं, तो केंचुए मिट्टी को उपजाऊ बनाते हैं।</p>
+      <p class="lang-en">Biodiversity means the variety of plants, animals and microorganisms. India is one of the 17 mega-diverse countries. Every living being has a role to play in nature — bees pollinate flowers while earthworms enrich the soil.</p>
+
+      <div class="example-box">
+        <b>वास्तविक जीवन उदाहरण / Real-life example:</b> पश्चिमी घाट (Western Ghats) में हज़ारों प्रजातियाँ पाई जाती हैं जो कहीं और नहीं मिलतीं। अगर वहाँ के जंगल कट जाएं, तो कई जीव-जंतु हमेशा के लिए विलुप्त हो सकते हैं।
+        <br><span class="lang-en">The Western Ghats are home to thousands of species found nowhere else. If those forests were cut down, many creatures could disappear forever.</span>
+      </div>
+
+      <h3 style="margin-top:20px;">जैव विविधता के स्तर / Levels of Biodiversity</h3>
+      <div class="level-row">
+        <div class="level-card">🧬 <b>आनुवंशिक विविधता</b><br><span class="lang-en">Genetic Diversity</span><p>एक ही प्रजाति के भीतर भिन्नता।</p></div>
+        <div class="level-card">🐘 <b>प्रजाति विविधता</b><br><span class="lang-en">Species Diversity</span><p>अलग-अलग पौधों और जानवरों की विविधता।</p></div>
+        <div class="level-card">🏞️ <b>पारिस्थितिकी तंत्र विविधता</b><br><span class="lang-en">Ecosystem Diversity</span><p>आवासों और पारिस्थितिकी तंत्रों की विविधता।</p></div>
+      </div>
+
+      <h3 style="margin-top:20px;">महत्व / Importance</h3>
+      <ul class="pill-list">
+        <li>पारिस्थितिक संतुलन बनाए रखती है। <span class="lang-en">— Maintains ecological balance.</span></li>
+        <li>भोजन, औषधि और कच्चा माल देती है। <span class="lang-en">— Provides food, medicine and raw materials.</span></li>
+        <li>स्वच्छ हवा, पानी और मिट्टी को सहारा देती है। <span class="lang-en">— Supports clean air, water and soil.</span></li>
+        <li>आने वाली पीढ़ियों के अस्तित्व को सुनिश्चित करती है। <span class="lang-en">— Ensures survival of future generations.</span></li>
+      </ul>
+      <button class="speak-btn" data-target="bio-text">🔊 सुनें / Read aloud</button>
+    </div>
+  </section>
+
+  <!-- WASTE MANAGEMENT -->
+  <section id="waste" class="alt">
+    <div class="section-label"><span class="num">5</span><h2>अपशिष्ट प्रबंधन</h2></div>
+    <p class="section-intro">Waste Management — Reduce Waste, Create a Better World</p>
+    <div class="topic-card" id="waste-text">
+      <p>गलत तरीके से कचरे का निपटान हमारे पर्यावरण और स्वास्थ्य को नुकसान पहुँचाता है। एक साफ-सुथरी और हरी-भरी धरती के लिए हमें 5R के सिद्धांत का पालन करना चाहिए।</p>
+      <p class="lang-en">Improper waste management harms our environment and health. We must follow the 5Rs for a clean and green Earth.</p>
+
+      <div class="example-box">
+        <b>वास्तविक जीवन उदाहरण / Real-life example:</b> इंदौर शहर लगातार भारत का सबसे स्वच्छ शहर बना है क्योंकि वहाँ हर घर गीला और सूखा कचरा अलग-अलग डिब्बों में देता है, जिससे गीले कचरे से खाद बनाई जाती है।
+        <br><span class="lang-en">Indore has repeatedly been ranked India's cleanest city because every household segregates wet and dry waste into separate bins, and the wet waste is turned into compost.</span>
+      </div>
+
+      <h3 style="margin-top:20px;">कचरे के प्रकार / Types of Waste</h3>
+      <div class="waste-types">
+        <div class="waste-type wt-wet">🍌 <b>गीला कचरा</b><br>Wet / Biodegradable<br><small>भोजन, सब्जी-फल के छिलके</small></div>
+        <div class="waste-type wt-dry">📦 <b>सूखा कचरा</b><br>Dry / Recyclable<br><small>कागज़, प्लास्टिक, धातु, कांच</small></div>
+        <div class="waste-type wt-hazard">☣️ <b>खतरनाक कचरा</b><br>Hazardous<br><small>बैटरी, रसायन, ई-वेस्ट</small></div>
+      </div>
+
+      <h3 style="margin-top:20px;">5R सिद्धांत / The 5Rs</h3>
+      <div class="r-list">
+        <div class="r-item"><span class="r-badge">✋</span><span><b>मना करें (Refuse)</b> — जिन चीज़ों की ज़रूरत नहीं, उनके लिए मना कहें।</span></div>
+        <div class="r-item"><span class="r-badge">⬇️</span><span><b>कम करें (Reduce)</b> — कम उपयोग करें और संसाधन बचाएं।</span></div>
+        <div class="r-item"><span class="r-badge">♻️</span><span><b>पुनः उपयोग (Reuse)</b> — चीज़ों का दोबारा उपयोग करें।</span></div>
+        <div class="r-item"><span class="r-badge">🔄</span><span><b>पुनर्चक्रण (Recycle)</b> — कचरे को उपयोगी उत्पादों में बदलें।</span></div>
+        <div class="r-item"><span class="r-badge">🌱</span><span><b>सड़ाएं / खाद बनाएं (Rot / Compost)</b> — जैविक कचरे को खाद में बदलें।</span></div>
+      </div>
+      <button class="speak-btn" data-target="waste-text">🔊 सुनें / Read aloud</button>
+    </div>
+  </section>
+
+  <!-- WISDOM -->
+  <section id="wisdom">
+    <div class="section-label"><span class="num">•</span><h2>पारंपरिक भारतीय ज्ञान</h2></div>
+    <p class="section-intro">Traditional Indian Wisdom &amp; Key Takeaways</p>
+    <div class="wisdom-quote">
+      "वसुधैव कुटुम्बकम्" — पूरा संसार एक परिवार है।
+      <div class="en">"Vasudhaiva Kutumbakam" — The world is one family.</div>
+    </div>
+    <div class="wisdom-quote">
+      "माता भूमिः पुत्रो अहं पृथिव्याः" — पृथ्वी मेरी माता है, मैं उसकी संतान हूँ।
+      <div class="en">"Mata Bhumih Putro Aham Prithivyah" — Earth is my mother, I am her child.</div>
+    </div>
+    <ul class="pill-list">
+      <li>प्रकृति हमारी सबसे बड़ी शिक्षक और मित्र है। <span class="lang-en">— Nature is our greatest teacher and friend.</span></li>
+      <li>बेहतर भविष्य की कुंजी सतत जीवन शैली है। <span class="lang-en">— Sustainable living is the key to a better future.</span></li>
+      <li>छोटे-छोटे कदम मिलकर बड़ा बदलाव लाते हैं। <span class="lang-en">— Small steps together make a big difference.</span></li>
+      <li>आइए प्रकृति के साथ सामंजस्य में जिएं। <span class="lang-en">— Let's live in harmony with nature.</span></li>
+    </ul>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="alt">
+    <div class="section-label"><span class="num">✓</span><h2>प्रश्नोत्तरी</h2></div>
+    <p class="section-intro">Quiz — 15 Multiple Choice Questions | सभी 15 प्रश्नों के उत्तर दें</p>
+
+    <div id="quiz-summary">
+      <div>प्रगति / Progress: <span id="qProgress">0 / 15</span></div>
+      <div class="stars" id="qStars">☆☆☆☆☆</div>
+    </div>
+
+    <div id="quiz-list"></div>
+
+    <div id="quiz-final">
+      <div>आपका स्कोर / Your Score</div>
+      <div class="score-num"><span id="finalScore">0</span>/15</div>
+      <p id="finalMsg"></p>
+      <button class="retry-btn" onclick="resetQuiz()">🔁 फिर से प्रयास करें / Try Again</button>
+    </div>
+  </section>
+
+  <!-- HOMEWORK -->
+  <section id="homework">
+    <div class="section-label"><span class="num">📝</span><h2>गृहकार्य</h2></div>
+    <p class="section-intro">Homework — 3 Activities to complete at home</p>
+
+    <div class="hw-card">
+      <div class="hw-num">1</div>
+      <div>
+        <h3>पौधा लगाओ और डायरी बनाओ</h3>
+        <p>एक पौधा लगाएं और अगले 7 दिनों तक उसकी देखभाल करें। हर दिन उसकी ऊंचाई, पत्तियों और बदलाव को एक छोटी डायरी में लिखें।</p>
+        <p class="lang-en">Plant a sapling and take care of it for the next 7 days. Every day, note its height, leaves and any changes in a small growth diary.</p>
+        <label class="hw-check"><input type="checkbox"> पूर्ण हुआ / Completed</label>
+      </div>
+    </div>
+
+    <div class="hw-card">
+      <div class="hw-num">2</div>
+      <div>
+        <h3>घर पर कचरे को अलग करें</h3>
+        <p>एक दिन के लिए अपने घर के कचरे को गीला, सूखा और खतरनाक — तीन भागों में बाँटें। हर भाग में कितना कचरा निकला, इसका एक छोटा चार्ट या फ़ोटो बनाएं।</p>
+        <p class="lang-en">For one day, segregate your household waste into wet, dry and hazardous categories. Make a small chart or photo showing how much waste came from each category.</p>
+        <label class="hw-check"><input type="checkbox"> पूर्ण हुआ / Completed</label>
+      </div>
+    </div>
+
+    <div class="hw-card">
+      <div class="hw-num">3</div>
+      <div>
+        <h3>पंच महाभूत पोस्टर</h3>
+        <p>पृथ्वी, जल, अग्नि, वायु और आकाश में से किसी एक तत्व को चुनें और एक पोस्टर बनाएं, जिसमें बताएं कि वह तत्व हमारे रोज़मर्रा के जीवन में किस तरह मदद करता है — एक असली उदाहरण के साथ।</p>
+        <p class="lang-en">Choose one element from Earth, Water, Fire, Air and Space, and make a poster explaining how that element helps in our daily life — with a real example.</p>
+        <label class="hw-check"><input type="checkbox"> पूर्ण हुआ / Completed</label>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  पर्यावरण और सतत जीवन शैली
+  <div class="en">Environment &amp; Sustainable Living — Nature gives us everything freely; let us return kindness by living sustainably.</div>
+</footer>
+
+<script>
+/* ================= nav smooth scroll (avoids external-link popup) ================= */
+document.querySelectorAll('[data-scroll]').forEach(a => {
+  a.addEventListener('click', () => {
+    const target = document.getElementById(a.dataset.scroll);
+    if (target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+/* ================= scroll progress ================= */
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+  document.getElementById('progress').style.width = scrolled + '%';
+});
+
+/* ================= Panch Mahabhuta wheel ================= */
+const tatvaData = {
+  earth: {
+    hi: 'पृथ्वी (Earth)', en: 'Prithvi — Earth',
+    desc: 'पृथ्वी तत्व हमें स्थिरता और रूप देता है। यह हमारे शरीर की हड्डियों, मांसपेशियों और पूरी संरचना का आधार है।',
+    descEn: 'The Earth element gives us stability and form. It is the basis of our bones, muscles and entire physical structure.',
+    example: 'जैसे एक मजबूत मिट्टी का घड़ा पानी को संभाल कर रखता है, वैसे ही पृथ्वी तत्व हमारे शरीर और पेड़-पौधों को आकार व मजबूती देता है।',
+    exampleEn: 'Just as a strong clay pot holds water safely, the Earth element gives shape and strength to our body and to plants.'
+  },
+  water: {
+    hi: 'जल (Water)', en: 'Jal — Water',
+    desc: 'जल तत्व जीवन को बनाए रखता है और शुद्धता लाता है। हमारे शरीर का लगभग 60% भाग पानी से बना है।',
+    descEn: 'The Water element sustains life and brings purity. About 60% of our body is made of water.',
+    example: 'जैसे सूखे पौधे को पानी देने पर वह फिर से हरा-भरा हो जाता है, वैसे ही पानी पीने से हमारा शरीर तरोताज़ा और ऊर्जावान रहता है।',
+    exampleEn: 'Just as watering a wilted plant makes it green again, drinking water keeps our body fresh and energetic.'
+  },
+  fire: {
+    hi: 'अग्नि (Fire)', en: 'Agni — Fire',
+    desc: 'अग्नि तत्व ऊर्जा और रूपांतरण देता है। यह हमारे शरीर में पाचन क्रिया और गर्माहट के लिए जिम्मेदार है।',
+    descEn: 'The Fire element gives energy and transformation. It is responsible for digestion and body warmth.',
+    example: 'जैसे सूरज की गर्मी से बीज अंकुरित होकर पौधा बनता है, वैसे ही अग्नि तत्व हमारे खाए हुए भोजन को ऊर्जा में बदलता है।',
+    exampleEn: 'Just as the sun\'s warmth helps a seed sprout into a plant, the Fire element converts the food we eat into energy.'
+  },
+  air: {
+    hi: 'वायु (Air)', en: 'Vayu — Air',
+    desc: 'वायु तत्व सांस लेने और गति के लिए आवश्यक है। यह हमारे फेफड़ों और रक्त संचार तंत्र को चलाता है।',
+    descEn: 'The Air element is essential for breath and movement. It powers our lungs and blood circulation.',
+    example: 'जैसे हवा के बिना पतंग नहीं उड़ सकती, वैसे ही वायु तत्व के बिना हम सांस नहीं ले सकते और न ही हिल-डुल सकते हैं।',
+    exampleEn: 'Just as a kite cannot fly without wind, we cannot breathe or move without the Air element.'
+  },
+  space: {
+    hi: 'आकाश (Space)', en: 'Akash — Space',
+    desc: 'आकाश तत्व हर चीज़ के अस्तित्व के लिए जगह प्रदान करता है। यह ध्वनि और विचारों के प्रवाह का भी माध्यम है।',
+    descEn: 'The Space element provides room for everything to exist. It is also the medium for sound and the flow of thoughts.',
+    example: 'जैसे एक खाली कमरे में ही फर्नीचर रखा जा सकता है, वैसे ही आकाश तत्व के कारण ही बाकी चारों तत्वों को अस्तित्व में रहने की जगह मिलती है।',
+    exampleEn: 'Just as furniture can only be placed in an empty room, the Space element is what gives the other four elements room to exist.'
+  }
+};
+
+function showTatva(key){
+  const d = tatvaData[key];
+  document.getElementById('tatva-detail').innerHTML = `
+    <h3>${d.hi}</h3>
+    <div class="en-title">${d.en}</div>
+    <p>${d.desc}</p>
+    <p class="lang-en">${d.descEn}</p>
+    <div class="example-box">
+      <b>वास्तविक जीवन उदाहरण / Real-life example:</b> ${d.example}
+      <br><span class="lang-en">${d.exampleEn}</span>
+    </div>
+  `;
+  document.querySelectorAll('.tatva-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tatva-' + key).classList.add('active');
+}
+document.querySelectorAll('.tatva-btn').forEach(btn => {
+  btn.addEventListener('click', () => showTatva(btn.dataset.tatva));
+});
+showTatva('earth');
+
+/* ================= Speak aloud (Web Speech API, offline/browser-native) ================= */
+document.querySelectorAll('.speak-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!('speechSynthesis' in window)) { alert('यह ब्राउज़र आवाज़ सुविधा सपोर्ट नहीं करता। / Voice not supported in this browser.'); return; }
+    const targetId = btn.dataset.target;
+    let text = '';
+    if (targetId === 'panch') {
+      const active = document.querySelector('.tatva-btn.active').dataset.tatva;
+      text = tatvaData[active].hi + '. ' + tatvaData[active].desc;
+    } else {
+      text = document.getElementById(targetId).innerText;
+    }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'hi-IN';
+    utter.rate = 0.95;
+    window.speechSynthesis.speak(utter);
+  });
+});
+
+/* ================= QUIZ ================= */
+const quizData = [
+  {hi:'पंच महाभूत में से कौन सा तत्व स्थिरता प्रदान करता है?', en:'Which element among Panch Mahabhuta provides stability?',
+   opts:['पृथ्वी (Earth)','जल (Water)','अग्नि (Fire)','वायु (Air)'], ans:0},
+  {hi:'जल तत्व जीवन में क्या कार्य करता है?', en:'What role does the Water element play in life?',
+   opts:['ऊर्जा देना (Gives energy)','जीवन को बनाए रखना (Sustains life)','स्थान देना (Provides space)','गति देना (Gives movement)'], ans:1},
+  {hi:'वर्षा जल संचयन किसे कहते हैं?', en:'What is Rainwater Harvesting?',
+   opts:['पानी बर्बाद करना (Wasting water)','भविष्य के लिए वर्षा जल एकत्र व संग्रहित करना (Collecting &amp; storing rainwater for future use)','नदी को प्रदूषित करना (Polluting rivers)','तालाब खोदना बिना कारण (Digging a pond without reason)'], ans:1},
+  {hi:'बावड़ी (स्टेपवेल) का मुख्य उद्देश्य क्या है?', en:'What is the main purpose of stepwells (Baolis)?',
+   opts:['कपड़े धोना (Washing clothes)','जल संग्रहण और संरक्षण (Water storage &amp; conservation)','खेल खेलना (Playing games)','मछली पालन (Fish farming)'], ans:1},
+  {hi:'जैविक खेती किसके बिना की जाती है?', en:'Organic farming is done without using what?',
+   opts:['पानी (Water)','हानिकारक रसायन (Harmful chemicals)','बीज (Seeds)','धूप (Sunlight)'], ans:1},
+  {hi:'जैविक खेती में मिट्टी की उर्वरता बढ़ाने के लिए क्या प्रयोग होता है?', en:'What is used in organic farming to improve soil fertility?',
+   opts:['प्लास्टिक (Plastic)','कम्पोस्ट और वर्मीकम्पोस्ट (Compost &amp; vermicompost)','कीटनाशक स्प्रे (Pesticide spray)','सीमेंट (Cement)'], ans:1},
+  {hi:'जैव विविधता का क्या अर्थ है?', en:'What does biodiversity mean?',
+   opts:['केवल पेड़ों की संख्या (Only number of trees)','पौधों, जानवरों और सूक्ष्मजीवों की विविधता (Variety of plants, animals &amp; microorganisms)','केवल जानवरों की गिनती (Only counting animals)','जल की मात्रा (Amount of water)'], ans:1},
+  {hi:'भारत जैव विविधता के कितने "मेगा-डाइवर्स" देशों में से एक है?', en:'India is one of how many mega-diverse countries?',
+   opts:['10','17','25','50'], ans:1},
+  {hi:'जैव विविधता के कितने स्तर होते हैं?', en:'How many levels of biodiversity are there?',
+   opts:['2','3','4','5'], ans:1},
+  {hi:'आनुवंशिक विविधता (Genetic Diversity) किसे कहते हैं?', en:'What is Genetic Diversity?',
+   opts:['अलग-अलग प्रजातियों की विविधता (Variety of different species)','एक ही प्रजाति के भीतर भिन्नता (Variation within the same species)','आवासों की विविधता (Variety of habitats)','जल की विविधता (Variety of water)'], ans:1},
+  {hi:'अपशिष्ट प्रबंधन के 5R में सबसे पहला R क्या है?', en:'In the 5Rs of waste management, what is the first R?',
+   opts:['Reduce (कम करें)','Reuse (पुनः उपयोग)','Refuse (मना करें)','Recycle (पुनर्चक्रण)'], ans:2},
+  {hi:'गीला कचरा (Wet Waste) का उदाहरण क्या है?', en:'What is an example of wet waste?',
+   opts:['बैटरी (Battery)','सब्जी के छिलके (Vegetable peels)','प्लास्टिक बोतल (Plastic bottle)','कांच (Glass)'], ans:1},
+  {hi:'खतरनाक अपशिष्ट (Hazardous Waste) में क्या शामिल है?', en:'What is included in hazardous waste?',
+   opts:['कागज़ (Paper)','बैटरी और रसायन (Batteries &amp; chemicals)','फल के छिलके (Fruit peels)','सूखी पत्तियां (Dry leaves)'], ans:1},
+  {hi:'"वसुधैव कुटुम्बकम्" का क्या अर्थ है?', en:'What does "Vasudhaiva Kutumbakam" mean?',
+   opts:['पृथ्वी हमारी माता है (Earth is our mother)','पूरा संसार एक परिवार है (The whole world is one family)','जल ही जीवन है (Water is life)','प्रकृति ही सब कुछ है (Nature is everything)'], ans:1},
+  {hi:'सतत जीवन शैली (Sustainable Living) क्यों महत्वपूर्ण है?', en:'Why is sustainable living important?',
+   opts:['यह भविष्य के लिए बेहतर जीवन सुनिश्चित करता है (It ensures a better future)','यह केवल पैसा बचाता है (It only saves money)','यह अनावश्यक है (It is unnecessary)','यह केवल शहरों के लिए है (It is only for cities)'], ans:0}
+];
+
+let score = 0, answered = 0;
+const quizList = document.getElementById('quiz-list');
+
+quizData.forEach((q, i) => {
+  const div = document.createElement('div');
+  div.className = 'quiz-q';
+  div.innerHTML = `
+    <div class="qnum">प्रश्न ${i+1} / Question ${i+1}</div>
+    <p><b>${q.hi}</b></p>
+    <p class="lang-en">${q.en}</p>
+    <ul class="options" id="opts-${i}"></ul>
+    <div class="feedback" id="fb-${i}"></div>
+  `;
+  quizList.appendChild(div);
+  const optsUl = div.querySelector(`#opts-${i}`);
+  q.opts.forEach((opt, oi) => {
+    const li = document.createElement('li');
+    li.innerHTML = opt;
+    li.addEventListener('click', () => selectAnswer(i, oi));
+    optsUl.appendChild(li);
+  });
+});
+
+function selectAnswer(qIndex, optIndex){
+  const optsUl = document.getElementById(`opts-${qIndex}`);
+  if (optsUl.dataset.done) return; // already answered
+  optsUl.dataset.done = "1";
+  const items = optsUl.querySelectorAll('li');
+  items.forEach(li => li.setAttribute('aria-disabled','true'));
+  const correctIdx = quizData[qIndex].ans;
+  const fb = document.getElementById(`fb-${qIndex}`);
+
+  items[optIndex].classList.add('selected');
+  if (optIndex === correctIdx) {
+    items[optIndex].classList.add('correct');
+    fb.textContent = '✔ सही उत्तर! / Correct!';
+    fb.className = 'feedback correct';
+    score++;
+  } else {
+    items[optIndex].classList.add('wrong');
+    items[correctIdx].classList.add('correct');
+    fb.textContent = '✘ गलत उत्तर। सही उत्तर हरे रंग में है। / Incorrect. The correct answer is shown in green.';
+    fb.className = 'feedback wrong';
+  }
+  answered++;
+  updateProgress();
+  if (answered === quizData.length) showFinal();
+}
+
+function updateProgress(){
+  document.getElementById('qProgress').textContent = `${answered} / ${quizData.length}`;
+  const starsCount = Math.round((score / quizData.length) * 5);
+  document.getElementById('qStars').textContent = '★'.repeat(starsCount) + '☆'.repeat(5 - starsCount);
+}
+
+function showFinal(){
+  const finalBox = document.getElementById('quiz-final');
+  document.getElementById('finalScore').textContent = score;
+  let msg = '';
+  if (score >= 13) msg = '🌟 शानदार! आप पर्यावरण के सच्चे रक्षक हैं। / Excellent! You are a true guardian of the environment.';
+  else if (score >= 9) msg = '👏 बहुत अच्छा! थोड़ा और अभ्यास करें। / Great job! A little more practice will help.';
+  else msg = '💪 अच्छी कोशिश! ऊपर दिए गए विषयों को दोबारा पढ़ें। / Good try! Review the topics above and try again.';
+  document.getElementById('finalMsg').textContent = msg;
+  finalBox.style.display = 'block';
+  finalBox.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetQuiz(){
+  score = 0; answered = 0;
+  document.querySelectorAll('.options').forEach(ul => {
+    ul.dataset.done = "";
+    ul.querySelectorAll('li').forEach(li => {
+      li.classList.remove('selected','correct','wrong');
+      li.removeAttribute('aria-disabled');
+    });
+  });
+  document.querySelectorAll('.feedback').forEach(fb => { fb.textContent=''; fb.className='feedback'; });
+  document.getElementById('quiz-final').style.display = 'none';
+  updateProgress();
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
