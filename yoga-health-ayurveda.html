@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Yoga, Health &amp; Ayurveda — Wellness Chapter</title>
+<style>
+  :root{
+    --bg-dark:#0F2E2E;
+    --bg-dark-2:#123A38;
+    --cream:#FBF3E3;
+    --cream-2:#F3E6C8;
+    --saffron:#E8A33D;
+    --sindoor:#C1440E;
+    --sage:#7C9473;
+    --ink:#17251F;
+    --gold:#C9962C;
+    --line: rgba(201,150,44,0.35);
+    --font-en:'Palatino Linotype','Georgia',serif;
+    --font-hi:'Nirmala UI','Noto Sans Devanagari','Mangal',system-ui,sans-serif;
+    --font-body:'Segoe UI',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hi{font-family:var(--font-hi);}
+  .en{font-family:var(--font-body);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background:radial-gradient(ellipse at 50% -10%, #1a4a47 0%, var(--bg-dark) 55%, #081e1d 100%);
+    color:var(--cream);
+    padding:38px 18px 46px;
+    overflow:hidden;
+    text-align:center;
+  }
+  .hero::before,.hero::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    border:1px solid rgba(232,163,61,0.15);
+  }
+  .hero::before{width:340px;height:340px;top:-120px;left:-90px;}
+  .hero::after{width:220px;height:220px;bottom:-100px;right:-60px;}
+
+  .chapter-tag{
+    display:inline-block;
+    font-size:12px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--saffron);
+    border:1px solid var(--line);
+    padding:5px 14px;
+    border-radius:999px;
+    margin-bottom:16px;
+  }
+  .hero h1{
+    font-family:var(--font-en);
+    font-size:clamp(28px,7vw,44px);
+    margin:0 0 4px;
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+  .hero h1 .hi{
+    display:block;
+    font-size:0.6em;
+    color:var(--saffron);
+    margin-top:6px;
+    font-weight:600;
+  }
+  .hero p.quote{
+    max-width:520px;
+    margin:18px auto 0;
+    font-size:14px;
+    color:#DCEDE9;
+    font-style:italic;
+    opacity:0.85;
+  }
+
+  /* breathing mandala signature element */
+  .breath-wrap{
+    margin:30px auto 6px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .breath-circle{
+    width:110px;height:110px;
+    border-radius:50%;
+    background:radial-gradient(circle at 40% 35%, #f5c877, var(--saffron) 60%, var(--sindoor) 130%);
+    box-shadow:0 0 40px rgba(232,163,61,0.35);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--bg-dark);
+    font-weight:700;
+    font-size:13px;
+    cursor:pointer;
+    transition:transform 4s ease-in-out;
+    user-select:none;
+  }
+  .breath-circle.animate{transform:scale(1.28);}
+  .breath-label{font-size:12px;color:var(--cream-2);letter-spacing:1px;min-height:16px;}
+  .breath-hint{font-size:11px;color:#9fc3bd;}
+
+  /* ---------- PROGRESS BAR ---------- */
+  .progress-bar-wrap{
+    position:sticky;top:0;z-index:50;
+    background:var(--bg-dark);
+    padding:10px 16px;
+    display:flex;align-items:center;gap:10px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.15);
+  }
+  .progress-track{
+    flex:1;height:8px;background:rgba(255,255,255,0.12);border-radius:99px;overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;width:0%;
+    background:linear-gradient(90deg,var(--saffron),var(--sindoor));
+    transition:width 0.5s ease;
+  }
+  .progress-stars{color:var(--saffron);font-size:13px;font-weight:600;white-space:nowrap;}
+
+  /* ---------- MAIN CONTAINER ---------- */
+  .wrap{max-width:760px;margin:0 auto;padding:22px 14px 60px;}
+
+  .topic-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    margin-bottom:20px;
+    overflow:hidden;
+    box-shadow:0 4px 16px rgba(23,37,31,0.06);
+    transition:opacity .3s ease, filter .3s ease;
+  }
+  .topic-card.locked{
+    opacity:0.55;
+    filter:grayscale(0.6);
+  }
+  .topic-head{
+    display:flex;align-items:center;gap:12px;
+    padding:16px 18px;
+    background:linear-gradient(135deg,var(--bg-dark),var(--bg-dark-2));
+    color:var(--cream);
+    cursor:pointer;
+  }
+  .topic-num{
+    flex:0 0 auto;
+    width:34px;height:34px;border-radius:50%;
+    background:var(--saffron);color:var(--bg-dark);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:15px;
+  }
+  .topic-titles{flex:1;}
+  .topic-titles .en{font-size:16px;font-weight:700;}
+  .topic-titles .hi{font-size:14px;color:var(--cream-2);}
+  .topic-star{font-size:18px;}
+  .topic-body{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .4s ease, padding .4s ease;}
+  .topic-body.open{padding:16px 18px 20px;max-height:2000px;}
+
+  .block-label{
+    display:inline-block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--sindoor);font-weight:700;margin:14px 0 6px;
+  }
+  .block-label:first-child{margin-top:0;}
+  .example-box{
+    background:var(--cream-2);
+    border-left:4px solid var(--saffron);
+    border-radius:8px;
+    padding:12px 14px;
+    margin-top:8px;
+    font-size:14.5px;
+  }
+  .example-box .en{font-weight:600;color:var(--ink);}
+  .example-box .hi{margin-top:4px;color:#3c4a3f;}
+
+  .mark-btn{
+    margin-top:16px;
+    width:100%;
+    padding:12px;
+    border:none;border-radius:10px;
+    background:var(--sage);color:#fff;
+    font-size:14.5px;font-weight:700;
+    cursor:pointer;
+    transition:background .2s;
+  }
+  .mark-btn:hover{background:#6a8365;}
+  .mark-btn.done{background:var(--gold);}
+  .mark-btn.done::after{content:" ✓";}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section-divider{
+    text-align:center;margin:38px 0 22px;
+  }
+  .section-divider .en{
+    font-family:var(--font-en);font-size:22px;font-weight:700;color:var(--sindoor);
+  }
+  .section-divider .hi{font-size:15px;color:var(--sage);margin-top:2px;}
+  .section-divider .rule{
+    width:60px;height:3px;background:var(--saffron);margin:10px auto 0;border-radius:99px;
+  }
+
+  /* ---------- QUIZ ---------- */
+  .quiz-locked-msg{
+    text-align:center;background:#fff;border:1px dashed var(--line);border-radius:14px;
+    padding:28px 16px;color:#7a7a6f;font-size:14px;
+  }
+  .quiz-q{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:16px;margin-bottom:14px;
+  }
+  .quiz-q .qtext .en{font-weight:700;font-size:14.5px;}
+  .quiz-q .qtext .hi{font-size:13.5px;color:#555;margin-top:2px;}
+  .opt-list{margin-top:12px;display:flex;flex-direction:column;gap:8px;}
+  .opt{
+    border:1.5px solid #e2d7bd;border-radius:8px;padding:10px 12px;
+    cursor:pointer;font-size:14px;background:#fffdf7;
+    transition:all .15s;
+  }
+  .opt:hover{border-color:var(--saffron);}
+  .opt.selected{border-color:var(--sage);background:#eef4ea;}
+  .opt.correct{border-color:#4a8f4a;background:#e3f5e3;font-weight:700;}
+  .opt.wrong{border-color:var(--sindoor);background:#fbe6df;}
+  .quiz-submit{
+    display:block;width:100%;padding:14px;margin-top:8px;
+    background:var(--sindoor);color:#fff;border:none;border-radius:10px;
+    font-size:16px;font-weight:700;cursor:pointer;
+  }
+  .quiz-result{
+    text-align:center;background:var(--bg-dark);color:var(--cream);
+    border-radius:14px;padding:24px 16px;margin-top:16px;display:none;
+  }
+  .quiz-result.show{display:block;}
+  .quiz-result .score{font-size:38px;font-weight:800;color:var(--saffron);}
+  .quiz-result .msg{margin-top:6px;font-size:14px;}
+
+  /* ---------- HOMEWORK ---------- */
+  .hw-card{
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:16px;margin-bottom:12px;display:flex;gap:12px;align-items:flex-start;
+  }
+  .hw-num{
+    flex:0 0 auto;width:30px;height:30px;border-radius:50%;
+    background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:14px;
+  }
+  .hw-text .en{font-weight:700;font-size:14.5px;}
+  .hw-text .hi{font-size:13.5px;color:#555;margin-top:2px;}
+  .hw-check{margin-top:8px;}
+  .hw-check input{transform:scale(1.2);margin-right:6px;}
+  .hw-check label{font-size:13px;color:var(--sage);font-weight:600;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;padding:26px 16px 40px;color:#8a8577;font-size:12px;
+  }
+
+  /* toast + confetti canvas */
+  #confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:200;}
+  .toast{
+    position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+    background:var(--bg-dark);color:var(--cream);padding:12px 20px;border-radius:999px;
+    font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    opacity:0;transition:all .35s ease;z-index:210;text-align:center;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (min-width:700px){
+    .wrap{padding-top:30px;}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+<div class="toast" id="toast"></div>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <span class="chapter-tag">Day 5 · Wellness &amp; Healthy Living</span>
+  <h1>Yoga, Health &amp; Ayurveda<span class="hi">योग, स्वास्थ्य और आयुर्वेद</span></h1>
+  <p class="quote">"Yoga is the journey of the self, through the self, to the self." — The Bhagavad Gita<br>
+  <span class="hi">"योग आत्मा की, आत्मा के द्वारा, आत्मा तक की यात्रा है।" — भगवद गीता</span></p>
+
+  <div class="breath-wrap">
+    <div class="breath-circle" id="breathCircle">Tap<br>दबाओ</div>
+    <div class="breath-label" id="breathLabel">Feel your breath · अपनी सांस को महसूस करो</div>
+    <div class="breath-hint">Tap the circle for a guided breathing round</div>
+  </div>
+</div>
+
+<!-- ================= PROGRESS ================= -->
+<div class="progress-bar-wrap">
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-stars" id="progressStars">⭐ 0 / 10</div>
+</div>
+
+<div class="wrap">
+
+  <div class="section-divider">
+    <div class="en">Let's Explore the Chapter</div>
+    <div class="hi">आओ अध्याय को समझें</div>
+    <div class="rule"></div>
+  </div>
+
+  <div id="topicsContainer"></div>
+
+  <div class="section-divider">
+    <div class="en">Test Your Knowledge</div>
+    <div class="hi">अपना ज्ञान परखो</div>
+    <div class="rule"></div>
+  </div>
+
+  <div id="quizArea"></div>
+
+  <div class="section-divider">
+    <div class="en">Homework</div>
+    <div class="hi">गृहकार्य</div>
+    <div class="rule"></div>
+  </div>
+
+  <div id="hwArea"></div>
+
+</div>
+
+<footer>
+  Made for young learners · <span class="hi">युवा शिक्षार्थियों के लिए</span><br>
+  Complete every topic to unlock the quiz. Good luck! 🌸
+</footer>
+
+<script>
+/* ==================================================================
+   DATA — bilingual topic content (English + Hindi), real-life examples
+   ================================================================== */
+const topics = [
+  {
+    en:"Meaning of Yoga", hi:"योग का अर्थ",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">The word "Yoga" comes from the Sanskrit root "Yuj", which means "to join" or "to unite". Yoga is not just about twisting your body into shapes — it's about joining your body, mind and soul so they work together in harmony, just like three friends who play well only when they cooperate.</p>
+      <p class="hi">"योग" शब्द संस्कृत की जड़ "युज्" से आया है, जिसका अर्थ है "जोड़ना" या "एक करना"। योग सिर्फ शरीर को मोड़ना नहीं है — यह शरीर, मन और आत्मा को आपस में जोड़ना है, जैसे तीन दोस्त तभी अच्छा खेलते हैं जब वे मिलकर काम करें।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Imagine your body is a car, your mind is the driver, and your soul is the destination. If the driver is distracted (angry or worried), even a good car will crash. Yoga trains the "driver" (mind) to stay calm so the whole journey (life) goes smoothly.</div>
+        <div class="hi">सोचो तुम्हारा शरीर एक कार है, मन ड्राइवर है, और आत्मा मंज़िल है। अगर ड्राइवर का ध्यान भटका (गुस्सा या चिंता में) हो, तो अच्छी कार भी दुर्घटनाग्रस्त हो सकती है। योग "ड्राइवर" (मन) को शांत रहना सिखाता है ताकि पूरी यात्रा (जीवन) आसानी से चले।</div>
+      </div>`
+  },
+  {
+    en:"Eight Limbs of Yoga (Ashtanga Yoga)", hi:"अष्टांग योग के आठ अंग",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Sage Patanjali described 8 steps for a balanced, healthy life: Yama (ethics with others), Niyama (self-discipline), Asana (postures), Pranayama (breath control), Pratyahara (control senses), Dharana (concentration), Dhyana (meditation) and Samadhi (bliss/oneness).</p>
+      <p class="hi">पतंजलि ऋषि ने संतुलित, स्वस्थ जीवन के लिए 8 चरण बताए: यम (दूसरों के साथ नैतिकता), नियम (आत्म-अनुशासन), आसन (मुद्राएँ), प्राणायाम (श्वास नियंत्रण), प्रत्याहार (इंद्रियों पर नियंत्रण), धारणा (एकाग्रता), ध्यान (मेडिटेशन) और समाधि (परमानंद)।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Think of climbing a staircase to the terrace of your house. You can't jump straight to the top step — you climb one step at a time: first being honest and kind (Yama-Niyama), then exercising (Asana), then breathing right (Pranayama), and slowly your focus and peace grow.</div>
+        <div class="hi">सोचो तुम अपने घर की छत तक सीढ़ियाँ चढ़ रहे हो। तुम सीधे सबसे ऊपर की सीढ़ी पर नहीं कूद सकते — एक-एक सीढ़ी चढ़नी पड़ती है: पहले ईमानदार और दयालु बनना (यम-नियम), फिर व्यायाम (आसन), फिर सही सांस लेना (प्राणायाम), और धीरे-धीरे तुम्हारी एकाग्रता और शांति बढ़ती जाती है।</div>
+      </div>`
+  },
+  {
+    en:"Pranayama — Science of Breath", hi:"प्राणायाम — श्वास का विज्ञान",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Pranayama means controlling "Prana" (life energy) through breathing. It purifies the body, calms the mind and boosts concentration. Key techniques: Anulom-Vilom (balances both sides of the brain), Kapalbhati (cleans the lungs), Bhramari (calms and reduces stress), Nadi Shodhana (improves focus and removes negativity).</p>
+      <p class="hi">प्राणायाम का अर्थ है श्वास के द्वारा "प्राण" (जीवन ऊर्जा) पर नियंत्रण करना। यह शरीर को शुद्ध करता है, मन को शांत करता है और एकाग्रता बढ़ाता है। मुख्य तकनीकें: अनुलोम-विलोम (मस्तिष्क के दोनों भागों को संतुलित करता है), कपालभाति (फेफड़ों को साफ करता है), भ्रामरी (तनाव कम करता है), नाड़ी शोधन (एकाग्रता बढ़ाता है)।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Before an exam, when your heart beats fast, take 5 slow deep breaths — in through the nose, out through the nose. It's like pressing "refresh" on a slow computer. Athletes and singers use the same trick to stay calm before a big match or performance.</div>
+        <div class="hi">परीक्षा से पहले जब दिल तेज़ धड़कता है, तो 5 गहरी धीमी सांसें लो — नाक से अंदर, नाक से बाहर। यह धीमे कंप्यूटर पर "रिफ्रेश" दबाने जैसा है। खिलाड़ी और गायक भी बड़े मैच या प्रदर्शन से पहले शांत रहने के लिए यही तरीका अपनाते हैं।</div>
+      </div>`
+  },
+  {
+    en:"Meditation — The Art of Inner Peace", hi:"ध्यान — आंतरिक शांति की कला",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Meditation is deep thinking, concentration and awareness. It reduces stress and brings mental clarity. Regular meditation improves memory, creativity and emotional balance — it also builds self-awareness and connects us with our inner self.</p>
+      <p class="hi">ध्यान गहरी सोच, एकाग्रता और जागरूकता है। यह तनाव कम करता है और मानसिक स्पष्टता लाता है। नियमित ध्यान स्मृति, रचनात्मकता और भावनात्मक संतुलन को बेहतर बनाता है — यह आत्म-जागरूकता भी बढ़ाता है और हमें अपने भीतर से जोड़ता है।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Imagine a glass jar filled with muddy water — you can't see through it. If you let it sit still without shaking, the mud settles down and the water becomes clear. Meditation is sitting still so your "muddy," racing thoughts settle and your mind becomes clear like that water.</div>
+        <div class="hi">सोचो एक कांच का जार गंदे पानी से भरा है — तुम उसमें से देख नहीं सकते। अगर तुम उसे बिना हिलाए स्थिर रहने दो, तो मिट्टी नीचे बैठ जाती है और पानी साफ हो जाता है। ध्यान वैसे ही स्थिर बैठना है ताकि तुम्हारे "गंदे", भागते विचार शांत हो जाएँ और मन उस पानी की तरह साफ हो जाए।</div>
+      </div>`
+  },
+  {
+    en:"Surya Namaskar — Greeting to the Sun", hi:"सूर्य नमस्कार — सूर्य को प्रणाम",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Surya Namaskar is a complete yogic exercise done in 12 steps. It tones the body, increases flexibility and boosts energy. Benefits: improves digestion, strengthens muscles and bones, enhances concentration, improves blood circulation, and keeps the body active and healthy.</p>
+      <p class="hi">सूर्य नमस्कार एक संपूर्ण योगिक व्यायाम है जो 12 चरणों में किया जाता है। यह शरीर को सुडौल बनाता है, लचीलापन बढ़ाता है और ऊर्जा देता है। लाभ: पाचन सुधारता है, मांसपेशियों और हड्डियों को मजबूत करता है, एकाग्रता बढ़ाता है, रक्त संचार सुधारता है, और शरीर को सक्रिय व स्वस्थ रखता है।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Just like you charge your phone every morning so it works all day, Surya Namaskar "charges" your body every morning with the sun's energy. Farmers who wake early and move their bodies at sunrise are naturally more active — that's Surya Namaskar's idea in daily life!</div>
+        <div class="hi">जैसे तुम हर सुबह अपना फोन चार्ज करते हो ताकि वह पूरे दिन चले, वैसे ही सूर्य नमस्कार हर सुबह तुम्हारे शरीर को सूर्य की ऊर्जा से "चार्ज" करता है। जो किसान सुबह जल्दी उठकर सूर्योदय के समय शरीर हिलाते-डुलाते हैं, वे स्वाभाविक रूप से ज़्यादा सक्रिय रहते हैं — यही सूर्य नमस्कार का असली रूप है!</div>
+      </div>`
+  },
+  {
+    en:"Ayurveda Principles (Three Doshas)", hi:"आयुर्वेद के सिद्धांत (त्रिदोष)",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Ayurveda is the ancient Indian science of life and longevity, based on the balance of three doshas: Vata (Air+Space — movement, creativity), Pitta (Fire+Water — digestion, transformation), Kapha (Earth+Water — stability, strength). When doshas are balanced, we are healthy; when imbalanced, disease occurs.</p>
+      <p class="hi">आयुर्वेद जीवन और दीर्घायु का प्राचीन भारतीय विज्ञान है, जो तीन दोषों के संतुलन पर आधारित है: वात (वायु+आकाश — गति, रचनात्मकता), पित्त (अग्नि+जल — पाचन, परिवर्तन), कफ (पृथ्वी+जल — स्थिरता, शक्ति)। जब दोष संतुलित होते हैं तो हम स्वस्थ रहते हैं; असंतुलित होने पर रोग होता है।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Think of your body like a kitchen stove (Pitta = fire for digestion), a fan (Vata = air for movement) and a water tank (Kapha = stability). If the fire is too high, food burns (too much acidity); if the fan runs wild, things fly everywhere (anxiety); if the tank overflows, everything gets heavy (lethargy). Balance keeps the kitchen — your body — running smoothly.</div>
+        <div class="hi">सोचो तुम्हारा शरीर एक रसोई की तरह है — चूल्हा (पित्त = पाचन की अग्नि), पंखा (वात = गति के लिए हवा) और पानी की टंकी (कफ = स्थिरता)। अगर आग बहुत तेज़ हो तो खाना जल जाता है (अधिक अम्लता); अगर पंखा बेकाबू चले तो चीज़ें उड़ने लगती हैं (चिंता); अगर टंकी छलक जाए तो सब भारी लगता है (आलस्य)। संतुलन ही रसोई — यानी तुम्हारे शरीर — को सुचारू रखता है।</div>
+      </div>`
+  },
+  {
+    en:"Dinacharya — Daily Routine", hi:"दिनचर्या — दैनिक जीवनचर्या",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Following a proper daily routine keeps body and mind healthy. Key practices: wake early (Brahma Muhurta), drink warm water, maintain cleanliness, do yoga and pranayama, eat fresh sattvic food, work with focus and honesty, and get adequate rest and sleep.</p>
+      <p class="hi">एक उचित दिनचर्या का पालन शरीर और मन को स्वस्थ रखता है। मुख्य आदतें: जल्दी उठना (ब्रह्म मुहूर्त), गुनगुना पानी पीना, स्वच्छता बनाए रखना, योग और प्राणायाम करना, ताज़ा सात्विक भोजन खाना, एकाग्रता और ईमानदारी से काम करना, और पर्याप्त आराम व नींद लेना।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">A school timetable works because every period has a fixed time — that's why the day runs smoothly. Dinacharya is like a "timetable for life": a fixed time to wake, eat, study and sleep keeps your body's internal clock happy, just like a well-run school day.</div>
+        <div class="hi">स्कूल का टाइमटेबल इसलिए काम करता है क्योंकि हर पीरियड का समय तय होता है — इसीलिए दिन आसानी से चलता है। दिनचर्या "जीवन का टाइमटेबल" है: उठने, खाने, पढ़ने और सोने का तय समय तुम्हारे शरीर की आंतरिक घड़ी को खुश रखता है, बिल्कुल एक सुव्यवस्थित स्कूल के दिन की तरह।</div>
+      </div>`
+  },
+  {
+    en:"Balanced Diet", hi:"संतुलित आहार",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Food affects our body, mind and emotions. Ayurveda recommends a Sattvic (pure) diet — fresh fruits and vegetables, whole grains, pulses and nuts, milk and ghee (in moderation), and plenty of water. Avoid junk food, excess oil/salt/sugar, and overeating.</p>
+      <p class="hi">भोजन हमारे शरीर, मन और भावनाओं को प्रभावित करता है। आयुर्वेद सात्विक (शुद्ध) आहार की सलाह देता है — ताज़े फल और सब्ज़ियाँ, साबुत अनाज, दालें और मेवे, दूध और घी (सीमित मात्रा में), और भरपूर पानी। जंक फूड, अधिक तेल/नमक/चीनी और ज़्यादा खाने से बचें।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">A car needs the right fuel to run well — putting dirty fuel makes it cough and stall. Your body is the same: eating fresh food is like clean fuel that gives smooth energy, while too much junk food is like dirty fuel that makes you feel tired and dull.</div>
+        <div class="hi">एक कार को अच्छे चलने के लिए सही ईंधन चाहिए — गंदा ईंधन डालने से वह अटकने लगती है। तुम्हारा शरीर भी वैसा ही है: ताज़ा खाना साफ ईंधन जैसा है जो सहज ऊर्जा देता है, जबकि ज़्यादा जंक फूड गंदे ईंधन जैसा है जो तुम्हें थका और सुस्त बना देता है।</div>
+      </div>`
+  },
+  {
+    en:"Mental Health", hi:"मानसिक स्वास्थ्य",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">A healthy mind is as important as a healthy body. Tips for good mental health: positive thinking, gratitude and kindness, staying connected with family and friends, doing things you enjoy, digital detox, and spending time in nature.</p>
+      <p class="hi">स्वस्थ मन उतना ही ज़रूरी है जितना स्वस्थ शरीर। अच्छे मानसिक स्वास्थ्य के लिए सुझाव: सकारात्मक सोच, कृतज्ञता और दयालुता, परिवार व दोस्तों से जुड़े रहना, पसंदीदा काम करना, डिजिटल डिटॉक्स, और प्रकृति में समय बिताना।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Just like a plant needs sunlight, water and fresh air to grow well, your mind needs kind thoughts, good friends and breaks from screens to stay healthy. A child who plays outside, talks to family, and takes screen breaks usually feels happier than one glued to a phone all day.</div>
+        <div class="hi">जैसे एक पौधे को अच्छी तरह बढ़ने के लिए धूप, पानी और ताज़ी हवा चाहिए, वैसे ही तुम्हारे मन को अच्छे विचार, अच्छे दोस्त और स्क्रीन से छुट्टी चाहिए स्वस्थ रहने के लिए। जो बच्चा बाहर खेलता है, परिवार से बात करता है, और स्क्रीन से ब्रेक लेता है, वह आमतौर पर पूरे दिन फोन में लगे बच्चे से ज़्यादा खुश रहता है।</div>
+      </div>`
+  },
+  {
+    en:"Stress Management", hi:"तनाव प्रबंधन",
+    body:`
+      <div class="block-label">Explanation · व्याख्या</div>
+      <p class="en">Stress is natural, but excessive stress harms health. Ways to manage stress: practice deep breathing, do regular exercise, meditate daily, take breaks and relax, talk about your feelings, and maintain a balanced lifestyle.</p>
+      <p class="hi">तनाव स्वाभाविक है, लेकिन अत्यधिक तनाव स्वास्थ्य को नुकसान पहुँचाता है। तनाव प्रबंधन के तरीके: गहरी सांस लेना, नियमित व्यायाम करना, प्रतिदिन ध्यान करना, ब्रेक लेकर आराम करना, अपनी भावनाओं के बारे में बात करना, और संतुलित जीवनशैली बनाए रखना।</p>
+      <div class="block-label">Real Life Example · वास्तविक जीवन उदाहरण</div>
+      <div class="example-box">
+        <div class="en">Think of stress like air in a balloon — a little air is fine, but too much makes it burst. Talking to someone, taking a walk, or a few deep breaths slowly "let the air out" before the balloon pops, just like a pressure cooker's whistle releases steam safely.</div>
+        <div class="hi">तनाव को गुब्बारे में हवा की तरह समझो — थोड़ी हवा ठीक है, पर बहुत ज़्यादा भरने से वह फट जाता है। किसी से बात करना, टहलना, या कुछ गहरी सांसें धीरे-धीरे "हवा निकालती" हैं गुब्बारे के फटने से पहले — ठीक वैसे ही जैसे प्रेशर कुकर की सीटी भाप को सुरक्षित तरीके से निकालती है।</div>
+      </div>`
+  }
+];
+
+/* 15 MCQs — bilingual */
+const quiz = [
+  {q:{en:"What does the word 'Yoga' mean?",hi:"'योग' शब्द का क्या अर्थ है?"}, opts:{en:["To run","To join or unite","To sleep","To eat"],hi:["दौड़ना","जोड़ना या एक करना","सोना","खाना"]}, ans:1},
+  {q:{en:"How many limbs does Ashtanga Yoga have?",hi:"अष्टांग योग में कितने अंग होते हैं?"}, opts:{en:["5","6","8","10"],hi:["5","6","8","10"]}, ans:2},
+  {q:{en:"Which limb of yoga means 'meditation'?",hi:"योग का कौन-सा अंग 'ध्यान' का अर्थ रखता है?"}, opts:{en:["Asana","Dhyana","Niyama","Pratyahara"],hi:["आसन","ध्यान","नियम","प्रत्याहार"]}, ans:1},
+  {q:{en:"Pranayama means control of which energy?",hi:"प्राणायाम किस ऊर्जा पर नियंत्रण करता है?"}, opts:{en:["Electricity","Prana (life energy)","Heat","Sound"],hi:["बिजली","प्राण (जीवन ऊर्जा)","गर्मी","आवाज़"]}, ans:1},
+  {q:{en:"Which Pranayama technique calms and reduces stress?",hi:"कौन-सा प्राणायाम तनाव कम करके शांत करता है?"}, opts:{en:["Kapalbhati","Bhramari","Anulom Vilom","Nadi Shodhana"],hi:["कपालभाति","भ्रामरी","अनुलोम विलोम","नाड़ी शोधन"]}, ans:1},
+  {q:{en:"What does regular meditation improve?",hi:"नियमित ध्यान किसे बेहतर बनाता है?"}, opts:{en:["Only sleep","Memory, creativity, emotional balance","Only eyesight","Only height"],hi:["केवल नींद","स्मृति, रचनात्मकता, भावनात्मक संतुलन","केवल आँखों की रोशनी","केवल कद"]}, ans:1},
+  {q:{en:"Surya Namaskar is done in how many steps?",hi:"सूर्य नमस्कार कितने चरणों में किया जाता है?"}, opts:{en:["8","10","12","15"],hi:["8","10","12","15"]}, ans:2},
+  {q:{en:"Surya Namaskar means greeting to which one?",hi:"सूर्य नमस्कार किसका अभिवादन है?"}, opts:{en:["Moon","Sun","Sky","River"],hi:["चाँद","सूर्य","आकाश","नदी"]}, ans:1},
+  {q:{en:"Ayurveda is based on the balance of how many doshas?",hi:"आयुर्वेद कितने दोषों के संतुलन पर आधारित है?"}, opts:{en:["2","3","4","5"],hi:["2","3","4","5"]}, ans:1},
+  {q:{en:"Which dosha represents Fire + Water (digestion)?",hi:"कौन-सा दोष अग्नि+जल (पाचन) दर्शाता है?"}, opts:{en:["Vata","Pitta","Kapha","Agni"],hi:["वात","पित्त","कफ","अग्नि"]}, ans:1},
+  {q:{en:"What is Dinacharya?",hi:"दिनचर्या क्या है?"}, opts:{en:["A type of food","A daily routine","A festival","A yoga pose"],hi:["एक प्रकार का भोजन","दैनिक जीवनचर्या","एक त्योहार","एक योग मुद्रा"]}, ans:1},
+  {q:{en:"Which diet does Ayurveda recommend?",hi:"आयुर्वेद कौन-सा आहार सुझाता है?"}, opts:{en:["Junk food diet","Sattvic (pure) diet","No food at all","Only sweets"],hi:["जंक फूड आहार","सात्विक (शुद्ध) आहार","बिल्कुल न खाना","केवल मिठाइयाँ"]}, ans:1},
+  {q:{en:"Which of these helps good mental health?",hi:"इनमें से कौन अच्छे मानसिक स्वास्थ्य में मदद करता है?"}, opts:{en:["Excess screen time","Gratitude and kindness","Skipping meals","Staying isolated"],hi:["अधिक स्क्रीन समय","कृतज्ञता और दयालुता","भोजन छोड़ना","अकेले रहना"]}, ans:1},
+  {q:{en:"Which is NOT a way to manage stress?",hi:"इनमें से कौन तनाव प्रबंधन का तरीका नहीं है?"}, opts:{en:["Deep breathing","Regular exercise","Bottling up feelings","Talking about feelings"],hi:["गहरी सांस लेना","नियमित व्यायाम","भावनाओं को दबाना","भावनाओं के बारे में बात करना"]}, ans:2},
+  {q:{en:"'Let food be your medicine' relates to which topic?",hi:"'भोजन ही औषधि हो' किस विषय से जुड़ा है?"}, opts:{en:["Meditation","Balanced Diet","Surya Namaskar","Pranayama"],hi:["ध्यान","संतुलित आहार","सूर्य नमस्कार","प्राणायाम"]}, ans:1}
+];
+
+/* 3 homework tasks — bilingual */
+const homework = [
+  {en:"Do 12 rounds of Surya Namaskar every morning for one week and write down how your body feels each day.", hi:"एक सप्ताह तक हर सुबह सूर्य नमस्कार के 12 चक्र करो और लिखो कि हर दिन तुम्हारा शरीर कैसा महसूस करता है।"},
+  {en:"Practice any one Pranayama technique (Anulom-Vilom, Kapalbhati, or Bhramari) for 5 minutes daily and note how your mind feels before and after.", hi:"किसी एक प्राणायाम तकनीक (अनुलोम-विलोम, कपालभाति, या भ्रामरी) का प्रतिदिन 5 मिनट अभ्यास करो और लिखो कि पहले और बाद में तुम्हारा मन कैसा महसूस करता है।"},
+  {en:"Make a colourful chart of the Three Doshas (Vata, Pitta, Kapha) showing their elements and qualities, and list 5 ways you personally manage stress.", hi:"त्रिदोष (वात, पित्त, कफ) का एक रंगीन चार्ट बनाओ जिसमें उनके तत्व और गुण दिखाओ, और 5 तरीके लिखो जिनसे तुम खुद तनाव प्रबंधित करते हो।"}
+];
+
+/* ==================================================================
+   STATE
+   ================================================================== */
+let doneTopics = new Set();
+let openIndex = null;
+
+/* ---------------- RENDER TOPICS ---------------- */
+const topicsContainer = document.getElementById('topicsContainer');
+
+function renderTopics(){
+  topicsContainer.innerHTML = '';
+  topics.forEach((t,i)=>{
+    const locked = i>0 && !doneTopics.has(i-1);
+    const card = document.createElement('div');
+    card.className = 'topic-card' + (locked ? ' locked':'');
+    card.innerHTML = `
+      <div class="topic-head" data-i="${i}">
+        <div class="topic-num">${i+1}</div>
+        <div class="topic-titles">
+          <div class="en">${t.en}</div>
+          <div class="hi">${t.hi}</div>
+        </div>
+        <div class="topic-star">${doneTopics.has(i) ? '⭐' : (locked ? '🔒' : '▫️')}</div>
+      </div>
+      <div class="topic-body ${openIndex===i ? 'open':''}" id="body-${i}">
+        ${t.body}
+        <button class="mark-btn ${doneTopics.has(i)?'done':''}" data-i="${i}">
+          ${doneTopics.has(i) ? 'Maine Samjha / Understood' : 'Maine Samjha! · I Understood!'}
+        </button>
+      </div>
+    `;
+    topicsContainer.appendChild(card);
+  });
+
+  document.querySelectorAll('.topic-head').forEach(h=>{
+    h.addEventListener('click', ()=>{
+      const i = parseInt(h.dataset.i);
+      const locked = i>0 && !doneTopics.has(i-1);
+      if(locked){
+        showToast('Pehle Topic ' + i + ' poora karo! · Complete Topic ' + i + ' first!');
+        return;
+      }
+      openIndex = (openIndex===i) ? null : i;
+      renderTopics();
+      if(openIndex===i){
+        setTimeout(()=>{
+          document.getElementById('body-'+i).scrollIntoView({behavior:'smooth', block:'center'});
+        },100);
+      }
+    });
+  });
+
+  document.querySelectorAll('.mark-btn').forEach(b=>{
+    b.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const i = parseInt(b.dataset.i);
+      if(!doneTopics.has(i)){
+        doneTopics.add(i);
+        playChime();
+        launchConfetti();
+        showToast('Shabash! Topic ' + (i+1) + ' complete · Great job!');
+        updateProgress();
+        renderTopics();
+        renderQuizGate();
+      }
+    });
+  });
+}
+
+function updateProgress(){
+  const pct = (doneTopics.size / topics.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressStars').textContent = '⭐ ' + doneTopics.size + ' / ' + topics.length;
+}
+
+/* ---------------- QUIZ ---------------- */
+const quizArea = document.getElementById('quizArea');
+let userAnswers = new Array(quiz.length).fill(null);
+
+function renderQuizGate(){
+  if(doneTopics.size < topics.length){
+    quizArea.innerHTML = `<div class="quiz-locked-msg">🔒 Complete all 10 topics above to unlock the quiz.<br>
+    <span class="hi">क्विज़ खोलने के लिए ऊपर के सभी 10 विषय पूरे करो।</span></div>`;
+    return;
+  }
+  renderQuiz();
+}
+
+function renderQuiz(){
+  let html = '';
+  quiz.forEach((q,qi)=>{
+    html += `<div class="quiz-q" data-qi="${qi}">
+      <div class="qtext"><div class="en">${qi+1}. ${q.q.en}</div><div class="hi">${q.q.hi}</div></div>
+      <div class="opt-list">`;
+    q.opts.en.forEach((optEn,oi)=>{
+      html += `<div class="opt" data-qi="${qi}" data-oi="${oi}">
+        <div class="en">${optEn}</div><div class="hi">${q.opts.hi[oi]}</div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+  html += `<button class="quiz-submit" id="quizSubmit">Submit Quiz · क्विज़ जमा करो</button>
+  <div class="quiz-result" id="quizResult">
+    <div class="score" id="quizScore">0/15</div>
+    <div class="msg" id="quizMsg"></div>
+  </div>`;
+  quizArea.innerHTML = html;
+
+  document.querySelectorAll('.opt').forEach(o=>{
+    o.addEventListener('click', ()=>{
+      const qi = parseInt(o.dataset.qi), oi = parseInt(o.dataset.oi);
+      userAnswers[qi] = oi;
+      document.querySelectorAll(`.opt[data-qi="${qi}"]`).forEach(el=>el.classList.remove('selected'));
+      o.classList.add('selected');
+    });
+  });
+
+  document.getElementById('quizSubmit').addEventListener('click', submitQuiz);
+}
+
+function submitQuiz(){
+  let score = 0;
+  quiz.forEach((q,qi)=>{
+    const opts = document.querySelectorAll(`.opt[data-qi="${qi}"]`);
+    opts.forEach((el,oi)=>{
+      el.classList.remove('selected');
+      if(oi===q.ans) el.classList.add('correct');
+      else if(userAnswers[qi]===oi) el.classList.add('wrong');
+    });
+    if(userAnswers[qi]===q.ans) score++;
+  });
+  document.getElementById('quizScore').textContent = score + '/15';
+  let msg = '';
+  if(score>=13) msg = 'Excellent! Yoga Master! · शानदार! तुम योग गुरु हो!';
+  else if(score>=9) msg = 'Very Good! Keep practicing! · बहुत बढ़िया! अभ्यास जारी रखो!';
+  else msg = 'Good try! Revise the topics and try again. · अच्छा प्रयास! विषयों को दोबारा पढ़ो।';
+  document.getElementById('quizMsg').textContent = msg;
+  document.getElementById('quizResult').classList.add('show');
+  document.getElementById('quizSubmit').disabled = true;
+  document.getElementById('quizSubmit').style.opacity = '0.5';
+  if(score>=13){ launchConfetti(); playChime(); }
+  document.getElementById('quizResult').scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+/* ---------------- HOMEWORK ---------------- */
+const hwArea = document.getElementById('hwArea');
+function renderHomework(){
+  let html = '';
+  homework.forEach((h,i)=>{
+    html += `<div class="hw-card">
+      <div class="hw-num">${i+1}</div>
+      <div class="hw-text">
+        <div class="en">${h.en}</div>
+        <div class="hi">${h.hi}</div>
+        <div class="hw-check">
+          <input type="checkbox" id="hw-${i}">
+          <label for="hw-${i}">Mark as done · पूरा किया</label>
+        </div>
+      </div>
+    </div>`;
+  });
+  hwArea.innerHTML = html;
+}
+
+/* ---------------- BREATHING SIGNATURE ELEMENT ---------------- */
+const breathCircle = document.getElementById('breathCircle');
+const breathLabel = document.getElementById('breathLabel');
+let breathBusy = false;
+breathCircle.addEventListener('click', ()=>{
+  if(breathBusy) return;
+  breathBusy = true;
+  const seq = [
+    {t:'Saans Lo\nBreathe In', cls:true, dur:4000},
+    {t:'Roko\nHold', cls:true, dur:4000},
+    {t:'Chodo\nBreathe Out', cls:false, dur:4000}
+  ];
+  let i=0;
+  function step(){
+    if(i>=seq.length){ breathBusy=false; breathLabel.textContent='Feel your breath · अपनी सांस को महसूस करो'; return; }
+    const s = seq[i];
+    breathLabel.textContent = s.t.replace('\n',' · ');
+    breathCircle.classList.toggle('animate', s.cls);
+    playTick();
+    setTimeout(()=>{ i++; step(); }, s.dur);
+  }
+  step();
+});
+
+/* ---------------- SOUND (Web Audio, no files) ---------------- */
+let audioCtx;
+function getCtx(){
+  if(!audioCtx){ audioCtx = new (window.AudioContext||window.webkitAudioContext)(); }
+  return audioCtx;
+}
+function playChime(){
+  try{
+    const ctx = getCtx();
+    [523.25,659.25,783.99].forEach((f,idx)=>{
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type='sine'; o.frequency.value=f;
+      o.connect(g); g.connect(ctx.destination);
+      const start = ctx.currentTime + idx*0.12;
+      g.gain.setValueAtTime(0.001, start);
+      g.gain.exponentialRampToValueAtTime(0.15, start+0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, start+0.4);
+      o.start(start); o.stop(start+0.45);
+    });
+  }catch(e){}
+}
+function playTick(){
+  try{
+    const ctx = getCtx();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type='sine'; o.frequency.value=440;
+    o.connect(g); g.connect(ctx.destination);
+    g.gain.setValueAtTime(0.001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime+0.02);
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime+0.25);
+    o.start(); o.stop(ctx.currentTime+0.3);
+  }catch(e){}
+}
+
+/* ---------------- TOAST ---------------- */
+let toastTimer;
+function showToast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'), 2200);
+}
+
+/* ---------------- CONFETTI (canvas, no libs) ---------------- */
+const canvas = document.getElementById('confetti-canvas');
+const ctx2d = canvas.getContext('2d');
+function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function launchConfetti(){
+  const colors = ['#E8A33D','#C1440E','#7C9473','#C9962C','#FBF3E3'];
+  const pieces = [];
+  for(let i=0;i<80;i++){
+    pieces.push({
+      x: Math.random()*canvas.width,
+      y: -20 - Math.random()*100,
+      w: 6+Math.random()*6,
+      h: 8+Math.random()*8,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      speedY: 2+Math.random()*3,
+      speedX: -1.5+Math.random()*3,
+      rot: Math.random()*360,
+      rotSpeed: -6+Math.random()*12
+    });
+  }
+  let frames = 0;
+  function animate(){
+    ctx2d.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      p.x += p.speedX; p.y += p.speedY; p.rot += p.rotSpeed;
+      ctx2d.save();
+      ctx2d.translate(p.x,p.y);
+      ctx2d.rotate(p.rot*Math.PI/180);
+      ctx2d.fillStyle = p.color;
+      ctx2d.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx2d.restore();
+    });
+    frames++;
+    if(frames < 110){ requestAnimationFrame(animate); }
+    else { ctx2d.clearRect(0,0,canvas.width,canvas.height); }
+  }
+  animate();
+}
+
+/* ---------------- INIT ---------------- */
+renderTopics();
+updateProgress();
+renderQuizGate();
+renderHomework();
+</script>
+</body>
+</html>
