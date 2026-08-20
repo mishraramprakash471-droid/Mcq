@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ancient Indian Science & Technology</title>
+    <style>
+        :root { --primary: #2c3e50; --accent: #d35400; --bg: #fdfaf6; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--primary); }
+        .topic { margin: 20px 0; padding: 20px; border-left: 5px solid var(--accent); background: #fff5eb; }
+        h2 { color: var(--accent); margin-top: 0; }
+        .example { background: #e8f8f5; padding: 10px; border-radius: 5px; margin-top: 10px; border: 1px solid #b2e2d9; }
+        .quiz, .homework { margin-top: 40px; padding: 20px; background: #f0f4f8; border-radius: 10px; }
+        button { background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ancient Indian Science & Technology (प्राचीन भारतीय विज्ञान और तकनीक)</h1>
+        
+        <div id="topics">
+            <!-- Topics will be inserted here -->
+        </div>
+
+        <div class="quiz">
+            <h2>Practice MCQ (अभ्यास प्रश्न)</h2>
+            <div id="mcq-container"></div>
+        </div>
+
+        <div class="homework">
+            <h2>Homework (गृहकार्य)</h2>
+            <ol>
+                <li>लौह स्तंभ के टिकाऊपन का वैज्ञानिक कारण क्या है?</li>
+                <li>प्राचीन जल संचयन प्रणाली आज के समय में कैसे उपयोगी है?</li>
+                <li>सुश्रुत द्वारा की गई सर्जरी और आधुनिक सर्जरी में क्या समानताएं हैं?</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const topics = [
+            { t: "1. Astronomy (खगोल विज्ञान)", d: "खगोलविदों ने ग्रहों और नक्षत्रों का व्यवस्थित अध्ययन किया।", e: "उदाहरण: ग्रहण की भविष्यवाणी करना आज के मौसम पूर्वानुमान जैसा है।" },
+            { t: "2. Solar & Lunar Calendar (सौर और चंद्र कैलेंडर)", d: "खेती और त्योहारों के लिए समय का सटीक मापन।", e: "उदाहरण: दिवाली और होली की तारीखें आज भी चंद्र कैलेंडर पर आधारित हैं।" },
+            { t: "3. Sushruta & Surgery (सुश्रुत और शल्य चिकित्सा)", d: "सुश्रुत को शल्य चिकित्सा का जनक माना जाता है।", e: "उदाहरण: प्लास्टिक सर्जरी की तकनीकें सुश्रुत की संहिता में हजारों साल पहले वर्णित थीं।" },
+            { t: "4. Charaka & Ayurveda (चरक और आयुर्वेद)", d: "चरक ने आहार, जीवनशैली और मानसिक स्वास्थ्य पर जोर दिया।", e: "उदाहरण: आज का Preventive Healthcare सिस्टम इन्हीं सिद्धांतों पर टिका है।" },
+            { t: "5. Metallurgy (धातु विज्ञान)", d: "धातुकर्म में निपुणता, जैसे दिल्ली का लौह स्तंभ।", e: "उदाहरण: जंग-रोधी लोहे का उपयोग आज के बड़े पुलों में किया जाता है।" },
+            { t: "6. Water Harvesting (जल संचयन)", d: "पानी बचाने के लिए उन्नत प्रणालियाँ, जैसे बावड़ियाँ।", e: "उदाहरण: वर्षा जल संचयन आज के सूखे शहरों के लिए समाधान है।" },
+            { t: "7. Temple Engineering (मंदिर इंजीनियरिंग)", d: "वैज्ञानिक परिशुद्धता और वास्तुकला।", e: "उदाहरण: भूकंप प्रतिरोधी निर्माण तकनीकें प्राचीन मंदिरों में देखी जा सकती हैं।" },
+            { t: "8. Ancient Architecture (प्राचीन वास्तुकला)", d: "हड़प्पा और मोहनजोदड़ो जैसी उन्नत नगर योजनाएँ।", e: "उदाहरण: आज की टाउन प्लानिंग और जल निकासी प्रणाली उसी की उन्नत रूप है।" },
+            { t: "9. Navigation Science (नौवहन विज्ञान)", d: "समुद्री व्यापार और समुद्री लहरों का ज्ञान।", e: "उदाहरण: प्राचीन समुद्री मार्ग आज के ग्लोबल ट्रेड रूट का आधार थे।" },
+            { t: "10. Scientific Temper (वैज्ञानिक दृष्टिकोण)", d: "तर्क और प्रयोग (प्रत्यक्ष और अनुमान) को महत्व।", e: "उदाहरण: हर चीज़ के पीछे 'क्यों' और 'कैसे' पूछना वैज्ञानिक दृष्टिकोण है।" }
+        ];
+
+        const container = document.getElementById('topics');
+        topics.forEach(item => {
+            container.innerHTML += `<div class="topic"><h2>${item.t}</h2><p>${item.d}</p><div class="example"><strong>Real-life Example:</strong> ${item.e}</div></div>`;
+        });
+
+        const mcqs = [
+            { q: "शल्य चिकित्सा का जनक किसे माना जाता है?", a: ["सुश्रुत", "चरक", "आर्यभट्ट"], c: 0 },
+            { q: "दिल्ली का लौह स्तंभ किस विज्ञान का उदाहरण है?", a: ["धातु विज्ञान", "खगोल विज्ञान", "वास्तुकला"], c: 0 },
+            { q: "आर्यभट्ट ने क्या खोजा?", a: ["पृथ्वी के अक्ष पर घूमने की जानकारी", "प्लास्टिक सर्जरी", "पानी बचाने का तरीका"], c: 0 },
+            { q: "प्राचीन भारत में जल संचयन की संरचनाएँ क्या थीं?", a: ["बावड़ी", "पुल", "गुफा"], c: 0 },
+            { q: "प्राचीन शिक्षा के प्रसिद्ध केंद्र कौन से थे?", a: ["तक्षशिला", "शहर", "मंदिर"], c: 0 },
+            { q: "चरक किस विधा के विशेषज्ञ थे?", a: ["आंतरिक चिकित्सा", "नौवहन", "धातु विज्ञान"], c: 0 },
+            { q: "वास्तुकला का उदाहरण कौन सा शहर है?", a: ["हड़प्पा", "समुद्र", "पहाड़"], c: 0 },
+            { q: "वैज्ञानिक दृष्टिकोण को क्या कहा गया है?", a: ["प्रत्यक्ष और अनुमान", "विश्वास", "भाग्य"], c: 0 },
+            { q: "खगोल विज्ञान में किसका अध्ययन किया गया?", a: ["ग्रह और तारे", "धातु", "पानी"], c: 0 },
+            { q: "समय की सटीक गणना के लिए किसका उपयोग हुआ?", a: ["कैलेंडर", "धातु", "दवा"], c: 0 }
+        ];
+
+        const mcqContainer = document.getElementById('mcq-container');
+        mcqs.forEach((m, i) => {
+            mcqContainer.innerHTML += `<p>${i+1}. ${m.q}</p><ul>${m.a.map(opt => `<li>${opt}</li>`).join('')}</ul>`;
+        });
+    </script>
+</body>
+</html>
