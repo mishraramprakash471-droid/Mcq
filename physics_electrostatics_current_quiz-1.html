@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhira Insights - Physics MCQ: Electrostatics & Current Electricity</title>
+<style>
+  :root{
+    --gold1:#f6d365;
+    --gold2:#fda085;
+    --bg1:#0f172a;
+    --bg2:#1e293b;
+    --card:#1e2a44;
+    --accent:#38bdf8;
+    --green:#22c55e;
+    --red:#ef4444;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:#f1f5f9;
+    min-height:100vh;
+    padding:16px;
+  }
+  .container{max-width:760px; margin:0 auto;}
+  .brand{
+    text-align:center;
+    font-size:2.1em;
+    font-weight:800;
+    letter-spacing:1px;
+    margin-bottom:4px;
+    background:linear-gradient(90deg,#fff6b7,#f6d365,#fda085,#f6d365,#fff6b7);
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:shimmer 3.5s linear infinite;
+  }
+  @keyframes shimmer{
+    0%{background-position:0% 50%;}
+    100%{background-position:300% 50%;}
+  }
+  .subtitle{
+    text-align:center;
+    color:#94a3b8;
+    font-size:0.95em;
+    margin-bottom:20px;
+  }
+  .chapter-title{
+    text-align:center;
+    font-size:1.15em;
+    font-weight:600;
+    color:var(--gold1);
+    margin-bottom:6px;
+  }
+  .chapter-title-en{
+    text-align:center;
+    font-size:0.85em;
+    color:#94a3b8;
+    margin-bottom:20px;
+    font-style:italic;
+  }
+  .progress-wrap{
+    background:var(--card);
+    border-radius:12px;
+    padding:12px 16px;
+    margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .progress-bar-bg{
+    flex:1;
+    min-width:150px;
+    height:10px;
+    background:#0f172a;
+    border-radius:6px;
+    overflow:hidden;
+    margin:0 10px;
+  }
+  .progress-bar-fill{
+    height:100%;
+    background:linear-gradient(90deg,var(--gold1),var(--gold2));
+    width:0%;
+    transition:width .4s ease;
+  }
+  .score-badge{
+    font-weight:700;
+    color:var(--gold1);
+    white-space:nowrap;
+  }
+  .card{
+    background:var(--card);
+    border-radius:14px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 4px 18px rgba(0,0,0,.25);
+    border:1px solid rgba(255,255,255,.05);
+  }
+  .q-num{
+    display:inline-block;
+    background:linear-gradient(90deg,var(--gold1),var(--gold2));
+    color:#1e293b;
+    font-weight:800;
+    padding:3px 12px;
+    border-radius:20px;
+    font-size:.85em;
+    margin-bottom:10px;
+  }
+  .q-text-hi{
+    font-size:1.08em;
+    font-weight:600;
+    margin-bottom:4px;
+    line-height:1.5;
+  }
+  .q-text-en{
+    font-size:.9em;
+    color:#94a3b8;
+    font-style:italic;
+    margin-bottom:14px;
+    line-height:1.4;
+  }
+  .options{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .option{
+    background:#0f172a;
+    border:2px solid #334155;
+    border-radius:10px;
+    padding:12px 14px;
+    cursor:pointer;
+    transition:all .2s ease;
+    font-size:.97em;
+  }
+  .option:hover{border-color:var(--accent);}
+  .option.selected{border-color:var(--accent); background:#0c2436;}
+  .option.correct{
+    border-color:var(--green);
+    background:rgba(34,197,94,.15);
+    font-weight:700;
+  }
+  .option.wrong{
+    border-color:var(--red);
+    background:rgba(239,68,68,.15);
+  }
+  .option.disabled{cursor:default; pointer-events:none;}
+  .explain{
+    margin-top:12px;
+    padding:12px;
+    border-radius:10px;
+    background:#0f172a;
+    border-left:4px solid var(--gold1);
+    font-size:.88em;
+    color:#cbd5e1;
+    display:none;
+    line-height:1.5;
+  }
+  .btn-row{
+    text-align:center;
+    margin:24px 0;
+  }
+  .btn{
+    background:linear-gradient(90deg,var(--gold1),var(--gold2));
+    color:#1e293b;
+    border:none;
+    padding:14px 36px;
+    border-radius:30px;
+    font-size:1.05em;
+    font-weight:800;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(246,211,101,.3);
+    transition:transform .15s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn:disabled{
+    background:#475569;
+    color:#94a3b8;
+    cursor:not-allowed;
+    box-shadow:none;
+  }
+  .lock-screen{
+    text-align:center;
+    padding:50px 20px;
+    background:var(--card);
+    border-radius:16px;
+  }
+  .lock-icon{font-size:3.5em; margin-bottom:14px;}
+  .lock-title{font-size:1.3em; font-weight:700; color:var(--gold1); margin-bottom:8px;}
+  .lock-sub{color:#94a3b8; font-size:.95em; margin-bottom:20px;}
+  .timer{
+    font-size:2em;
+    font-weight:800;
+    color:var(--accent);
+    letter-spacing:2px;
+    margin-bottom:10px;
+    font-variant-numeric:tabular-nums;
+  }
+  .result-screen{
+    text-align:center;
+    padding:40px 20px;
+    background:var(--card);
+    border-radius:16px;
+  }
+  .result-score{
+    font-size:3em;
+    font-weight:800;
+    background:linear-gradient(90deg,var(--gold1),var(--gold2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin:10px 0;
+  }
+  canvas#confetti{
+    position:fixed; top:0; left:0; pointer-events:none; z-index:999;
+  }
+  .hidden{display:none !important;}
+  footer{
+    text-align:center;
+    color:#64748b;
+    font-size:.8em;
+    margin-top:30px;
+    padding-bottom:20px;
+  }
+  .set-label{
+    text-align:center;
+    font-size:.85em;
+    color:#64748b;
+    margin-bottom:16px;
+  }
+</style>
+</head>
+<body>
+<canvas id="confetti"></canvas>
+<div class="container">
+  <div class="brand">✨ Abhira Insights ✨</div>
+  <div class="subtitle">Physics Board Model MCQ Practice</div>
+  <div class="chapter-title">स्थिर वैद्युत विभव तथा धारिता + विद्युत धारा</div>
+  <div class="chapter-title-en">Electrostatic Potential & Capacitance + Current Electricity — Bihar Board Class 12</div>
+
+  <div class="progress-wrap">
+    <span>प्रश्न <span id="currentQNo">1</span>/<span id="totalQNo">15</span></span>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+    <span class="score-badge">Score: <span id="scoreDisplay">0</span></span>
+  </div>
+
+  <div id="quizArea"></div>
+
+  <div class="btn-row">
+    <button class="btn" id="nextBtn" disabled>अगला प्रश्न / Next Question</button>
+  </div>
+
+  <div id="lockScreen" class="lock-screen hidden">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">अगले 15 प्रश्न 24 घंटे बाद खुलेंगे</div>
+    <div class="lock-sub">Next 15 questions will unlock after 24 hours</div>
+    <div class="timer" id="timerDisplay">24:00:00</div>
+    <div class="lock-sub">कृपया वापस आएं / Please come back later</div>
+  </div>
+
+  <div id="finalResult" class="result-screen hidden">
+    <div class="lock-icon">🏆</div>
+    <div class="lock-title">बधाई हो! सभी 30 प्रश्न पूरे हुए</div>
+    <div class="lock-sub">Congratulations! You completed all 30 questions</div>
+    <div class="result-score" id="finalScore">0/30</div>
+    <div class="lock-sub">आपने दोनों अध्याय सफलतापूर्वक पूरे किए!</div>
+  </div>
+
+  <footer>Made with ❤️ by Abhira Insights | Bihar Board Class 12 Physics</footer>
+</div>
+
+<script>
+// ================= QUESTION BANK =================
+const questions = [
+// ---------- SET 1: Electrostatic Potential and Capacitance (Q1-15) ----------
+{hi:"किसी बिंदु आवेश के कारण विद्युत विभव का SI मात्रक क्या है?", en:"What is the SI unit of electric potential due to a point charge?",
+ options:["वोल्ट (Volt)","जूल (Joule)","न्यूटन/कूलॉम","कूलॉम/मीटर"], answer:0,
+ explain:"विद्युत विभव = कार्य/आवेश, अतः इसका मात्रक जूल/कूलॉम = वोल्ट होता है। | Potential = Work/Charge, so unit is Joule/Coulomb = Volt."},
+
+{hi:"दो बिंदु आवेशों q1 व q2 के बीच r दूरी पर स्थितिज ऊर्जा का सूत्र है:", en:"Electrostatic potential energy between two point charges q1 and q2 at distance r is:",
+ options:["kq1q2/r","kq1q2/r²","kq1/r","kq1q2r"], answer:0,
+ explain:"U = kq1q2/r, जहाँ k = 1/(4πε0)। | U = kq1q2/r, where k = 1/(4πε0)."},
+
+{hi:"यदि किसी क्षेत्र में विद्युत क्षेत्र E शून्य है, तो विभव V:", en:"If electric field E is zero in a region, then potential V:",
+ options:["अचर (constant) रहेगा, शून्य होना आवश्यक नहीं","सदैव शून्य होगा","अनंत होगा","ऋणात्मक होगा"], answer:0,
+ explain:"E = -dV/dr, अतः E=0 का अर्थ है V उस क्षेत्र में स्थिर है, शून्य होना जरूरी नहीं। | E=0 means V is constant in that region, not necessarily zero."},
+
+{hi:"समविभव पृष्ठ (Equipotential Surface) पर आवेश को एक बिंदु से दूसरे बिंदु तक ले जाने में कार्य होता है:", en:"Work done in moving a charge along an equipotential surface is:",
+ options:["शून्य (Zero)","अधिकतम","ऋणात्मक","धनात्मक"], answer:0,
+ explain:"समविभव पृष्ठ पर सभी बिंदुओं का विभव समान होता है, अतः W = qΔV = 0। | All points on equipotential surface have same potential, so W = qΔV = 0."},
+
+{hi:"विद्युत द्विध्रुव के निरक्षीय (equatorial) बिंदु पर विद्युत विभव होता है:", en:"Electric potential at an equatorial point of an electric dipole is:",
+ options:["शून्य","अधिकतम","न्यूनतम पर शून्य नहीं","अनंत"], answer:0,
+ explain:"निरक्षीय बिंदु पर दोनों आवेशों (+q, -q) से दूरी बराबर होने के कारण विभव परस्पर निरस्त हो जाता है। | At equatorial point, distances from +q and -q are equal, so potentials cancel out."},
+
+{hi:"धारिता (Capacitance) की परिभाषा किस सूत्र से होती है?", en:"Capacitance is defined by which formula?",
+ options:["C = Q/V","C = V/Q","C = QV","C = Q+V"], answer:0,
+ explain:"धारिता = आवेश/विभव, मात्रक फैरड (Farad)। | Capacitance = Charge/Potential, unit is Farad."},
+
+{hi:"समांतर प्लेट संधारित्र (Parallel Plate Capacitor) की धारिता का सूत्र है:", en:"Formula for capacitance of a parallel plate capacitor is:",
+ options:["C = ε0A/d","C = ε0d/A","C = A/ε0d","C = ε0Ad"], answer:0,
+ explain:"जहाँ A = प्लेट का क्षेत्रफल, d = प्लेटों के बीच दूरी। | Where A = area of plates, d = separation between plates."},
+
+{hi:"संधारित्र की प्लेटों के बीच परावैद्युत (dielectric) पदार्थ डालने से धारिता:", en:"Inserting a dielectric between capacitor plates causes capacitance to:",
+ options:["बढ़ती है (increases)","घटती है (decreases)","अपरिवर्तित रहती है","शून्य हो जाती है"], answer:0,
+ explain:"परावैद्युत नियतांक K के कारण नई धारिता C' = KC0, जो सदैव C0 से अधिक होती है। | New capacitance C'=KC0 which is always greater than C0."},
+
+{hi:"संधारित्र में संचित ऊर्जा का सूत्र है:", en:"Energy stored in a capacitor is given by:",
+ options:["U = ½CV²","U = CV²","U = ½C²V","U = CV"], answer:0,
+ explain:"U = ½CV² = ½QV = Q²/2C। | U = ½CV² = ½QV = Q²/2C."},
+
+{hi:"जब दो संधारित्र श्रेणीक्रम (series) में जोड़े जाते हैं, तो तुल्य धारिता:", en:"When two capacitors are connected in series, the equivalent capacitance:",
+ options:["सबसे छोटी धारिता से भी कम होती है","सबसे बड़ी धारिता से अधिक होती है","दोनों के योग के बराबर होती है","अपरिवर्तित रहती है"], answer:0,
+ explain:"1/C = 1/C1 + 1/C2, अतः तुल्य धारिता सबसे छोटे संधारित्र से भी कम होती है। | Equivalent capacitance in series is less than the smallest individual capacitance."},
+
+{hi:"समांतरक्रम (parallel) में जुड़े संधारित्रों पर विभवांतर:", en:"In capacitors connected in parallel, the potential difference:",
+ options:["सभी पर समान रहता है","सभी पर भिन्न होता है","केवल एक पर होता है","शून्य होता है"], answer:0,
+ explain:"समांतरक्रम में सभी संधारित्रों के सिरों पर विभवांतर समान होता है (V सामान्य)। | In parallel combination, potential difference is same across all capacitors."},
+
+{hi:"दो आवेशित संधारित्रों (C1V1 व C2V2) को जोड़ने पर उभयनिष्ठ विभव (common potential) का सूत्र है:", en:"When two charged capacitors are connected, the common potential is given by:",
+ options:["V = (C1V1+C2V2)/(C1+C2)","V = (C1+C2)/(V1+V2)","V = C1V1×C2V2","V = C1V1-C2V2"], answer:0,
+ explain:"आवेश संरक्षण के नियम से यह सूत्र प्राप्त होता है। | Derived from conservation of charge."},
+
+{hi:"परावैद्युत नियतांक (Dielectric Constant K) की परिभाषा है:", en:"Dielectric constant K is defined as:",
+ options:["K = परावैद्युत सहित धारिता / निर्वात धारिता","K = निर्वात धारिता / परावैद्युत सहित धारिता","K = आवेश/धारिता","K = विभव/धारिता"], answer:0,
+ explain:"K = C(with dielectric)/C0(vacuum), यह सदैव 1 से अधिक होता है। | K = C(with dielectric)/C0, always greater than 1."},
+
+{hi:"वान डी ग्राफ जनित्र (Van de Graaff Generator) का उपयोग किया जाता है:", en:"Van de Graaff generator is used for:",
+ options:["अत्यधिक उच्च विभव उत्पन्न करने के लिए","धारा मापने के लिए","प्रतिरोध मापने के लिए","चुंबकीय क्षेत्र मापने के लिए"], answer:0,
+ explain:"यह खोखले चालक के बाहरी पृष्ठ पर आवेश एकत्रित कर लाखों वोल्ट तक विभव उत्पन्न करता है। | It accumulates charge on outer surface of hollow conductor to generate very high voltages."},
+
+{hi:"किसी खोखले आवेशित चालक गोले के अंदर विद्युत विभव:", en:"Inside a hollow charged conducting sphere, the electric potential:",
+ options:["पृष्ठ के विभव के बराबर व स्थिर रहता है","शून्य होता है","केंद्र पर अनंत होता है","बाहर से अधिक होता है"], answer:0,
+ explain:"अंदर E=0 होने के कारण विभव पृष्ठ के विभव के बराबर स्थिर रहता है। | Since E=0 inside, potential remains constant equal to surface potential."},
+
+// ---------- SET 2: Current Electricity (Q16-30) ----------
+{hi:"विद्युत धारा (Electric Current) की परिभाषा है:", en:"Electric current is defined as:",
+ options:["I = dq/dt","I = dt/dq","I = q×t","I = q/t²"], answer:0,
+ explain:"धारा = प्रति एकांक समय प्रवाहित आवेश। | Current = rate of flow of charge."},
+
+{hi:"अपवाह वेग (Drift Velocity) है:", en:"Drift velocity is:",
+ options:["विद्युत क्षेत्र लगाने पर इलेक्ट्रॉनों का औसत वेग","इलेक्ट्रॉनों का तात्क्षणिक वेग","इलेक्ट्रॉनों का अधिकतम वेग","चालक में ध्वनि का वेग"], answer:0,
+ explain:"यह वह औसत वेग है जो इलेक्ट्रॉन विद्युत क्षेत्र की दिशा में प्राप्त करते हैं। | Average velocity gained by electrons in the direction of applied field."},
+
+{hi:"धारा तथा अपवाह वेग के बीच संबंध है:", en:"Relation between current and drift velocity is:",
+ options:["I = nAev_d","I = nA/ev_d","I = ne/Av_d","I = nAe/v_d"], answer:0,
+ explain:"जहाँ n = मुक्त इलेक्ट्रॉन घनत्व, A = अनुप्रस्थ काट क्षेत्रफल, e = इलेक्ट्रॉन आवेश। | Where n = free electron density, A = cross-section area, e = electron charge."},
+
+{hi:"ओम का नियम (Ohm's Law) बताता है:", en:"Ohm's Law states that:",
+ options:["स्थिर ताप पर V∝I अर्थात V=IR","V और I में कोई संबंध नहीं","धारा सदैव स्थिर रहती है","प्रतिरोध सदैव शून्य होता है"], answer:0,
+ explain:"स्थिर ताप पर चालक में विभवांतर धारा के अनुक्रमानुपाती होता है। | At constant temperature, V is directly proportional to I."},
+
+{hi:"प्रतिरोधकता (Resistivity) निर्भर करती है:", en:"Resistivity depends on:",
+ options:["पदार्थ की प्रकृति व ताप पर","चालक की लंबाई पर","चालक के अनुप्रस्थ काट पर","चालक के आकार पर"], answer:0,
+ explain:"प्रतिरोधकता केवल पदार्थ के गुण व ताप पर निर्भर करती है, आकार पर नहीं। | Resistivity depends only on material's nature and temperature, not on dimensions."},
+
+{hi:"धात्विक चालक का प्रतिरोध ताप बढ़ने पर:", en:"Resistance of a metallic conductor with increase in temperature:",
+ options:["बढ़ता है (increases)","घटता है (decreases)","अपरिवर्तित रहता है","शून्य हो जाता है"], answer:0,
+ explain:"ताप बढ़ने पर इलेक्ट्रॉनों की टक्करें बढ़ जाती हैं जिससे प्रतिरोध बढ़ता है। | Increased temperature causes more electron collisions, increasing resistance."},
+
+{hi:"जब सेल से धारा प्रवाहित होती है, तो टर्मिनल विभवांतर (Terminal Voltage) EMF की तुलना में:", en:"When current flows from a cell, terminal voltage compared to EMF is:",
+ options:["कम होता है (आंतरिक प्रतिरोध के कारण)","अधिक होता है","बराबर होता है","शून्य होता है"], answer:0,
+ explain:"V = E - Ir, आंतरिक प्रतिरोध पर वोल्टता पात होने से V, E से कम होता है। | V = E - Ir, due to voltage drop across internal resistance."},
+
+{hi:"किसी सेल के आंतरिक प्रतिरोध का सूत्र है:", en:"Formula for internal resistance of a cell is:",
+ options:["r = (E-V)/I","r = (E+V)/I","r = EV/I","r = E/(V×I)"], answer:0,
+ explain:"E - V = Ir से r = (E-V)/I प्राप्त होता है। | From E-V=Ir, we get r=(E-V)/I."},
+
+{hi:"किरचॉफ का धारा नियम (Kirchhoff's Current Law) आधारित है:", en:"Kirchhoff's Current Law is based on:",
+ options:["आवेश संरक्षण नियम पर","ऊर्जा संरक्षण नियम पर","संवेग संरक्षण नियम पर","द्रव्यमान संरक्षण नियम पर"], answer:0,
+ explain:"किसी संधि पर प्रवेश करने वाली धारा = निकलने वाली धारा, यह आवेश संरक्षण दर्शाता है। | Sum of currents entering a junction equals sum leaving, showing charge conservation."},
+
+{hi:"किरचॉफ का वोल्टता नियम (Kirchhoff's Voltage Law) आधारित है:", en:"Kirchhoff's Voltage Law is based on:",
+ options:["ऊर्जा संरक्षण नियम पर","आवेश संरक्षण नियम पर","न्यूटन के नियम पर","गैस के नियम पर"], answer:0,
+ explain:"किसी बंद लूप में विभवांतरों का योग शून्य होता है, यह ऊर्जा संरक्षण दर्शाता है। | Sum of potential differences in a closed loop is zero, based on energy conservation."},
+
+{hi:"व्हीटस्टोन ब्रिज (Wheatstone Bridge) के संतुलन की शर्त है:", en:"Balance condition of Wheatstone Bridge is:",
+ options:["P/Q = R/S","P×Q = R×S","P+Q = R+S","P-Q = R-S"], answer:0,
+ explain:"संतुलन की स्थिति में गैल्वेनोमीटर में धारा शून्य होती है और P/Q=R/S होता है। | At balance, galvanometer current is zero and P/Q=R/S."},
+
+{hi:"मीटर सेतु (Meter Bridge) किसका व्यावहारिक अनुप्रयोग है?", en:"Meter Bridge is a practical application of:",
+ options:["व्हीटस्टोन ब्रिज का","ओम के नियम का","किरचॉफ के नियम का","पोटेंशियोमीटर का"], answer:0,
+ explain:"मीटर सेतु व्हीटस्टोन ब्रिज सिद्धांत पर आधारित एक व्यावहारिक उपकरण है। | Meter bridge is a practical device based on Wheatstone bridge principle."},
+
+{hi:"पोटेंशियोमीटर (Potentiometer) का सिद्धांत है:", en:"Principle of Potentiometer is:",
+ options:["तार की लंबाई के अनुक्रमानुपाती विभव पात, बिना धारा खींचे EMF मापन","धारा मापने के लिए प्रतिरोध बदलना","चुंबकीय क्षेत्र मापना","केवल प्रतिरोध मापना"], answer:0,
+ explain:"पोटेंशियोमीटर बिना सेल से धारा खींचे उसका सही EMF माप सकता है, यही इसकी विशेषता है। | Potentiometer measures exact EMF without drawing current from the cell being measured."},
+
+{hi:"जब कई सेल श्रेणीक्रम (series) में जुड़ी होती हैं, तो:", en:"When several cells are connected in series:",
+ options:["धारा समान रहती है, EMF जुड़ जाते हैं","EMF समान रहता है, धारा जुड़ जाती है","दोनों शून्य हो जाते हैं","दोनों अपरिवर्तित रहते हैं"], answer:0,
+ explain:"श्रेणीक्रम में धारा सभी सेलों में समान रहती है जबकि कुल EMF सभी सेलों के EMF का योग होता है। | In series, current remains same through all cells while total EMF is the sum of individual EMFs."},
+
+{hi:"विद्युत शक्ति (Electrical Power) का सूत्र है:", en:"Formula for electrical power is:",
+ options:["P = VI = I²R = V²/R","P = V/I","P = V+I","P = V-I"], answer:0,
+ explain:"ये तीनों सूत्र ओम के नियम (V=IR) से परस्पर व्युत्पन्न किए जा सकते हैं। | All three forms can be derived from each other using Ohm's law (V=IR)."}
+];
+
+// ---- Shuffle options so correct answer isn't always at the same position ----
+function seededRandom(seed){
+  let t = seed += 0x6D2B79F5;
+  t = Math.imul(t ^ t>>>15, t | 1);
+  t ^= t + Math.imul(t ^ t>>>7, t | 61);
+  return ((t ^ t>>>14) >>> 0) / 4294967296;
+}
+function shuffleQuestionOptions(q, seed){
+  const paired = q.options.map((opt,i)=>({opt, isCorrect: i===q.answer}));
+  // Fisher-Yates using seeded random for deterministic, consistent shuffle
+  for(let i=paired.length-1; i>0; i--){
+    const j = Math.floor(seededRandom(seed + i*97) * (i+1));
+    [paired[i], paired[j]] = [paired[j], paired[i]];
+  }
+  q.options = paired.map(p=>p.opt);
+  q.answer = paired.findIndex(p=>p.isCorrect);
+  return q;
+}
+questions.forEach((q, idx)=> shuffleQuestionOptions(q, idx*131 + 17));
+
+const TOTAL_Q = questions.length; // 30
+const SET_SIZE = 15;
+const LOCK_MS = 24*60*60*1000; // 24 hours
+const STORAGE_KEY = "abhira_physics_electro_current_v1";
+
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || {
+  currentIndex: 0,
+  score: 0,
+  answers: [],
+  unlockAt: null
+};
+
+const quizArea = document.getElementById('quizArea');
+const nextBtn = document.getElementById('nextBtn');
+const lockScreen = document.getElementById('lockScreen');
+const finalResult = document.getElementById('finalResult');
+const timerDisplay = document.getElementById('timerDisplay');
+const currentQNoEl = document.getElementById('currentQNo');
+const totalQNoEl = document.getElementById('totalQNo');
+const progressFill = document.getElementById('progressFill');
+const scoreDisplay = document.getElementById('scoreDisplay');
+const progressWrap = document.querySelector('.progress-wrap');
+
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ================= AUDIO =================
+let audioCtx;
+function playTone(freq, duration, type='sine'){
+  try{
+    if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = type;
+    osc.frequency.value = freq;
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + duration);
+  }catch(e){}
+}
+function playCorrect(){ playTone(880,0.15); setTimeout(()=>playTone(1175,0.2),120); }
+function playWrong(){ playTone(200,0.3,'sawtooth'); }
+function playComplete(){ [523,659,784,1047].forEach((f,i)=>setTimeout(()=>playTone(f,0.25),i*150)); }
+
+// ================= CONFETTI =================
+function fireConfetti(){
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#f6d365','#fda085','#38bdf8','#22c55e','#f472b6'];
+  let particles = [];
+  for(let i=0;i<120;i++){
+    particles.push({
+      x: Math.random()*canvas.width,
+      y: -20 - Math.random()*canvas.height*0.5,
+      size: 5+Math.random()*6,
+      color: colors[Math.floor(Math.random()*colors.length)],
+      speedY: 2+Math.random()*4,
+      speedX: -2+Math.random()*4,
+      rotation: Math.random()*360,
+      rotSpeed: -6+Math.random()*12
+    });
+  }
+  let frame=0;
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.y += p.speedY;
+      p.x += p.speedX;
+      p.rotation += p.rotSpeed;
+      ctx.save();
+      ctx.translate(p.x,p.y);
+      ctx.rotate(p.rotation*Math.PI/180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size/2,-p.size/2,p.size,p.size);
+      ctx.restore();
+    });
+    frame++;
+    if(frame<150){
+      requestAnimationFrame(animate);
+    }else{
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+  }
+  animate();
+}
+
+// ================= RENDER QUESTION =================
+function renderQuestion(){
+  const idx = state.currentIndex;
+  if(idx >= TOTAL_Q){
+    showFinalResult();
+    return;
+  }
+  if(idx === SET_SIZE && state.unlockAt && Date.now() < state.unlockAt){
+    showLockScreen();
+    return;
+  }
+  if(idx === SET_SIZE && !state.unlockAt){
+    // just crossed into set 2 but unlockAt somehow not set (safety)
+    state.unlockAt = Date.now() + LOCK_MS;
+    saveState();
+    showLockScreen();
+    return;
+  }
+
+  lockScreen.classList.add('hidden');
+  finalResult.classList.add('hidden');
+  progressWrap.classList.remove('hidden');
+  quizArea.classList.remove('hidden');
+  nextBtn.classList.remove('hidden');
+
+  const q = questions[idx];
+  const setNum = idx < SET_SIZE ? 1 : 2;
+  const posInSet = idx < SET_SIZE ? idx+1 : idx-SET_SIZE+1;
+
+  currentQNoEl.textContent = idx+1;
+  totalQNoEl.textContent = TOTAL_Q;
+  progressFill.style.width = ((idx)/TOTAL_Q*100)+"%";
+  scoreDisplay.textContent = state.score;
+
+  let optionsHtml = q.options.map((opt,i)=>
+    `<div class="option" data-idx="${i}">${String.fromCharCode(65+i)}. ${opt}</div>`
+  ).join('');
+
+  quizArea.innerHTML = `
+    <div class="set-label">Set ${setNum} — प्रश्न ${posInSet}/15 (Chapter ${setNum===1?'1: Electrostatics':'2: Current Electricity'})</div>
+    <div class="card">
+      <div class="q-num">Q${idx+1}</div>
+      <div class="q-text-hi">${q.hi}</div>
+      <div class="q-text-en">${q.en}</div>
+      <div class="options">${optionsHtml}</div>
+      <div class="explain" id="explainBox"></div>
+    </div>
+  `;
+
+  nextBtn.disabled = true;
+  nextBtn.textContent = (idx === TOTAL_Q-1) ? "परिणाम देखें / See Result" : "अगला प्रश्न / Next Question";
+
+  document.querySelectorAll('.option').forEach(el=>{
+    el.addEventListener('click', ()=>handleAnswer(el, q, idx));
+  });
+}
+
+function handleAnswer(el, q, idx){
+  if(el.classList.contains('disabled')) return;
+  document.querySelectorAll('.option').forEach(o=>o.classList.add('disabled'));
+  const chosen = parseInt(el.dataset.idx);
+  const correct = q.answer;
+  document.querySelectorAll('.option').forEach((o,i)=>{
+    if(i===correct) o.classList.add('correct');
+    if(i===chosen && chosen!==correct) o.classList.add('wrong');
+  });
+  const explainBox = document.getElementById('explainBox');
+  explainBox.style.display = 'block';
+  explainBox.innerHTML = "💡 " + q.explain;
+
+  if(chosen === correct){
+    state.score++;
+    playCorrect();
+  } else {
+    playWrong();
+  }
+  scoreDisplay.textContent = state.score;
+  state.answers[idx] = chosen;
+  nextBtn.disabled = false;
+  saveState();
+}
+
+nextBtn.addEventListener('click', ()=>{
+  state.currentIndex++;
+  if(state.currentIndex === SET_SIZE){
+    state.unlockAt = Date.now() + LOCK_MS;
+  }
+  saveState();
+  renderQuestion();
+});
+
+// ================= LOCK SCREEN =================
+let timerInterval;
+function showLockScreen(){
+  quizArea.classList.add('hidden');
+  nextBtn.classList.add('hidden');
+  progressWrap.classList.add('hidden');
+  finalResult.classList.add('hidden');
+  lockScreen.classList.remove('hidden');
+  updateTimer();
+  if(timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer(){
+  const remaining = state.unlockAt - Date.now();
+  if(remaining <= 0){
+    clearInterval(timerInterval);
+    renderQuestion();
+    return;
+  }
+  const h = Math.floor(remaining/3600000);
+  const m = Math.floor((remaining%3600000)/60000);
+  const s = Math.floor((remaining%60000)/1000);
+  timerDisplay.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+// ================= FINAL RESULT =================
+function showFinalResult(){
+  quizArea.classList.add('hidden');
+  nextBtn.classList.add('hidden');
+  lockScreen.classList.add('hidden');
+  progressWrap.classList.remove('hidden');
+  progressFill.style.width = "100%";
+  finalResult.classList.remove('hidden');
+  document.getElementById('finalScore').textContent = `${state.score}/${TOTAL_Q}`;
+  currentQNoEl.textContent = TOTAL_Q;
+  if(!state.celebrated){
+    playComplete();
+    fireConfetti();
+    state.celebrated = true;
+    saveState();
+  }
+}
+
+// ================= INIT =================
+renderQuestion();
+window.addEventListener('resize', ()=>{
+  const canvas = document.getElementById('confetti');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>
