@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IKS in Modern India | भारतीय ज्ञान परंपरा और आधुनिक भारत</title>
+<style>
+  :root{
+    --sandstone:#F5EFE0;
+    --sandstone-deep:#EAE0C8;
+    --ink:#241C3D;
+    --saffron:#E08D2E;
+    --saffron-deep:#B5651D;
+    --teal:#146B69;
+    --teal-deep:#0D4C4A;
+    --maroon:#8A2A3B;
+    --gold-1:#F5D67B;
+    --gold-2:#E08D2E;
+    --gold-3:#B5651D;
+    --card-locked:#D8CFB8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sandstone);
+    color:var(--ink);
+    font-family:'Segoe UI','Nirmala UI','Noto Sans Devanagari',Arial,sans-serif;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  .bg-pattern{
+    position:fixed; inset:0; z-index:-1; opacity:0.06;
+    background-image:
+      radial-gradient(circle at 20% 20%, var(--maroon) 0, transparent 2px),
+      radial-gradient(circle at 60% 70%, var(--teal) 0, transparent 2px),
+      radial-gradient(circle at 85% 30%, var(--saffron) 0, transparent 2px);
+    background-size:60px 60px;
+  }
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:36px 18px 26px;
+    text-align:center;
+    background:linear-gradient(180deg, var(--sandstone-deep), var(--sandstone));
+    border-bottom:3px solid var(--saffron-deep);
+    overflow:hidden;
+  }
+  .day-badge{
+    display:inline-block;
+    background:var(--ink);
+    color:var(--gold-1);
+    font-weight:700;
+    letter-spacing:2px;
+    padding:6px 18px;
+    border-radius:20px;
+    font-size:0.85rem;
+    margin-bottom:14px;
+  }
+  h1.title{
+    font-family:Georgia,'Noto Serif Devanagari',serif;
+    font-size:clamp(1.6rem,5vw,2.7rem);
+    margin:0 0 6px;
+    background:linear-gradient(100deg, var(--gold-3), var(--gold-1) 35%, var(--gold-3) 65%, var(--gold-1));
+    background-size:220% auto;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:shimmer 5s linear infinite;
+  }
+  @keyframes shimmer{
+    0%{background-position:0% center;}
+    100%{background-position:220% center;}
+  }
+  .subtitle{
+    font-size:clamp(0.95rem,2.6vw,1.15rem);
+    color:var(--teal-deep);
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  .quote-box{
+    max-width:640px;
+    margin:0 auto 18px;
+    font-style:italic;
+    color:var(--maroon);
+    font-size:0.95rem;
+    padding:10px 16px;
+    border-left:3px solid var(--saffron);
+    border-right:3px solid var(--saffron);
+    background:rgba(255,255,255,0.4);
+    border-radius:8px;
+  }
+  .intro-line{
+    max-width:680px;
+    margin:0 auto;
+    font-size:0.92rem;
+    color:var(--ink);
+    opacity:0.9;
+  }
+
+  /* BRIDGE PROGRESS */
+  .bridge-wrap{
+    position:relative;
+    padding:26px 12px 30px;
+    background:var(--sandstone);
+    overflow-x:auto;
+  }
+  .bridge-track{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:0;
+    min-width:820px;
+    max-width:1000px;
+    margin:0 auto;
+    padding:0 10px;
+  }
+  .bridge-line{
+    position:absolute;
+    top:50%; left:36px; right:36px;
+    height:4px;
+    background:var(--card-locked);
+    transform:translateY(-50%);
+    border-radius:4px;
+    z-index:0;
+  }
+  .bridge-line-fill{
+    position:absolute;
+    top:50%; left:36px;
+    height:4px;
+    background:linear-gradient(90deg,var(--saffron-deep),var(--gold-1));
+    transform:translateY(-50%);
+    border-radius:4px;
+    z-index:1;
+    transition:width 0.6s ease;
+    width:0%;
+  }
+  .end-icon{
+    font-size:1.6rem;
+    z-index:2;
+    flex-shrink:0;
+    width:36px;
+    text-align:center;
+  }
+  .stone{
+    position:relative;
+    z-index:2;
+    flex:1;
+    display:flex;
+    justify-content:center;
+  }
+  .stone-dot{
+    width:26px;height:26px;border-radius:50%;
+    background:var(--card-locked);
+    border:3px solid var(--sandstone);
+    box-shadow:0 0 0 2px var(--card-locked);
+    cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    font-size:0.7rem;font-weight:700;color:var(--ink);
+    transition:all 0.3s ease;
+  }
+  .stone-dot.unlocked{background:var(--gold-1);box-shadow:0 0 0 2px var(--saffron-deep),0 0 10px var(--gold-2);}
+  .stone-dot.done{background:var(--teal);color:#fff;box-shadow:0 0 0 2px var(--teal-deep);}
+  .stone-dot.locked{cursor:not-allowed; opacity:0.7;}
+
+  /* TOPICS */
+  .topics-wrap{
+    max-width:900px;
+    margin:0 auto;
+    padding:10px 16px 40px;
+  }
+  .section-heading{
+    font-family:Georgia,'Noto Serif Devanagari',serif;
+    font-size:1.4rem;
+    color:var(--maroon);
+    text-align:center;
+    margin:34px 0 18px;
+    position:relative;
+  }
+  .section-heading::after{
+    content:"";
+    display:block;
+    width:60px;height:3px;
+    background:var(--saffron);
+    margin:8px auto 0;
+    border-radius:3px;
+  }
+  .topic-card{
+    background:#fff;
+    border:2px solid var(--sandstone-deep);
+    border-radius:14px;
+    margin-bottom:16px;
+    overflow:hidden;
+    transition:box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .topic-card.locked{
+    background:var(--card-locked);
+    opacity:0.6;
+  }
+  .topic-card.active{
+    box-shadow:0 6px 24px rgba(224,141,46,0.25);
+    border-color:var(--saffron);
+  }
+  .topic-head{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 16px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .topic-num{
+    flex-shrink:0;
+    width:38px;height:38px;
+    border-radius:50%;
+    background:var(--ink);
+    color:var(--gold-1);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;
+  }
+  .topic-card.locked .topic-num{background:#9a927c;color:#fff;}
+  .topic-card.done .topic-num{background:var(--teal);}
+  .topic-titles{flex:1;}
+  .topic-title-en{font-weight:700;font-size:1.02rem;color:var(--ink);}
+  .topic-title-hi{font-size:0.92rem;color:var(--maroon);}
+  .lock-icon{font-size:1.2rem;opacity:0.7;}
+  .topic-body{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.5s ease, padding 0.4s ease;
+    padding:0 18px;
+  }
+  .topic-card.active .topic-body, .topic-card.done .topic-body{
+    max-height:1600px;
+    padding:0 18px 18px;
+  }
+  .lang-block{
+    background:var(--sandstone);
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:10px;
+  }
+  .lang-label{
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--teal-deep);
+    margin-bottom:4px;
+  }
+  .lang-label.hi{color:var(--maroon);}
+  ul.point-list{margin:6px 0;padding-left:20px;}
+  ul.point-list li{margin-bottom:4px;font-size:0.94rem;}
+  .example-box{
+    background:linear-gradient(135deg,#FFF6E5,#FFE9C4);
+    border:1px dashed var(--saffron-deep);
+    border-radius:10px;
+    padding:12px 14px;
+    margin-top:8px;
+  }
+  .example-tag{
+    display:inline-block;
+    background:var(--saffron-deep);
+    color:#fff;
+    font-size:0.7rem;
+    font-weight:700;
+    padding:3px 10px;
+    border-radius:12px;
+    margin-bottom:6px;
+  }
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+  .btn{
+    border:none;
+    padding:9px 16px;
+    border-radius:24px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:0.88rem;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:active{transform:scale(0.96);}
+  .btn-primary{background:var(--teal);color:#fff;}
+  .btn-primary:hover{box-shadow:0 4px 14px rgba(20,107,105,0.4);}
+  .btn-ghost{background:transparent;border:2px solid var(--saffron-deep);color:var(--saffron-deep);}
+  .btn-ghost:hover{background:var(--saffron-deep);color:#fff;}
+
+  /* IMPORTANCE / TAKEAWAYS */
+  .info-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  @media(min-width:640px){.info-grid{grid-template-columns:1fr 1fr;}}
+  .info-card{
+    background:#fff;
+    border-left:5px solid var(--teal);
+    border-radius:10px;
+    padding:14px 16px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  }
+  .info-card h3{margin:0 0 8px;color:var(--maroon);font-size:1.02rem;}
+  .info-card ul{margin:0;padding-left:20px;}
+  .info-card li{margin-bottom:6px;font-size:0.9rem;}
+
+  .culture-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:12px;
+    margin-top:10px;
+  }
+  .culture-card{
+    background:#fff;
+    border-radius:12px;
+    padding:14px 10px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  }
+  .culture-card .emoji{font-size:1.8rem;}
+  .culture-card h4{margin:8px 0 4px;font-size:0.88rem;color:var(--teal-deep);}
+  .culture-card p{font-size:0.78rem;margin:0;color:var(--ink);opacity:0.85;}
+
+  /* LOCKED GATE */
+  .gate{
+    text-align:center;
+    padding:30px 20px;
+    background:var(--sandstone-deep);
+    border-radius:16px;
+    border:2px dashed var(--saffron-deep);
+    color:var(--maroon);
+    font-weight:600;
+  }
+
+  /* QUIZ */
+  .quiz-card{
+    background:#fff;
+    border-radius:14px;
+    padding:16px;
+    margin-bottom:14px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.06);
+    border:2px solid var(--sandstone-deep);
+  }
+  .quiz-q{font-weight:700;margin-bottom:10px;color:var(--ink);}
+  .quiz-options{display:flex;flex-direction:column;gap:8px;}
+  .quiz-option{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;
+    border:2px solid var(--sandstone-deep);
+    border-radius:10px;
+    cursor:pointer;
+    font-size:0.92rem;
+    transition:all 0.2s ease;
+  }
+  .quiz-option:hover{border-color:var(--saffron);}
+  .quiz-option.selected{border-color:var(--teal);background:#EAF6F5;}
+  .quiz-option.correct{border-color:#2E7D32;background:#E8F5E9;}
+  .quiz-option.wrong{border-color:var(--maroon);background:#FBEAEC;}
+  .quiz-option input{accent-color:var(--teal);}
+  .quiz-result{
+    text-align:center;
+    padding:20px;
+    background:linear-gradient(135deg,#FFF6E5,#FFE9C4);
+    border-radius:14px;
+    font-size:1.1rem;
+    font-weight:700;
+    color:var(--maroon);
+    display:none;
+  }
+
+  /* HOMEWORK */
+  .hw-card{
+    background:#fff;
+    border-left:5px solid var(--maroon);
+    border-radius:10px;
+    padding:14px 16px;
+    margin-bottom:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  }
+  .hw-num{
+    display:inline-flex;
+    width:28px;height:28px;
+    background:var(--maroon);
+    color:#fff;
+    border-radius:50%;
+    align-items:center;justify-content:center;
+    font-weight:700;
+    margin-right:8px;
+    font-size:0.85rem;
+  }
+
+  footer{
+    text-align:center;
+    padding:26px 16px 40px;
+    font-size:0.85rem;
+    color:var(--ink);
+    opacity:0.75;
+    font-style:italic;
+  }
+
+  #confetti-canvas{
+    position:fixed; top:0; left:0; pointer-events:none; z-index:999;
+  }
+
+  .speak-btn{
+    background:none;border:none;cursor:pointer;font-size:1.05rem;
+    margin-left:6px;opacity:0.7;
+  }
+  .speak-btn:hover{opacity:1;}
+
+  @media (prefers-reduced-motion: reduce){
+    h1.title{animation:none;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+<canvas id="confetti-canvas"></canvas>
+
+<header class="hero">
+  <span class="day-badge">DAY 9</span>
+  <h1 class="title">IKS in Modern India</h1>
+  <p class="subtitle">भारतीय ज्ञान परंपरा और आधुनिक भारत — Innovation &amp; Future Readiness</p>
+  <div class="quote-box">
+    "The future is not something we enter. The future is something we create with the wisdom of our past."<br>
+    "भविष्य कोई ऐसी चीज़ नहीं जिसमें हम प्रवेश करते हैं। भविष्य वह है जिसे हम अपने अतीत की बुद्धि से रचते हैं।"
+  </div>
+  <p class="intro-line">
+    Indian Knowledge System (IKS) is not just ancient wisdom — it is a living, evolving system that solves modern problems and builds a sustainable, self-reliant India.<br>
+    भारतीय ज्ञान परंपरा (IKS) केवल प्राचीन ज्ञान नहीं है — यह एक जीवंत, विकसित होती प्रणाली है जो आधुनिक समस्याओं को हल करती है और एक सतत, आत्मनिर्भर भारत बनाती है।
+  </p>
+</header>
+
+<div class="bridge-wrap">
+  <div class="bridge-track" id="bridgeTrack">
+    <div class="bridge-line"></div>
+    <div class="bridge-line-fill" id="bridgeFill"></div>
+    <span class="end-icon">🏛️</span>
+    <!-- stones injected by JS -->
+    <span class="end-icon">🚀</span>
+  </div>
+</div>
+
+<main class="topics-wrap">
+  <h2 class="section-heading">11 Topics · 11 विषय</h2>
+  <div id="topicsContainer"></div>
+
+  <div id="afterTopicsLockGate" class="gate">
+    🔒 सभी 11 विषय पूरे करें ताकि आगे का हिस्सा खुले।<br>
+    Complete all 11 topics above to unlock the rest of the page.
+  </div>
+
+  <div id="afterTopicsContent" style="display:none;">
+
+    <h2 class="section-heading">Importance of IKS Today · आज IKS का महत्व</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>🪔 Importance / महत्व</h3>
+        <ul>
+          <li>Preserves our cultural identity and heritage. / हमारी सांस्कृतिक पहचान और विरासत को सुरक्षित रखता है।</li>
+          <li>Promotes sustainable living and eco-friendly practices. / सतत जीवनशैली और पर्यावरण-हितैषी आदतों को बढ़ावा देता है।</li>
+          <li>Helps solve modern problems with ancient wisdom. / प्राचीन ज्ञान से आधुनिक समस्याओं को हल करने में मदद करता है।</li>
+          <li>Strengthens value-based education and character. / मूल्य-आधारित शिक्षा और चरित्र निर्माण को मजबूत करता है।</li>
+          <li>Builds Atmanirbhar (self-reliant) and Viksit Bharat. / आत्मनिर्भर और विकसित भारत का निर्माण करता है।</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>✅ Key Takeaways / मुख्य बातें</h3>
+        <ul>
+          <li>IKS is timeless, valuable and practical. / IKS कालातीत, मूल्यवान और व्यावहारिक है।</li>
+          <li>It supports innovation, sustainability and inclusive growth. / यह नवाचार, स्थिरता और समावेशी विकास का समर्थन करता है।</li>
+          <li>It connects India's past wisdom with future opportunities. / यह भारत के अतीत के ज्ञान को भविष्य के अवसरों से जोड़ता है।</li>
+          <li>It empowers youth to become responsible global citizens. / यह युवाओं को जिम्मेदार वैश्विक नागरिक बनने के लिए सशक्त बनाता है।</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 class="section-heading">Culture of Innovation &amp; Future Readiness · नवाचार की संस्कृति</h2>
+    <div class="culture-grid" id="cultureGrid"></div>
+
+    <h2 class="section-heading">📝 Quiz Time · प्रश्नोत्तरी समय (15 MCQs)</h2>
+    <p style="text-align:center;font-size:0.9rem;opacity:0.85;">Answer all questions, then tap "Check My Score". / सभी प्रश्नों के उत्तर दें, फिर "स्कोर देखें" पर टैप करें।</p>
+    <div id="quizContainer"></div>
+    <div style="text-align:center;margin:16px 0;">
+      <button class="btn btn-primary" id="submitQuizBtn" style="font-size:1rem;padding:12px 26px;">Check My Score · स्कोर देखें</button>
+    </div>
+    <div class="quiz-result" id="quizResult"></div>
+
+    <h2 class="section-heading">🏠 Homework · गृहकार्य (Day 9)</h2>
+    <div class="hw-card">
+      <p><span class="hw-num">1</span><strong>Research &amp; Write:</strong> Find one real example of ancient Indian knowledge used in modern technology today, and write about it in 150–200 words.</p>
+      <p style="margin-left:36px;color:var(--maroon);">प्राचीन भारतीय ज्ञान का उपयोग आज की आधुनिक तकनीक में कहाँ हो रहा है — इसका एक उदाहरण खोजें और 150–200 शब्दों में लिखें।</p>
+    </div>
+    <div class="hw-card">
+      <p><span class="hw-num">2</span><strong>Mind Map:</strong> Draw a mind map titled "How IKS Shapes Our Future" with at least 5 branches (career, environment, technology, culture, health).</p>
+      <p style="margin-left:36px;color:var(--maroon);">"IKS हमारे भविष्य को कैसे आकार देता है" शीर्षक से कम से कम 5 शाखाओं (करियर, पर्यावरण, तकनीक, संस्कृति, स्वास्थ्य) वाला माइंड मैप बनाएं।</p>
+    </div>
+    <div class="hw-card">
+      <p><span class="hw-num">3</span><strong>Reflect &amp; Write:</strong> Write a short paragraph (about 150 words) titled "My Dream Career Inspired by IKS," describing how you would combine traditional Indian knowledge with modern skills.</p>
+      <p style="margin-left:36px;color:var(--maroon);">"IKS से प्रेरित मेरा सपनों का करियर" शीर्षक से लगभग 150 शब्दों का एक पैराग्राफ लिखें, जिसमें बताएं कि आप पारंपरिक भारतीय ज्ञान को आधुनिक कौशल के साथ कैसे जोड़ेंगे।</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  "When we connect with our roots, we grow stronger; when we innovate with our wisdom, we create a better future."<br>
+  "जब हम अपनी जड़ों से जुड़ते हैं, हम मजबूत होते हैं; जब हम अपने ज्ञान से नवाचार करते हैं, हम एक बेहतर भविष्य बनाते हैं।"<br>
+  IKS is our Strength. Innovation is our Path. Future is our Destination.
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------- DATA ---------------- */
+  const topics = [
+    {
+      icon:"📘",
+      titleEn:"IKS &amp; NEP 2020",
+      titleHi:"IKS और राष्ट्रीय शिक्षा नीति 2020",
+      points:[
+        "NEP 2020 promotes integrating Indian Knowledge with modern education. / NEP 2020 भारतीय ज्ञान को आधुनिक शिक्षा के साथ जोड़ने को बढ़ावा देती है।",
+        "IKS is now included in school and higher education. / IKS अब स्कूल और उच्च शिक्षा में शामिल है।",
+        "Focus on holistic, multidisciplinary, experiential and value-based learning. / समग्र, बहु-विषयक, अनुभवात्मक और मूल्य-आधारित शिक्षा पर ध्यान।",
+        "Goal: education rooted in culture, global in outlook. / लक्ष्य: संस्कृति में निहित, वैश्विक दृष्टिकोण वाली शिक्षा।"
+      ],
+      exampleEn:"A Class 6 science teacher in Pune uses Rajasthan's ancient step-wells (baolis) to teach water conservation and geometry together — blending IKS with STEM instead of teaching them separately.",
+      exampleHi:"पुणे में एक कक्षा 6 के विज्ञान शिक्षक राजस्थान की प्राचीन बावड़ियों का उपयोग करके जल संरक्षण और ज्यामिति दोनों एक साथ सिखाते हैं — यानी IKS और विज्ञान को अलग-अलग नहीं, साथ में पढ़ाया जाता है।"
+    },
+    {
+      icon:"🌍",
+      titleEn:"Sustainable Development Goals (SDGs)",
+      titleHi:"सतत विकास लक्ष्य (SDGs)",
+      points:[
+        "IKS supports sustainable living and environmental balance. / IKS सतत जीवनशैली और पर्यावरण संतुलन का समर्थन करता है।",
+        "Traditional knowledge aligns with SDGs like Clean Water, Responsible Consumption, Climate Action, Good Health, and Life on Land. / पारंपरिक ज्ञान स्वच्छ जल, जिम्मेदार उपभोग, जलवायु कार्रवाई, अच्छे स्वास्थ्य जैसे लक्ष्यों से मेल खाता है।"
+      ],
+      exampleEn:"The 'Johad' system — small earthen check-dams built by villagers in Rajasthan — recharges groundwater naturally, directly supporting SDG 6 (Clean Water) without any modern machinery.",
+      exampleHi:"राजस्थान के ग्रामीणों द्वारा बनाई गई 'जोहड़' (छोटे मिट्टी के बांध) प्रणाली प्राकृतिक रूप से भूजल को रिचार्ज करती है — यह बिना किसी आधुनिक मशीन के सीधे SDG 6 (स्वच्छ जल) का समर्थन करती है।"
+    },
+    {
+      icon:"🧠",
+      titleEn:"Artificial Intelligence &amp; IKS",
+      titleHi:"कृत्रिम बुद्धिमत्ता (AI) और IKS",
+      points:[
+        "Ancient Indian logic, grammar (Panini) and Vedanta focus on knowledge systems similar to AI thinking. / प्राचीन भारतीय तर्कशास्त्र, व्याकरण (पाणिनि) और वेदांत AI की सोच से मिलते-जुलते ज्ञान तंत्र पर केंद्रित हैं।",
+        "Pattern recognition, reasoning and data classification are deeply rooted in IKS. / पैटर्न पहचान, तर्क और डेटा वर्गीकरण IKS में गहराई से निहित हैं।",
+        "AI can be guided by ethical values from Indian philosophy. / AI को भारतीय दर्शन के नैतिक मूल्यों से निर्देशित किया जा सकता है।"
+      ],
+      exampleEn:"Computer scientists have compared Panini's Sanskrit grammar (Ashtadhyayi), written about 2,500 years ago with roughly 4,000 precise rules, to a computer algorithm — it has even inspired research in Natural Language Processing (NLP) used in voice assistants today.",
+      exampleHi:"कंप्यूटर वैज्ञानिकों ने पाणिनि के संस्कृत व्याकरण (अष्टाध्यायी), जो लगभग 2,500 वर्ष पहले करीब 4,000 सटीक नियमों में लिखा गया था, की तुलना कंप्यूटर एल्गोरिथम से की है — इसने आज के वॉइस असिस्टेंट में उपयोग होने वाले भाषा प्रसंस्करण (NLP) के शोध को भी प्रेरित किया है।"
+    },
+    {
+      icon:"💻",
+      titleEn:"Digital India",
+      titleHi:"डिजिटल इंडिया",
+      points:[
+        "IKS content is being digitized and made accessible to all. / IKS सामग्री को डिजिटल बनाया जा रहा है और सभी के लिए सुलभ किया जा रहा है।",
+        "Digital platforms promote Indian language, culture and heritage. / डिजिटल मंच भारतीय भाषा, संस्कृति और विरासत को बढ़ावा देते हैं।",
+        "Supports e-learning, digital libraries and virtual museums. / ई-लर्निंग, डिजिटल पुस्तकालय और वर्चुअल संग्रहालयों का समर्थन करता है।"
+      ],
+      exampleEn:"The National Mission for Manuscripts has digitized over 30 lakh ancient manuscripts. Today, apps let a student in a remote village read a 500-year-old Ayurvedic text on their own phone, just like an e-book.",
+      exampleHi:"राष्ट्रीय पांडुलिपि मिशन ने 30 लाख से अधिक प्राचीन पांडुलिपियों को डिजिटल किया है। आज एक दूरदराज के गांव का विद्यार्थी भी अपने फोन पर 500 साल पुराना आयुर्वेदिक ग्रंथ, एक ई-बुक की तरह पढ़ सकता है।"
+    },
+    {
+      icon:"🚀",
+      titleEn:"Startup India",
+      titleHi:"स्टार्टअप इंडिया",
+      points:[
+        "IKS inspires innovative ideas from ancient solutions. / IKS प्राचीन समाधानों से नवाचारी विचारों को प्रेरित करता है।",
+        "Traditional wisdom can lead to unique startups solving local problems with global solutions. / पारंपरिक ज्ञान स्थानीय समस्याओं को हल करने वाले अनूठे स्टार्टअप बना सकता है।"
+      ],
+      exampleEn:"A startup called S4S Technologies built low-cost solar dryers based on the traditional sun-drying methods farmers have used for centuries — reducing food waste and increasing farmer income.",
+      exampleHi:"S4S Technologies नामक एक स्टार्टअप ने किसानों द्वारा सदियों से उपयोग की जाने वाली धूप में सुखाने की पारंपरिक विधि पर आधारित सस्ते सोलर ड्रायर बनाए — इससे भोजन की बर्बादी कम हुई और किसानों की आय बढ़ी।"
+    },
+    {
+      icon:"🛠️",
+      titleEn:"Skill India",
+      titleHi:"स्किल इंडिया",
+      points:[
+        "IKS promotes hands-on, practical skills. / IKS व्यावहारिक कौशल को बढ़ावा देता है।",
+        "Traditional crafts, agriculture, medicine and technologies build strong skill sets for a self-reliant India. / पारंपरिक शिल्प, कृषि, चिकित्सा और तकनीक आत्मनिर्भर भारत के लिए मजबूत कौशल आधार बनाते हैं।"
+      ],
+      exampleEn:"Under the Skill India scheme, thousands of youth are trained in traditional pottery, weaving, and Ayurvedic wellness therapies — turning inherited family skills into certified, well-paying careers.",
+      exampleHi:"स्किल इंडिया योजना के तहत हजारों युवाओं को पारंपरिक मिट्टी के बर्तन बनाने, बुनाई और आयुर्वेदिक चिकित्सा में प्रशिक्षित किया जाता है — जिससे पारिवारिक कौशल एक प्रमाणित और अच्छी कमाई वाला करियर बन जाता है।"
+    },
+    {
+      icon:"💡",
+      titleEn:"Entrepreneurship",
+      titleHi:"उद्यमिता",
+      points:[
+        "IKS teaches self-reliance, creativity and problem solving. / IKS आत्मनिर्भरता, रचनात्मकता और समस्या समाधान सिखाता है।",
+        "Values like perseverance, integrity and service lead to successful, community-focused entrepreneurship. / दृढ़ता, सत्यनिष्ठा और सेवा जैसे मूल्य सफल और समुदाय-केंद्रित उद्यमिता की ओर ले जाते हैं।"
+      ],
+      exampleEn:"Amul, one of India's biggest dairy cooperatives, was built on the traditional value of community cooperation ('sanghatan') — thousands of small farmers pooling resources instead of competing, creating one of the world's most successful cooperative businesses.",
+      exampleHi:"भारत की सबसे बड़ी डेयरी सहकारी संस्थाओं में से एक अमूल, सामुदायिक सहयोग ('संगठन') के पारंपरिक मूल्य पर बनी है — हजारों छोटे किसान प्रतिस्पर्धा करने के बजाय संसाधन एक साथ जोड़ते हैं, जिससे विश्व की सबसे सफल सहकारी संस्थाओं में से एक बनी।"
+    },
+    {
+      icon:"♾️",
+      titleEn:"Design Thinking",
+      titleHi:"डिज़ाइन थिंकिंग",
+      points:[
+        "IKS encourages observation, empathy and holistic thinking. / IKS अवलोकन, सहानुभूति और समग्र सोच को बढ़ावा देता है।",
+        "Design thinking (empathize → define → ideate → prototype → test) combines logic (science) with imagination (art and culture). / डिज़ाइन थिंकिंग तर्क (विज्ञान) को कल्पना (कला और संस्कृति) के साथ जोड़ती है।"
+      ],
+      exampleEn:"Traditional step-wells (baolis) were 'designed' by observing how communities needed water storage, cooling, and a social gathering space all at once — a real ancient example of empathy-driven, multi-purpose design.",
+      exampleHi:"भारतीय बावड़ियों को समुदाय की जल भंडारण, ठंडक और सामाजिक मेल-मिलाप की जरूरतों को ध्यान में रखकर 'डिज़ाइन' किया गया था — यह सहानुभूति-आधारित, बहु-उद्देश्यीय डिज़ाइन का एक वास्तविक प्राचीन उदाहरण है।"
+    },
+    {
+      icon:"🔬",
+      titleEn:"Scientific Research",
+      titleHi:"वैज्ञानिक अनुसंधान",
+      points:[
+        "IKS offers a vast base for research in science, medicine, mathematics, astronomy and more. / IKS विज्ञान, चिकित्सा, गणित, खगोलशास्त्र में शोध के लिए एक विशाल आधार प्रदान करता है।",
+        "Ancient texts hold unexplored knowledge; interdisciplinary research can discover new solutions. / प्राचीन ग्रंथों में अनखोजा ज्ञान है; अंतःविषय शोध नए समाधान खोज सकता है।"
+      ],
+      exampleEn:"Researchers studying turmeric's medicinal properties (curcumin), long used in Ayurveda for wound healing, have published modern peer-reviewed studies confirming its anti-inflammatory effects — bridging ancient wisdom with scientific validation.",
+      exampleHi:"हल्दी (करक्यूमिन) के औषधीय गुणों पर, जिसे आयुर्वेद में सदियों से घाव भरने के लिए उपयोग किया जाता है, शोधकर्ताओं ने आधुनिक अध्ययन प्रकाशित किए हैं जो इसके सूजन-रोधी प्रभावों की पुष्टि करते हैं — यह प्राचीन ज्ञान और वैज्ञानिक सत्यापन को जोड़ता है।"
+    },
+    {
+      icon:"🎓",
+      titleEn:"Career Opportunities",
+      titleHi:"करियर के अवसर",
+      points:[
+        "IKS opens diverse career paths: education, research, technology, wellness, culture, entrepreneurship. / IKS शिक्षा, शोध, तकनीक, स्वास्थ्य, संस्कृति और उद्यमिता जैसे विविध करियर के रास्ते खोलता है।",
+        "Fields: Ayurveda, Yoga, Sustainable living, Traditional Arts, Linguistics, Conservation, Heritage Management, AI Ethics and more. / क्षेत्र: आयुर्वेद, योग, सतत जीवनशैली, पारंपरिक कला, भाषाविज्ञान, संरक्षण, विरासत प्रबंधन, AI नैतिकता आदि।"
+      ],
+      exampleEn:"A student who studies both Sanskrit/Ayurveda and modern data science could become a 'digital health researcher' — using AI to analyze traditional herbal remedies and discover new medicines, a career that didn't even exist a decade ago.",
+      exampleHi:"संस्कृत/आयुर्वेद और आधुनिक डेटा साइंस दोनों पढ़ने वाला विद्यार्थी 'डिजिटल हेल्थ रिसर्चर' बन सकता है — जो AI का उपयोग करके पारंपरिक जड़ी-बूटी उपचारों का विश्लेषण करता है और नई दवाइयां खोजता है, एक ऐसा करियर जो दस साल पहले मौजूद ही नहीं था।"
+    },
+    {
+      icon:"🌱",
+      titleEn:"Culture of Innovation &amp; Future Readiness",
+      titleHi:"नवाचार और भविष्य की तैयारी की संस्कृति",
+      points:[
+        "Innovation is not just about technology — it is about solving human problems in better ways. / नवाचार केवल तकनीक के बारे में नहीं है — यह मानवीय समस्याओं को बेहतर तरीके से हल करने के बारे में है।",
+        "By learning from nature, society and ancient wisdom, we can build a sustainable and innovative future. / प्रकृति, समाज और प्राचीन ज्ञान से सीखकर हम एक सतत और नवाचारी भविष्य बना सकते हैं।"
+      ],
+      exampleEn:"Indian Railways combined an ancient understanding of monsoon patterns with modern AI-based weather prediction to reduce flooding delays on tracks — showing how old wisdom and new tools work best together.",
+      exampleHi:"भारतीय रेलवे ने मानसून के पैटर्न की प्राचीन समझ को आधुनिक AI मौसम पूर्वानुमान के साथ जोड़कर पटरियों पर बाढ़ में देरी कम की — यह दर्शाता है कि पुराना ज्ञान और नए उपकरण साथ मिलकर सबसे अच्छा काम करते हैं।"
+    }
+  ];
+
+  const cultureItems = [
+    {emoji:"🌳", en:"Learn from Nature", hi:"प्रकृति से सीखें", desc:"Nature is our greatest teacher — IKS helps us live in harmony with the environment. / प्रकृति हमारी सबसे बड़ी शिक्षक है।"},
+    {emoji:"🧘", en:"Think Holistically", hi:"समग्र रूप से सोचें", desc:"IKS promotes body, mind, intellect and soul development together. / IKS शरीर, मन, बुद्धि और आत्मा के विकास को साथ बढ़ावा देता है।"},
+    {emoji:"🤝", en:"Community First", hi:"समुदाय पहले", desc:"Indian traditions value collaboration, compassion and collective success. / भारतीय परंपराएं सहयोग और सामूहिक सफलता को महत्व देती हैं।"},
+    {emoji:"🎯", en:"Be Future Ready", hi:"भविष्य के लिए तैयार रहें", desc:"Integrate tradition with technology to create solutions for tomorrow. / परंपरा को तकनीक के साथ जोड़ें।"},
+    {emoji:"💡", en:"Innovate with Values", hi:"मूल्यों के साथ नवाचार करें", desc:"Ethics, sustainability and inclusivity should always guide innovation. / नैतिकता और स्थिरता हमेशा नवाचार का मार्गदर्शन करें।"}
+  ];
+
+  const quizData = [
+    {q:"NEP 2020 encourages education rooted in what? / NEP 2020 किस पर आधारित शिक्षा को बढ़ावा देती है?",
+     options:["Only foreign policies / केवल विदेशी नीतियां","Indian ethos and global outlook / भारतीय संस्कार और वैश्विक दृष्टिकोण","Only technology / केवल तकनीक","No specific values / कोई मूल्य नहीं"], answer:1},
+    {q:"Which SDG does traditional water harvesting like Johad directly support? / जोहड़ जैसी पारंपरिक जल संचयन तकनीक किस SDG का समर्थन करती है?",
+     options:["SDG 6 – Clean Water / स्वच्छ जल","SDG 1 – No Poverty","SDG 4 – Education","None / कोई नहीं"], answer:0},
+    {q:"Panini is famous in history for organizing what? / पाणिनि किस के लिए प्रसिद्ध हैं?",
+     options:["Sanskrit grammar rules / संस्कृत व्याकरण के नियम","Modern computer chips","Ayurvedic medicines","Space rockets"], answer:0},
+    {q:"The Digital India mission includes digitizing what kind of material? / डिजिटल इंडिया मिशन किसे डिजिटल बनाता है?",
+     options:["Only currency notes","Ancient manuscripts / प्राचीन पांडुलिपियां","Only exam papers","None of these"], answer:1},
+    {q:"The startup S4S Technologies built solar dryers inspired by? / S4S Technologies के सोलर ड्रायर किससे प्रेरित हैं?",
+     options:["Foreign refrigeration tech","Traditional sun-drying methods / पारंपरिक धूप में सुखाने की विधि","Space technology","None"], answer:1},
+    {q:"Skill India trains youth in traditional crafts along with what? / स्किल इंडिया पारंपरिक शिल्प के साथ क्या सिखाता है?",
+     options:["Modern certified skills / आधुनिक प्रमाणित कौशल","Only sports","Nothing new","Only English speaking"], answer:0},
+    {q:"Amul is a great real-life example of which traditional value? / अमूल किस पारंपरिक मूल्य का उदाहरण है?",
+     options:["Community cooperation (Sanghatan) / सामुदायिक सहयोग","Foreign investment only","Government-run factory only","None"], answer:0},
+    {q:"What is the correct order of Design Thinking? / डिज़ाइन थिंकिंग का सही क्रम क्या है?",
+     options:["Test → Empathize → Ideate","Empathize → Define → Ideate → Prototype → Test","Random order / यादृच्छिक क्रम","Define → Test only"], answer:1},
+    {q:"Charaka Samhita is an ancient Indian text about? / चरक संहिता किस विषय पर प्राचीन ग्रंथ है?",
+     options:["Medicine / चिकित्सा","Cricket","Cooking only","Sports"], answer:0},
+    {q:"Curcumin, studied by modern researchers, comes from which spice? / करक्यूमिन किस मसाले से मिलता है?",
+     options:["Ginger / अदरक","Turmeric / हल्दी","Chilli / मिर्च","Rice / चावल"], answer:1},
+    {q:"A career blending Sanskrit/Ayurveda with data science could be called? / संस्कृत-आयुर्वेद और डेटा साइंस को जोड़ने वाला करियर क्या कहलाता है?",
+     options:["Digital health researcher / डिजिटल हेल्थ रिसर्चर","Only a farmer","Only a poet","None of these"], answer:0},
+    {q:"According to IKS, true innovation means? / IKS के अनुसार सच्चा नवाचार क्या है?",
+     options:["Solving problems while staying rooted in values / मूल्यों में रहते हुए समस्याएं हल करना","Only using foreign gadgets","Ignoring nature completely","Copying others exactly"], answer:0},
+    {q:"Traditional step-wells (baolis) were designed for? / बावड़ियां किस उद्देश्य से डिज़ाइन की गई थीं?",
+     options:["Only decoration / केवल सजावट","Water storage, cooling and community gathering / जल भंडारण, ठंडक और सामुदायिक मेल-मिलाप","Only religious use","None of these"], answer:1},
+    {q:"NEP 2020 wants learning to be? / NEP 2020 शिक्षा को कैसा बनाना चाहती है?",
+     options:["Exam-only / केवल परीक्षा आधारित","Holistic, multidisciplinary, experiential and value-based / समग्र, बहु-विषयक, अनुभवात्मक व मूल्य-आधारित","Rote memorization only / केवल रटना","None of these"], answer:1},
+    {q:"IKS combined with modern skills leads to? / IKS और आधुनिक कौशल मिलकर क्या बनाते हैं?",
+     options:["No career options / कोई करियर विकल्प नहीं","Bright and meaningful future / उज्ज्वल और सार्थक भविष्य","Confusion only / केवल भ्रम","None of these"], answer:1}
+  ];
+
+  /* ---------------- STATE ---------------- */
+  let unlockedIndex = 0; // topics[0..unlockedIndex] are unlocked; index below unlockedIndex are done
+  const doneTopics = new Set();
+
+  /* ---------------- AUDIO (Web Audio API, no CDN) ---------------- */
+  let audioCtx;
+  function getCtx(){
+    if(!audioCtx){
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
+  }
+  function playTone(freq, duration, type){
+    try{
+      const ctx = getCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type || "sine";
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    }catch(e){ /* audio not available, ignore silently */ }
+  }
+  function soundUnlock(){ playTone(660,0.15,"triangle"); setTimeout(()=>playTone(880,0.18,"triangle"),120); }
+  function soundCorrect(){ playTone(880,0.12,"sine"); setTimeout(()=>playTone(1046,0.16,"sine"),100); }
+  function soundWrong(){ playTone(220,0.25,"sawtooth"); }
+  function soundDone(){ playTone(523,0.12); setTimeout(()=>playTone(659,0.12),110); setTimeout(()=>playTone(784,0.22),220); }
+
+  function speak(text, lang){
+    if(!("speechSynthesis" in window)) return;
+    try{
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = lang || "en-IN";
+      utter.rate = 0.95;
+      window.speechSynthesis.speak(utter);
+    }catch(e){}
+  }
+
+  /* ---------------- CONFETTI ---------------- */
+  const canvas = document.getElementById("confetti-canvas");
+  const ctx2d = canvas.getContext("2d");
+  let confettiPieces = [];
+  function resizeCanvas(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  const confettiColors = ["#E08D2E","#B5651D","#146B69","#8A2A3B","#F5D67B"];
+  function fireConfetti(count){
+    for(let i=0;i<(count||120);i++){
+      confettiPieces.push({
+        x: Math.random()*canvas.width,
+        y: -20 - Math.random()*200,
+        w: 6+Math.random()*6,
+        h: 8+Math.random()*8,
+        color: confettiColors[Math.floor(Math.random()*confettiColors.length)],
+        vy: 2+Math.random()*3,
+        vx: -1.5+Math.random()*3,
+        rot: Math.random()*360,
+        vrot: -6+Math.random()*12
+      });
+    }
+    requestAnimationFrame(animateConfetti);
+  }
+  function animateConfetti(){
+    ctx2d.clearRect(0,0,canvas.width,canvas.height);
+    confettiPieces.forEach(p=>{
+      p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
+      ctx2d.save();
+      ctx2d.translate(p.x,p.y);
+      ctx2d.rotate(p.rot*Math.PI/180);
+      ctx2d.fillStyle = p.color;
+      ctx2d.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+      ctx2d.restore();
+    });
+    confettiPieces = confettiPieces.filter(p=>p.y < canvas.height + 30);
+    if(confettiPieces.length>0){ requestAnimationFrame(animateConfetti); }
+    else{ ctx2d.clearRect(0,0,canvas.width,canvas.height); }
+  }
+
+  /* ---------------- RENDER BRIDGE ---------------- */
+  const bridgeTrack = document.getElementById("bridgeTrack");
+  const bridgeFill = document.getElementById("bridgeFill");
+  const rocketIcon = bridgeTrack.querySelector(".end-icon:last-child");
+  topics.forEach((t,i)=>{
+    const stone = document.createElement("span");
+    stone.className = "stone";
+    stone.innerHTML = '<span class="stone-dot locked" data-idx="'+i+'">'+(i+1)+'</span>';
+    bridgeTrack.insertBefore(stone, rocketIcon);
+  });
+
+  function updateBridge(){
+    const dots = bridgeTrack.querySelectorAll(".stone-dot");
+    dots.forEach((d,i)=>{
+      d.classList.remove("locked","unlocked","done");
+      if(doneTopics.has(i)) d.classList.add("done");
+      else if(i===unlockedIndex) d.classList.add("unlocked");
+      else d.classList.add("locked");
+    });
+    const pct = (doneTopics.size / topics.length) * 100;
+    bridgeFill.style.width = pct+"%";
+  }
+
+  /* ---------------- RENDER TOPICS ---------------- */
+  const topicsContainer = document.getElementById("topicsContainer");
+
+  function renderTopics(){
+    topicsContainer.innerHTML = "";
+    topics.forEach((t,i)=>{
+      const card = document.createElement("div");
+      const state = doneTopics.has(i) ? "done" : (i===unlockedIndex ? "active" : "locked");
+      card.className = "topic-card "+state;
+      card.id = "topic-"+i;
+
+      const lockIcon = state==="locked" ? "🔒" : (state==="done" ? "✅" : "🔓");
+
+      card.innerHTML = `
+        <div class="topic-head" data-idx="${i}">
+          <div class="topic-num">${t.icon}</div>
+          <div class="topic-titles">
+            <div class="topic-title-en">${i+1}. ${t.titleEn}</div>
+            <div class="topic-title-hi">${t.titleHi}</div>
+          </div>
+          <div class="lock-icon">${lockIcon}</div>
+        </div>
+        <div class="topic-body">
+          <div class="lang-block">
+            <div class="lang-label">English <button class="speak-btn" data-speak-en="${i}" title="Listen">🔊</button></div>
+            <ul class="point-list">${t.points.map(p=>"<li>"+p.split(" / ")[0]+"</li>").join("")}</ul>
+          </div>
+          <div class="lang-block">
+            <div class="lang-label hi">हिंदी <button class="speak-btn" data-speak-hi="${i}" title="सुनें">🔊</button></div>
+            <ul class="point-list">${t.points.map(p=>{const parts=p.split(" / "); return "<li>"+(parts[1]||parts[0])+"</li>";}).join("")}</ul>
+          </div>
+          <div class="example-box">
+            <span class="example-tag">Real Life Example · वास्तविक उदाहरण</span>
+            <p>${t.exampleEn}</p>
+            <p style="color:var(--maroon);">${t.exampleHi}</p>
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" data-mark-done="${i}">Got it! Next Topic → · समझ गया! आगे बढ़ें</button>
+          </div>
+        </div>
+      `;
+      topicsContainer.appendChild(card);
+    });
+    attachTopicEvents();
+  }
+
+  function attachTopicEvents(){
+    topicsContainer.querySelectorAll(".topic-head").forEach(head=>{
+      head.addEventListener("click", ()=>{
+        const idx = parseInt(head.getAttribute("data-idx"),10);
+        if(idx > unlockedIndex && !doneTopics.has(idx)) return; // locked
+        // toggle open only if already done (active one is always open)
+      });
+    });
+    topicsContainer.querySelectorAll("[data-mark-done]").forEach(btn=>{
+      btn.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        const idx = parseInt(btn.getAttribute("data-mark-done"),10);
+        doneTopics.add(idx);
+        if(idx === unlockedIndex){
+          unlockedIndex = Math.min(unlockedIndex+1, topics.length-1);
+        }
+        soundUnlock();
+        renderTopics();
+        updateBridge();
+        if(doneTopics.size === topics.length){
+          soundDone();
+          fireConfetti(150);
+          unlockAfterTopics();
+        } else {
+          const nextEl = document.getElementById("topic-"+Math.min(idx+1, topics.length-1));
+          if(nextEl) nextEl.scrollIntoView({behavior:"smooth", block:"center"});
+        }
+      });
+    });
+    topicsContainer.querySelectorAll("[data-speak-en]").forEach(btn=>{
+      btn.addEventListener("click",(e)=>{
+        e.stopPropagation();
+        const idx = parseInt(btn.getAttribute("data-speak-en"),10);
+        speak(topics[idx].titleEn.replace(/&amp;/g,"and")+". "+topics[idx].exampleEn, "en-IN");
+      });
+    });
+    topicsContainer.querySelectorAll("[data-speak-hi]").forEach(btn=>{
+      btn.addEventListener("click",(e)=>{
+        e.stopPropagation();
+        const idx = parseInt(btn.getAttribute("data-speak-hi"),10);
+        speak(topics[idx].exampleHi, "hi-IN");
+      });
+    });
+    // stone click navigation
+    bridgeTrack.querySelectorAll(".stone-dot").forEach(dot=>{
+      dot.addEventListener("click", ()=>{
+        const idx = parseInt(dot.getAttribute("data-idx"),10);
+        if(idx > unlockedIndex && !doneTopics.has(idx)) return;
+        const el = document.getElementById("topic-"+idx);
+        if(el) el.scrollIntoView({behavior:"smooth", block:"center"});
+      });
+    });
+  }
+
+  function unlockAfterTopics(){
+    document.getElementById("afterTopicsLockGate").style.display = "none";
+    document.getElementById("afterTopicsContent").style.display = "block";
+  }
+
+  /* ---------------- CULTURE GRID ---------------- */
+  const cultureGrid = document.getElementById("cultureGrid");
+  cultureItems.forEach(c=>{
+    const div = document.createElement("div");
+    div.className = "culture-card";
+    div.innerHTML = `<div class="emoji">${c.emoji}</div><h4>${c.en}<br><span style="color:var(--maroon);font-size:0.78rem;">${c.hi}</span></h4><p>${c.desc}</p>`;
+    cultureGrid.appendChild(div);
+  });
+
+  /* ---------------- QUIZ ---------------- */
+  const quizContainer = document.getElementById("quizContainer");
+  const userAnswers = new Array(quizData.length).fill(null);
+
+  function renderQuiz(){
+    quizContainer.innerHTML = "";
+    quizData.forEach((q,qi)=>{
+      const card = document.createElement("div");
+      card.className = "quiz-card";
+      card.innerHTML = `
+        <div class="quiz-q">${qi+1}. ${q.q}</div>
+        <div class="quiz-options">
+          ${q.options.map((opt,oi)=>`
+            <label class="quiz-option" data-qi="${qi}" data-oi="${oi}">
+              <input type="radio" name="q${qi}" value="${oi}">
+              <span>${opt}</span>
+            </label>`).join("")}
+        </div>
+      `;
+      quizContainer.appendChild(card);
+    });
+    quizContainer.querySelectorAll(".quiz-option").forEach(label=>{
+      label.addEventListener("click", function(){
+        const qi = parseInt(this.getAttribute("data-qi"),10);
+        const oi = parseInt(this.getAttribute("data-oi"),10);
+        userAnswers[qi] = oi;
+        const siblings = quizContainer.querySelectorAll('.quiz-option[data-qi="'+qi+'"]');
+        siblings.forEach(s=>s.classList.remove("selected"));
+        this.classList.add("selected");
+      });
+    });
+  }
+  renderQuiz();
+
+  document.getElementById("submitQuizBtn").addEventListener("click", ()=>{
+    let score = 0;
+    quizData.forEach((q,qi)=>{
+      const opts = quizContainer.querySelectorAll('.quiz-option[data-qi="'+qi+'"]');
+      opts.forEach((opt,oi)=>{
+        opt.classList.remove("correct","wrong");
+        if(oi === q.answer) opt.classList.add("correct");
+        else if(userAnswers[qi]===oi && oi!==q.answer) opt.classList.add("wrong");
+      });
+      if(userAnswers[qi]===q.answer) score++;
+    });
+    const resultBox = document.getElementById("quizResult");
+    resultBox.style.display = "block";
+    let msgEn, msgHi;
+    if(score === quizData.length){
+      msgEn = "🎉 Perfect score! You are an IKS Champion!";
+      msgHi = "🎉 पूर्ण अंक! आप एक IKS चैंपियन हैं!";
+      soundDone(); fireConfetti(200);
+    } else if(score >= quizData.length*0.7){
+      msgEn = "🌟 Great job! You understood the topics really well.";
+      msgHi = "🌟 शानदार! आपने विषयों को बहुत अच्छे से समझा।";
+      soundCorrect(); fireConfetti(80);
+    } else {
+      msgEn = "👍 Good try! Review the topics above and try again.";
+      msgHi = "👍 अच्छा प्रयास! ऊपर के विषय दोबारा पढ़ें और फिर कोशिश करें।";
+      soundWrong();
+    }
+    resultBox.innerHTML = `Score: ${score} / ${quizData.length}<br><span style="font-size:0.95rem;">${msgEn}</span><br><span style="font-size:0.95rem;">${msgHi}</span>`;
+    resultBox.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+
+  /* ---------------- INIT ---------------- */
+  renderTopics();
+  updateBridge();
+})();
+</script>
+</body>
+</html>
