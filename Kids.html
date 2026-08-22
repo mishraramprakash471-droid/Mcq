@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abhira Insights - Colour Learning Game</title>
+    <style>
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --background: #F7FFF7;
+            --text: #2D3142;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif, Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            color: #FF5722;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header h2 {
+            font-size: 1.1rem;
+            color: #3F51B5;
+            margin-bottom: 15px;
+        }
+
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            background: #FFF3E0;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .color-box {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            border: 5px solid #fff;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: #E0F7FA;
+            border: 2px solid #00ACC1;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #006064;
+        }
+
+        .option-btn:active {
+            transform: scale(0.95);
+        }
+
+        .option-btn.correct {
+            background: #C8E6C9 !important;
+            border-color: #4CAF50 !important;
+            color: #2E7D32 !important;
+        }
+
+        .option-btn.wrong {
+            background: #FFCDD2 !important;
+            border-color: #F44336 !important;
+            color: #C62828 !important;
+        }
+
+        #next-btn {
+            background: #FF5722;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(255,87,34,0.3);
+        }
+
+        #next-btn:hover {
+            background: #E64A19;
+        }
+
+        .result-screen {
+            display: none;
+        }
+
+        .result-screen h2 {
+            font-size: 1.8rem;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .restart-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        @media (max-width: 400px) {
+            .color-box {
+                width: 110px;
+                height: 110px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Abhira Insights</h1>
+            <h2>🎨 रंग पहचानिए / Colour Learning Game</h2>
+        </header>
+
+        <div id="game-screen">
+            <div class="score-board">
+                <span id="question-count">प्रश्न (Question): 1/50</span>
+                <span id="score">स्कोर (Score): 0</span>
+            </div>
+
+            <div class="color-box" id="display-color-box"></div>
+            
+            <div class="question-text" id="question-text">
+                यह कौन सा रंग है? <br> What color is this?
+            </div>
+
+            <div class="options-grid" id="options-container">
+                <!-- Options will load dynamically via JS -->
+            </div>
+
+            <button id="next-btn" onclick="nextQuestion()">अगला प्रश्न / Next Question ➡</button>
+        </div>
+
+        <div class="result-screen" id="result-screen">
+            <h2>🎉 बहुत बढ़िया! / Well Done! 🎉</h2>
+            <p id="final-score" style="font-size: 1.2rem; margin-bottom: 20px;"></p>
+            <button class="restart-btn" onclick="restartGame()">दोबारा खेलें / Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        const baseColors = [
+            { nameEn: "Red", nameHi: "लाल", hex: "#FF0000" },
+            { nameEn: "Blue", nameHi: "नीला", hex: "#0000FF" },
+            { nameEn: "Green", nameHi: "हरा", hex: "#008000" },
+            { nameEn: "Yellow", nameHi: "पीला", hex: "#FFFF00" },
+            { nameEn: "Orange", nameHi: "नारंगी", hex: "#FFA500" },
+            { nameEn: "Purple", nameHi: "बैंगनी", hex: "#800080" },
+            { nameEn: "Pink", nameHi: "गुलाबी", hex: "#FFC0CB" },
+            { nameEn: "Brown", nameHi: "भूरा", hex: "#A52A2A" },
+            { nameEn: "Black", nameHi: "काला", hex: "#000000" },
+            { nameEn: "White", nameHi: "सफेद", hex: "#FFFFFF" },
+            { nameEn: "Sky Blue", nameHi: "आसमानी नीला", hex: "#87CEEB" },
+            { nameEn: "Gray", nameHi: "ग्रे (स्लेटी)", hex: "#808080" },
+            { nameEn: "Maroon", nameHi: "मटमैला लाल", hex: "#800000" },
+            { nameEn: "Gold", nameHi: "सुनहरा", hex: "#FFD700" },
+            { nameEn: "Silver", nameHi: "चांदी जैसा", hex: "#C0C0C0" }
+        ];
+
+        let questionsList = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        // Generate exactly 50 questions by shuffling and repeating base items securely
+        function generateQuestions() {
+            let list = [];
+            while(list.length < 50) {
+                let shuffled = [...baseColors].sort(() => Math.random() - 0.5);
+                list.push(...shuffled);
+            }
+            questionsList = list.slice(0, 50);
+        }
+
+        function startGame() {
+            generateQuestions();
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('result-screen').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            answered = false;
+            document.getElementById('next-btn').style.display = 'none';
+            
+            const currentData = questionsList[currentQuestionIndex];
+            
+            // Set Color Box background
+            const colorBox = document.getElementById('display-color-box');
+            colorBox.style.backgroundColor = currentData.hex;
+            if(currentData.hex === '#FFFFFF') {
+                colorBox.style.border = '5px solid #ccc';
+            } else {
+                colorBox.style.border = '5px solid #fff';
+            }
+
+            // Update Score & Question Number
+            document.getElementById('question-count').innerText = `प्रश्न (Question): ${currentQuestionIndex + 1}/50`;
+            document.getElementById('score').innerText = `स्कोर (Score): ${score}`;
+
+            // Generate Options (1 correct, 3 wrong)
+            let options = [currentData];
+            while(options.length < 4) {
+                let randomColor = baseColors[Math.floor(Math.random() * baseColors.length)];
+                if(!options.some(opt => opt.nameEn === randomColor.nameEn)) {
+                    options.push(randomColor);
+                }
+            }
+            options.sort(() => Math.random() - 0.5);
+
+            // Render Options
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerHTML = `${opt.nameHi} <br><span style="font-size:0.8rem; font-weight:normal;">(${opt.nameEn})</span>`;
+                btn.onclick = () => checkAnswer(opt, currentData, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selected, correct, buttonElement) {
+            if(answered) return;
+            answered = true;
+
+            const allButtons = document.querySelectorAll('.option-btn');
+
+            if(selected.nameEn === correct.nameEn) {
+                buttonElement.classList.add('correct');
+                score += 2; // Total 50 questions, so max score = 100
+                document.getElementById('score').innerText = `स्कोर (Score): ${score}`;
+            } else {
+                buttonElement.classList.add('wrong');
+                // Highlight correct one
+                allButtons.forEach(btn => {
+                    if(btn.innerHTML.includes(correct.nameHi)) {
+                        btn.classList.add('correct');
+                    }
+                });
+            }
+
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if(currentQuestionIndex < questionsList.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('result-screen').style.display = 'block';
+            document.getElementById('final-score').innerText = `आपका कुल स्कोर / Your Total Score: ${score} / 100`;
+        }
+
+        function restartGame() {
+            startGame();
+        }
+
+        // Initialize game on load
+        window.onload = startGame;
+    </script>
+</body>
+</html>
